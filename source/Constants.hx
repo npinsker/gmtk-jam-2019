@@ -25,7 +25,9 @@ class Constants {
 				77 => {
 					frames: [77, 78, 93, 94, 109, 110], columns: 2, type: 'fishing_cabinet', hitbox: [0, 70, 48, 26]
 				},
-				
+				89 => {
+					frames: [89, 90, 105, 106], columns: 2, type: 'sorting_cabinet', hitbox: [0, 36, 38, 26]
+				},
 				118 => {
 					frames: [118], columns: 1, type: 'talkable', hitbox: [0, 8, 64, 29],
 				},

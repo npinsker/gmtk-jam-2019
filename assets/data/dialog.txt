@@ -23,6 +23,18 @@ emit "play_counter"
 jump end
 
 ######################
+DIALOG sorting_cabinet
+
+choice_box:
+  "Want to play Robot Sorter?"
+  > "Yes" yes
+  > "No" end
+
+label yes:
+emit "play_sorting"
+jump end
+
+######################
 DIALOG fishing_cabinet
 
 choice_box:
