@@ -11,6 +11,8 @@ class Constants {
 	public static var OVERALL_QUEST:String = 'OVERALL_QUEST';
 	public static var RHYTHM_KING_QUEST:String = 'RHYTHM_KING_QUEST';
 	public static var ALL_QUESTS:Array<String> = [OVERALL_QUEST, RHYTHM_KING_QUEST];
+	
+	public static var PLAYER_NAME:String = 'Miku';
 
 	public var dbf:DialogBoxFactory;
 	

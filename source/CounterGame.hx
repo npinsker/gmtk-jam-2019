@@ -17,7 +17,6 @@ class CounterGame extends ArcadeCabinet {
 	
 	public var noteSprites:Array<FlxLocalSprite>;
 	
-	public var phase:Int = 0;
 	public var score:Float = 0;
 	public var wonRound:Bool = false;
 	public var correctNumber:Int;

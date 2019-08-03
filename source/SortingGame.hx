@@ -16,7 +16,6 @@ using nova.animation.Director;
 class SortingGame extends ArcadeCabinet {
 
 	public var score:Float = 0;
-	public var phase:Int = 0;
 	
 	public var judgeSprite:LocalSpriteWrapper;
 	public var judgeIsBlue:Bool = true;

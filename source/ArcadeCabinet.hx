@@ -49,6 +49,7 @@ class ArcadeCabinet extends FlxLocalSprite implements Focusable {
 	public var tiles:TiledBitmapData;
 	public var clipSprites:Array<LocalSpriteWrapper>;
 	public var highScoreTable:HighScoreTable;
+	public var phase:Int = 0;
 
 	public function new(cabinetImage:String = null, dims:Pair<Int>, cabinetOffset:Pair<Int> = null, callback: Void -> Void) {
 		super();
@@ -81,29 +82,28 @@ class ArcadeCabinet extends FlxLocalSprite implements Focusable {
 	public function renderHighScores(?color:FlxColor = FlxColor.WHITE):FlxLocalSprite {
 		var table:FlxLocalSprite = new FlxLocalSprite();
 		for (i in 0...highScoreTable.names.length) {
+			var COLUMN_SEPARATION:Float = 140;
+			var ROW_SEPARATION:Float = 38;
+
+			var row:FlxLocalSprite = new FlxLocalSprite();
+			table.add(row);
+			row.y = ROW_SEPARATION * i;
+			
 			var lw:LocalWrapper<FlxText> = Utilities.createText();
 			lw._sprite.size = 64;
 			lw._sprite.text = highScoreTable.names[i];
 			lw._sprite.color = color;
+			row.add(lw);
 
 			var lw2:LocalWrapper<FlxText> = Utilities.createText();
 			lw2._sprite.size = 64;
 			lw2._sprite.text = Std.string(highScoreTable.scores[i]);
 			lw._sprite.color = color;
-			
-			table.add(lw);
-			lw.y = 40 * i;
-			
-			table.add(lw2);
-			
-			var COLUMN_SEPARATION:Float = 140;
-			var ROW_SEPARATION:Float = 35;
-			
+			row.add(lw2);
 			lw2.x = COLUMN_SEPARATION;
-			lw2.y = ROW_SEPARATION * i;
 			
 			table.width = Math.max(table.width, lw2._sprite.textField.textWidth + COLUMN_SEPARATION);
-			table.height = lw2.y + lw2._sprite.textField.textHeight;
+			table.height = row.y + lw2._sprite.textField.textHeight;
 		}
 		
 		return table;
