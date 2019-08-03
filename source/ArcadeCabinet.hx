@@ -16,7 +16,7 @@ class ArcadeCabinet extends FlxLocalSprite implements Focusable {
 	public var tiles:TiledBitmapData;
 	public var clipSprites:Array<LocalSpriteWrapper>;
 
-	public function new(cabinetImage:String = null, cabinetOffset:Pair<Int> = null, callback: Void -> Void) {
+	public function new(cabinetImage:String = null, dims:Pair<Int>, cabinetOffset:Pair<Int> = null, callback: Void -> Void) {
 		super();
 		
 		backgroundLayer = new FlxLocalSprite();
@@ -27,8 +27,8 @@ class ArcadeCabinet extends FlxLocalSprite implements Focusable {
 		add(foregroundLayer);
 		
 		this.closeCallback = callback;
-		this.width = 320;
-		this.height = 320;
+		this.width = dims.x;
+		this.height = dims.y;
 		this.clipSprites = [];
 		
 		tiles = new TiledBitmapData('assets/images/arcade_tiles_16x16.png', 16, 16, function(b) {
@@ -36,7 +36,7 @@ class ArcadeCabinet extends FlxLocalSprite implements Focusable {
 		});
 		
 		if (cabinetImage != null) {
-			var cabinetShell = LocalWrapper.fromGraphic('assets/images/rhythm_cabinet_shell.png', {
+			var cabinetShell = LocalWrapper.fromGraphic(cabinetImage, {
 				'scale': [4, 4],
 			});
 			foregroundLayer.add(cabinetShell);
@@ -47,9 +47,9 @@ class ArcadeCabinet extends FlxLocalSprite implements Focusable {
 	override public function update(elapsed:Float):Void {
 		for (sprite in clipSprites) {
 			var left:Float = Math.max(0, -sprite.x);
-			var right:Float = sprite.width - Math.max(0, sprite.x - (320 - sprite.width));
+			var right:Float = sprite.width - Math.max(0, sprite.x - (this.width - sprite.width));
 			var up:Float = Math.max(0, -sprite.y);
-			var down:Float = sprite.height - Math.max(0, sprite.y - (320 - sprite.height));
+			var down:Float = sprite.height - Math.max(0, sprite.y - (this.height - sprite.height));
 			sprite._sprite.clipRect = new FlxRect(left, up, right - left, down - up);
 		}
 		super.update(elapsed);

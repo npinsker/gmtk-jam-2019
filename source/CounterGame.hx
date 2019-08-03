@@ -30,7 +30,7 @@ class CounterGame extends ArcadeCabinet {
 	
 	public var background:FlxLocalSprite;
 	public function new(callback:Void -> Void) {
-		super('assets/images/rhythm_cabinet_shell.png', [10, 20], callback);
+		super('assets/images/counter_cabinet_shell.png', [320, 256], [10, 10], callback);
 		
 		background = LocalWrapper.fromGraphic('assets/images/counter_splash.png', {
 			'scale': [4, 4],
@@ -70,8 +70,8 @@ class CounterGame extends ArcadeCabinet {
 		clipSprites.push(potato);
 		mainLayer.add(potato);
 		potato.x = -30 - potato.width;
-		potato.y = Math.random() * 380 + 50 - potato.height / 2;
-		Director.moveTo(potato, [320 + 30, Std.int(Math.random() * 380 + 50 - potato.height / 2)], Std.int(360 + Math.random() * 25)).call(function() {
+		potato.y = Math.random() * 204 + 30 - potato.height / 2;
+		Director.moveTo(potato, [Std.int(this.width) + 30, Std.int(Math.random() * 204 + 30 - potato.height / 2)], Std.int(360 + Math.random() * 25)).call(function() {
 			clipSprites.remove(potato);
 			mainLayer.remove(potato);
 		});
@@ -101,7 +101,7 @@ class CounterGame extends ArcadeCabinet {
 		mainLayer.add(trueText);
 		
 		guessedText.x = 100;
-		trueText.x = 320 - 100 - trueText._sprite.textField.textWidth;
+		trueText.x = this.width - 100 - trueText._sprite.textField.textWidth;
 	}
 
 	public function handleTap():Void {
