@@ -42,6 +42,7 @@ class PlayState extends FlxState {
 	var dialogBox:DialogBox;
 	var dialogMap:Map<String, Array<String>>;
 	var speakTarget:Int = -1;
+	var triggers:Map<String, Int>;
 	
 	override public function create():Void {
 		super.create();
@@ -51,6 +52,11 @@ class PlayState extends FlxState {
 		
 		entityLayer = new FlxLocalSprite();
 		add(entityLayer);
+		
+		triggers = new Map<String, Int>();
+		for (quest in Constants.ALL_QUESTS) {
+			triggers.set(quest, 0);
+		}
 		
 		dialogMap = parseDialogFile('assets/data/dialog.txt');
 		
