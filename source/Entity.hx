@@ -21,15 +21,18 @@ class Entity extends FlxLocalSprite {
 
 	public var _internal_hitbox:FlxRect = null;
 	public var id:Int;
+	public var type:String;
 	
 	public var scratch:Dynamic = {};
 	public var facingDir:Direction;
 	public var spriteRef:FlxSprite = null;
 
-	public function new(?bitmapData:BitmapData, ?animationSet:AnimationSet) {
+	public function new(type:String, ?bitmapData:BitmapData, ?animationSet:AnimationSet) {
 		super();
 		id = __next_id++;
 		
+		this.type = type;
+
 		if (bitmapData == null) {
 			this.makeGraphic(32, 32, FlxColor.BLUE);
 			_internal_hitbox = new FlxRect(0, 8, 32, 24);

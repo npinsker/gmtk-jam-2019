@@ -8,8 +8,20 @@ class Constants {
 	public static var instance:Constants = new Constants();
 
 	public var dbf:DialogBoxFactory;
+	
+	public var idToInfo:Map<String, Map<Int, Dynamic>>;
 
 	public function new() {
+		idToInfo = [
+			'test' => [
+				75 => {
+					frames: [75, 76, 91, 92, 107, 108], columns: 2, type: 'rhythm_cabinet', hitbox: [0, 70, 56, 26]
+				},
+				77 => {
+					frames: [77, 78, 93, 94, 109, 110], columns: 2, type: 'fishing_cabinet', hitbox: [0, 70, 48, 26]
+				}
+			]
+		];
 		dbf = new DialogBoxFactory({
 			background: {
 				image: 'assets/images/dialog_bubble.png',

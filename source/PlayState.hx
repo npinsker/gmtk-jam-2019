@@ -15,6 +15,7 @@ import nova.input.InputController;
 import nova.render.FlxLocalSprite;
 import nova.render.TiledBitmapData;
 import nova.tile.TileUtils;
+import nova.tiled.TiledObjectLoader;
 import nova.tiled.TiledRenderer;
 import nova.ui.dialog.DialogBox;
 import openfl.display.BitmapData;
@@ -47,6 +48,13 @@ class PlayState extends FlxState {
 		entityLayer = new FlxLocalSprite();
 		add(entityLayer);
 		
+		var map:TiledMap = new TiledMap('assets/data/gmtk_arcade.tmx');
+		var tr:TiledRenderer = new TiledRenderer(map);
+		var to:TiledObjectLoader = new TiledObjectLoader(Constants.instance.idToInfo, ['test' => 0], [32, 32]);
+		
+		var tiles = tr.renderStaticScreen([0, 0, map.width, map.height], to);
+		backgroundLayer.add(LocalSpriteWrapper.fromGraphic(tiles));
+		
 		tileAccessor = new TiledBitmapData('assets/images/test.png', 32, 32);
 
 		var playerBitmap:BitmapData = tileAccessor.stitchTiles([96, 97, 98, 99, 112, 113, 114, 115, 128, 129, 130, 131]);
@@ -57,18 +65,14 @@ class PlayState extends FlxState {
 			new AnimationFrames('r', [6, 7], 4),
 			new AnimationFrames('u', [10, 11], 4),
 		]);
-		p = new Entity(playerBitmap, as);
+		p = new Entity('player', playerBitmap, as);
 		p._internal_hitbox = new FlxRect(1, 24, 16, 7);
 		entityLayer.add(p);
+		p.xy = [12 * 32, 10 * 32];
 		
 		entities = [];
 		
-		for (i in 0...10) {
-			entities.push(new Entity());
-			entities.last().x = Math.random() * (FlxG.width - entities.last().width);
-			entities.last().y = Math.random() * (FlxG.height - entities.last().height);
-			entityLayer.add(entities.last());
-		}
+		addEntitiesFromTiled(map, to);
 		
 		focus = [];
 		
@@ -94,6 +98,12 @@ class PlayState extends FlxState {
 		var amt:Float = TileUtils.horizontalNudgeOutOfObjects(entities.map(function(k) { return k.hitbox; }), p.hitbox);
 		p.x += amt;
 		
+		// restrict player to a rectangle
+		if (p.hitbox.left < 32 * 2) p.x += (32*2 - p.hitbox.left);
+		if (p.hitbox.right > FlxG.width - 32 * 2) p.x -= (p.hitbox.right - (FlxG.width - 32 * 2));
+		if (p.hitbox.top < 32 * 4) p.y += (32*4 - p.hitbox.top);
+		if (p.hitbox.bottom > FlxG.height - 32 * 0.75) p.y -= (p.hitbox.bottom - (FlxG.height - 32 * 0.75));
+		
 		if (InputController.pressed(UP)) {
 			p.y -= PLAYER_SPEED;
 			triedToMove = true;
@@ -113,13 +123,23 @@ class PlayState extends FlxState {
 		
 		if (InputController.justPressed(CONFIRM)) {
 			if (speakTarget != -1) {
-				dialogBox = Constants.instance.dbf.create(
-				["choice_box:", "  \"Hey! Want to play something?\"", "  > \"DDR\" ddr", "  > \"Potato Counter\" count", "  > \"No\" end", "label ddr:", "emit \"play_rhythm\"", "jump end",
-				"label count:", "emit \"play_counter\"", "jump end"],
-				{
-					emitCallback: this.emitCallback,
-					callback: this.dialogCallback,
-				});
+				var entity = entities.filter(function(x) { return x.id == speakTarget; })[0];
+				if (entity.type == 'rhythm_cabinet') {
+					dialogBox = Constants.instance.dbf.create(
+					["choice_box:", "  \"Want to play DDR?\"", "  > \"DDR\" ddr", "  > \"No\" end", "label ddr:", "emit \"play_rhythm\"", "jump end"],
+					{
+						emitCallback: this.emitCallback,
+						callback: this.dialogCallback,
+					});
+				} else {
+					dialogBox = Constants.instance.dbf.create(
+					["choice_box:", "  \"Hey! Want to play something?\"", "  > \"DDR\" ddr", "  > \"Potato Counter\" count", "  > \"No\" end", "label ddr:", "emit \"play_rhythm\"", "jump end",
+					"label count:", "emit \"play_counter\"", "jump end"],
+					{
+						emitCallback: this.emitCallback,
+						callback: this.dialogCallback,
+					});
+				}
 				foregroundLayer.add(dialogBox);
 				focus.push(dialogBox);
 			}
@@ -164,7 +184,6 @@ class PlayState extends FlxState {
 	}
 	
 	public function emitCallback(emitString:String):Void {
-		trace(emitString);
 		if (emitString == 'play_rhythm') {
 			var rg:RhythmGame = new RhythmGame();
 			foregroundLayer.add(rg);
@@ -182,6 +201,25 @@ class PlayState extends FlxState {
 			Director.moveBy(cg, [0, 20], 20);
 			Director.fadeIn(cg, 20);
 			return;
+		}
+	}
+	
+	public function addEntitiesFromTiled(map:TiledMap, objectLoader:TiledObjectLoader) {
+		var objects = objectLoader.loadObjects(map, [0, 0, map.width, map.height]);
+		for (object in objects.entities) {
+			var bitmap = tileAccessor.stitchTiles(object.frames, object.columns);
+			var type = Reflect.hasField(object, 'type') ? object.type : '';
+			var e:Entity = new Entity(type, bitmap);
+			e.xy = [object.x, object.y];
+			
+			if (Reflect.hasField(object, 'hitbox')) {
+				e._internal_hitbox = new FlxRect(object.hitbox[0], object.hitbox[1], object.hitbox[2], object.hitbox[3]);
+			} else {
+				e._internal_hitbox = new FlxRect(0, 0, e.width, e.height);
+			}
+			
+			entities.push(e);
+			entityLayer.add(e);
 		}
 	}
 
