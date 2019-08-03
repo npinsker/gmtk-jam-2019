@@ -33,11 +33,12 @@ class SoundManager {
     s.play();
 
     instance.soundVolumes.push(musicVolume);
-    FlxG.sound.music.volume = Math.min(FlxG.sound.music.volume, musicVolume);
-
-    Director.wait(frames).call(function() {
-      instance.removeSoundWithVolume(musicVolume);
-    });
+	if (FlxG.sound.music != null) {
+		FlxG.sound.music.volume = Math.min(FlxG.sound.music.volume, musicVolume);
+		Director.wait(frames).call(function() {
+		  instance.removeSoundWithVolume(musicVolume);
+		});
+	}
   }
 
   public function removeSoundWithVolume(volume:Float) {
