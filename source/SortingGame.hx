@@ -9,14 +9,12 @@ import openfl.display.BitmapData;
 import nova.input.Focusable;
 import nova.input.InputController;
 import nova.render.FlxLocalSprite;
-import nova.render.TiledBitmapData;
-import nova.utils.BitmapDataUtils;
 
 using nova.animation.Director;
 
 class SortingGame extends ArcadeCabinet {
 
-	public var score:Float = 0;
+	public var score:Int = 0;
 	
 	public var judgeSprite:LocalSpriteWrapper;
 	public var judgeIsBlue:Bool = false;
@@ -133,7 +131,25 @@ class SortingGame extends ArcadeCabinet {
 	public function endGame():Void {
 		phase = 2;
 		
-		closeCallback();
+		backgroundLayer.remove(background);
+		background = LocalWrapper.fromGraphic(new BitmapData(width, height, false, 0xFFEFCB92));
+		backgroundLayer.add(background);
+		
+		var idx = PlayerData.instance.highScores.get('sorting').add(Constants.PLAYER_NAME, score);
+		var children = mainLayer.children.slice(0);
+		for (child in children) {
+			mainLayer.remove(child);
+		}
+
+		var table = ArcadeCabinet.renderHighScores('sorting', FlxColor.BLACK);
+		mainLayer.add(table);
+		if (idx < table.children.length) {
+			var nameField:LocalWrapper<FlxText> = cast table.children[idx].children[0];
+			var scoreField:LocalWrapper<FlxText> = cast table.children[idx].children[1];
+			nameField._sprite.color = new FlxColor(0xFF6600);
+			scoreField._sprite.color = new FlxColor(0xFFAA00);
+		}
+		table.xy = [width/2 - table.width/2, height/2 - table.height/2];
 	}
 
 	override public function handleInput():Void {
@@ -142,6 +158,8 @@ class SortingGame extends ArcadeCabinet {
 				startGame();
 			} else if (phase == 1) {
 				handleTap();
+			} else if (phase == 2) {
+				closeCallback();
 			}
 		}
 		if (InputController.justPressed(CANCEL)) {
