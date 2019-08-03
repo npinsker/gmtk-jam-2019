@@ -3,7 +3,9 @@ package;
 using nova.utils.ArrayUtils;
 
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.addons.editors.tiled.TiledMap;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import nova.animation.AnimationSet;
@@ -13,17 +15,21 @@ import nova.input.InputController;
 import nova.render.FlxLocalSprite;
 import nova.render.TiledBitmapData;
 import nova.tile.TileUtils;
+import nova.tiled.TiledRenderer;
 import nova.ui.dialog.DialogBox;
 import openfl.display.BitmapData;
 
 class PlayState extends FlxState {
 	var TILE_WIDTH:Int = 32;
 	var TILE_HEIGHT:Int = 32;
+	var PLAYER_SPEED:Float = 3.0;  // will be 1.8 in final version
 	
 	var p:Entity;
 	
 	var entities:Array<Entity>;
 	
+	var backgroundLayer:FlxLocalSprite;
+	// Must only add Entity to this layer!!
 	var entityLayer:FlxLocalSprite;
 	var foregroundLayer:FlxLocalSprite;
 	var tileAccessor:TiledBitmapData;
@@ -34,6 +40,9 @@ class PlayState extends FlxState {
 	
 	override public function create():Void {
 		super.create();
+		
+		backgroundLayer = new FlxLocalSprite();
+		add(backgroundLayer);
 		
 		entityLayer = new FlxLocalSprite();
 		add(entityLayer);
@@ -70,25 +79,27 @@ class PlayState extends FlxState {
 	public function handleInput() {
 		var triedToMove:Bool = false;
 		
-		if (InputController.pressed(LEFT)) {
-			p.x -= 4;
-			triedToMove = true;
-			p.facingDir = Entity.Direction.LEFT;
-		} else if (InputController.pressed(RIGHT)) {
-			p.x += 4;
-			triedToMove = true;
-			p.facingDir = Entity.Direction.RIGHT;
+		if (!triedToMove) {
+			if (InputController.pressed(LEFT)) {
+				p.x -= PLAYER_SPEED;
+				triedToMove = true;
+				p.facingDir = Entity.Direction.LEFT;
+			} else if (InputController.pressed(RIGHT)) {
+				p.x += PLAYER_SPEED;
+				triedToMove = true;
+				p.facingDir = Entity.Direction.RIGHT;
+			}
 		}
 		
 		var amt:Float = TileUtils.horizontalNudgeOutOfObjects(entities.map(function(k) { return k.hitbox; }), p.hitbox);
 		p.x += amt;
 		
 		if (InputController.pressed(UP)) {
-			p.y -= 4;
+			p.y -= PLAYER_SPEED;
 			triedToMove = true;
 			p.facingDir = Entity.Direction.UP;
 		} else if (InputController.pressed(DOWN)) {
-			p.y += 4;
+			p.y += PLAYER_SPEED;
 			triedToMove = true;
 			p.facingDir = Entity.Direction.DOWN;
 		}
@@ -130,7 +141,6 @@ class PlayState extends FlxState {
 					}
 					var lo:LocalSpriteWrapper = LocalWrapper.fromGraphic('assets/images/ui.png', {
 						crop: [[0, 0], [24, 21]],
-						scale: [2, 2]
 					});
 					entity.scratch.confirm = lo;
 					entity.scratch.hasConfirm = true;
