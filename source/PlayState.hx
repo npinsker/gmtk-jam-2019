@@ -233,7 +233,7 @@ class PlayState extends FlxState {
 	public function addEntitiesFromTiled(map:TiledMap, objectLoader:TiledObjectLoader) {
 		var objects = objectLoader.loadObjects(map, [0, 0, map.width, map.height]);
 		for (object in objects.entities) {
-			var bitmap = tileAccessor.stitchTiles(object.frames, object.columns);
+			var bitmap = tileAccessor.stitchTiles(object.tiles, object.columns);
 			var type = Reflect.hasField(object, 'type') ? object.type : '';
 			var e:Entity = new Entity(type, bitmap);
 			e.xy = [object.x, object.y];
