@@ -20,22 +20,40 @@ class Constants {
 		idToInfo = [
 			'test' => [
 				75 => {
-					frames: [75, 76, 91, 92, 107, 108], columns: 2, type: 'rhythm_cabinet', hitbox: [0, 70, 56, 26]
+					tiles: [75, 76, 91, 92, 107, 108], columns: 2, type: 'rhythm_cabinet', hitbox: [0, 70, 56, 26]
 				},
 				77 => {
-					frames: [77, 78, 93, 94, 109, 110], columns: 2, type: 'fishing_cabinet', hitbox: [0, 70, 48, 26]
+					tiles: [77, 78, 93, 94, 109, 110], columns: 2, type: 'fishing_cabinet', hitbox: [0, 70, 48, 26]
 				},
+				89 => {
+					tiles: [89, 90, 105, 106], columns: 2, type: 'sorting_cabinet', hitbox: [0, 36, 38, 26]
+				},
+				
+				// NPCs
+				116 => {
+					tiles: [116], columns: 1, type: 'talkable', name: 'ramenpuss', hitbox: [2, 13, 29, 13],
+				},
+				117 => {
+					tiles: [117], columns: 1, type: 'talkable', name: 'deadmaus', hitbox: [4, 13, 15, 13],
+				},
+				118 => {
+					tiles: [118], columns: 1, type: 'talkable', name: 'octopus', hitbox: [0, 8, 32, 13],
+				},
+				
 				120 => {
-					frames: [120, 121, 136, 137], columns: 2, type: 'potato_cabinet', hitbox: [0, 36, 45, 26]
+					tiles: [120, 121, 136, 137], columns: 2, type: 'potato_cabinet', hitbox: [0, 36, 45, 26]
 				},
 				122 => {
-					frames: [122, 123, 138, 139], columns: 2, type: 'solid', hitbox: [13, 10, 38, 54]
+					tiles: [122, 123, 138, 139], columns: 2, type: 'solid', hitbox: [13, 10, 38, 54]
 				},
 				124 => {
-					frames: [124, 125, 140, 141], columns: 2, type: 'solid', hitbox: [13, 10, 38, 54]
+					tiles: [124, 125, 140, 141], columns: 2, type: 'solid', hitbox: [13, 10, 38, 54]
 				},
 				126 => {
-					frames: [126], columns: 1, type: 'solid', hitbox: [6, 13, 26, 19]
+					tiles: [126], columns: 1, type: 'solid', hitbox: [6, 13, 26, 19]
+				},
+				142 => {
+					tiles: [142, 143, 158, 159], columns: 2, type: 'solid', hitbox: [17, 32, 47, 32]
 				}
 			]
 		];

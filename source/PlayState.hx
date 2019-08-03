@@ -137,7 +137,7 @@ class PlayState extends FlxState {
 			if (speakTarget != -1) {
 				var entity = entities.filter(function(x) { return x.id == speakTarget; })[0];
 				var dialog:Array<String> = null;
-				if (entity.type == 'rhythm_cabinet' || entity.type == 'potato_cabinet') {
+				if (entity.type == 'rhythm_cabinet' || entity.type == 'potato_cabinet' || entity.type == 'sorting_cabinet') {
 					dialog = dialogMap.get(entity.type);
 				} else if (dialogMap.exists(entity.name)) {
 					dialog = dialogMap.get(entity.name);
@@ -213,6 +213,15 @@ class PlayState extends FlxState {
 			Director.fadeIn(cg, 20);
 			return;
 		}
+		else if (emitString == 'play_sorting') {
+			var sg:SortingGame = new SortingGame(closeCallback);
+			foregroundLayer.add(sg);
+			sg.xy = [FlxG.width / 2 - sg.width / 2, FlxG.height / 2 - sg.height / 2 - 20];
+			focus.push(sg);
+			Director.moveBy(sg, [0, 20], 20);
+			Director.fadeIn(sg, 20);
+			return;
+		}
 	}
 	
 	public function closeCallback() {
@@ -224,7 +233,7 @@ class PlayState extends FlxState {
 	public function addEntitiesFromTiled(map:TiledMap, objectLoader:TiledObjectLoader) {
 		var objects = objectLoader.loadObjects(map, [0, 0, map.width, map.height]);
 		for (object in objects.entities) {
-			var bitmap = tileAccessor.stitchTiles(object.frames, object.columns);
+			var bitmap = tileAccessor.stitchTiles(object.tiles, object.columns);
 			var type = Reflect.hasField(object, 'type') ? object.type : '';
 			var e:Entity = new Entity(type, bitmap);
 			e.xy = [object.x, object.y];

@@ -23,6 +23,18 @@ emit "play_counter"
 jump end
 
 ######################
+DIALOG sorting_cabinet
+
+choice_box:
+  "Want to play Color Match?"
+  > "Yes" yes
+  > "No" end
+
+label yes:
+emit "play_sorting"
+jump end
+
+######################
 DIALOG fishing_cabinet
 
 choice_box:
@@ -33,3 +45,51 @@ choice_box:
 label yes:
 emit "play_fishing"
 jump end
+
+################
+DIALOG ramenpuss
+
+"Octopus" "this is my home."
+"Octopus" "don't diss it if you haven't tried it."
+
+###############
+DIALOG deadmaus
+
+"Mouse" "Rhythm Tappo is my jam, yo!"
+"Mouse" "I actually wrote the music for one of the tracks!"
+
+##############
+DIALOG octopus
+
+define o = Character("Octopus")
+
+choice_box:
+  o "Human know how to play games?"
+  > "Help!" instructions
+  > "I'm fine" end
+
+label instructions:
+o "All games, play with only one button."
+
+label instructions2:
+choice_box:
+  o "Help with specific game?"
+  > "Rhythm Tappo" tappo
+  > "Ducky Counter" ducky
+  > "Color Match" match
+  > "Never mind" end
+
+label tappo:
+o "Tap button when moving star on top of indicator."
+o "Follows beat of music."
+jump instructions2
+
+label ducky:
+o "Count number of Ducky walk by."
+o "Tap button to increase count."
+jump instructions2
+
+label sorter:
+o "Red and blue robot come down belt."
+o "Switch color of light to match robot color."
+jump instructions2
