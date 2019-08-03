@@ -68,7 +68,7 @@ import sys.FileSystem;
 
 		#else
 
-		data = '{"name":null,"assets":"aoy4:pathy34:assets%2Fdata%2Fdata-goes-here.txty4:sizezy4:typey4:TEXTy2:idR1y7:preloadtgoR0y40:assets%2Fimages%2Farcade_tiles_16x16.pdnR2i5664R3R4R5R7R6tgoR0y40:assets%2Fimages%2Farcade_tiles_16x16.pngR2i1214R3y5:IMAGER5R8R6tgoR0y35:assets%2Fimages%2Frhythm_splash.pngR2i808R3R9R5R10R6tgoR2i2313541R3y5:MUSICR5y27:assets%2Fmusic%2Fisland.mp3y9:pathGroupaR12y27:assets%2Fmusic%2Fisland.ogghR6tgoR2i1439569R3R11R5R14R13aR12R14hgoR2i35074R3R11R5y29:assets%2Fsounds%2Fadvance.mp3R13aR15hR6tgoR2i60674R3R11R5y29:assets%2Fsounds%2Fvictory.mp3R13aR16hR6tgoR2i2114R3R11R5y26:flixel%2Fsounds%2Fbeep.mp3R13aR17y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R11R5y28:flixel%2Fsounds%2Fflixel.mp3R13aR19y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3y5:SOUNDR5R18R13aR17R18hgoR2i33629R3R21R5R20R13aR19R20hgoR2i15744R3y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R22R23y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R9R5R28R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R9R5R29R6tgh","rootPath":null,"version":2,"libraryArgs":[],"libraryType":null}';
+		data = '{"name":null,"assets":"aoy4:pathy34:assets%2Fdata%2Fdata-goes-here.txty4:sizezy4:typey4:TEXTy2:idR1y7:preloadtgoR0y40:assets%2Fimages%2Farcade_tiles_16x16.pdnR2i5664R3R4R5R7R6tgoR0y40:assets%2Fimages%2Farcade_tiles_16x16.pngR2i1214R3y5:IMAGER5R8R6tgoR0y43:assets%2Fimages%2Foverworld_tiles_32x32.pdnR2i11113R3R4R5R10R6tgoR0y35:assets%2Fimages%2Frhythm_splash.pngR2i808R3R9R5R11R6tgoR0y24:assets%2Fimages%2Fui.pdnR2i4423R3R4R5R12R6tgoR0y24:assets%2Fimages%2Fui.pngR2i604R3R9R5R13R6tgoR2i2313541R3y5:MUSICR5y27:assets%2Fmusic%2Fisland.mp3y9:pathGroupaR15y27:assets%2Fmusic%2Fisland.ogghR6tgoR2i1439569R3R14R5R17R16aR15R17hgoR2i35074R3R14R5y29:assets%2Fsounds%2Fadvance.mp3R16aR18hR6tgoR2i60674R3R14R5y29:assets%2Fsounds%2Fvictory.mp3R16aR19hR6tgoR2i2114R3R14R5y26:flixel%2Fsounds%2Fbeep.mp3R16aR20y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R14R5y28:flixel%2Fsounds%2Fflixel.mp3R16aR22y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3y5:SOUNDR5R21R16aR20R21hgoR2i33629R3R24R5R23R16aR22R23hgoR2i15744R3y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R25R26y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R9R5R31R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R9R5R32R6tgh","rootPath":null,"version":2,"libraryArgs":[],"libraryType":null}';
 		manifest = AssetManifest.parse (data, rootPath);
 		library = AssetLibrary.fromManifest (manifest);
 		Assets.registerLibrary ("default", library);
@@ -99,7 +99,10 @@ null
 @:keep @:bind #if display private #end class __ASSET__assets_data_data_goes_here_txt extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_images_arcade_tiles_16x16_pdn extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_images_arcade_tiles_16x16_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_images_overworld_tiles_32x32_pdn extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_images_rhythm_splash_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_images_ui_pdn extends null { }
+@:keep @:bind #if display private #end class __ASSET__assets_images_ui_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_music_island_mp3 extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_music_island_ogg extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_sounds_advance_mp3 extends null { }
@@ -120,7 +123,10 @@ null
 @:keep @:file("assets/data/data-goes-here.txt") #if display private #end class __ASSET__assets_data_data_goes_here_txt extends haxe.io.Bytes {}
 @:keep @:file("assets/images/arcade_tiles_16x16.pdn") #if display private #end class __ASSET__assets_images_arcade_tiles_16x16_pdn extends haxe.io.Bytes {}
 @:keep @:image("assets/images/arcade_tiles_16x16.png") #if display private #end class __ASSET__assets_images_arcade_tiles_16x16_png extends lime.graphics.Image {}
+@:keep @:file("assets/images/overworld_tiles_32x32.pdn") #if display private #end class __ASSET__assets_images_overworld_tiles_32x32_pdn extends haxe.io.Bytes {}
 @:keep @:image("assets/images/rhythm_splash.png") #if display private #end class __ASSET__assets_images_rhythm_splash_png extends lime.graphics.Image {}
+@:keep @:file("assets/images/ui.pdn") #if display private #end class __ASSET__assets_images_ui_pdn extends haxe.io.Bytes {}
+@:keep @:image("assets/images/ui.png") #if display private #end class __ASSET__assets_images_ui_png extends lime.graphics.Image {}
 @:keep @:file("assets/music/island.mp3") #if display private #end class __ASSET__assets_music_island_mp3 extends haxe.io.Bytes {}
 @:keep @:file("assets/music/island.ogg") #if display private #end class __ASSET__assets_music_island_ogg extends haxe.io.Bytes {}
 @:keep @:file("assets/sounds/advance.mp3") #if display private #end class __ASSET__assets_sounds_advance_mp3 extends haxe.io.Bytes {}
