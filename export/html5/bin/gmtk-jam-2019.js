@@ -895,9 +895,9 @@ ApplicationMain.create = function(config) {
 	ManifestResources.init(config);
 	var _this = app.meta;
 	if(__map_reserved["build"] != null) {
-		_this.setReserved("build","1");
+		_this.setReserved("build","2");
 	} else {
-		_this.h["build"] = "1";
+		_this.h["build"] = "2";
 	}
 	var _this1 = app.meta;
 	if(__map_reserved["company"] != null) {
@@ -6989,7 +6989,7 @@ ManifestResources.init = function(config) {
 	var data;
 	var manifest;
 	var library;
-	data = "{\"name\":null,\"assets\":\"aoy4:pathy34:assets%2Fdata%2Fdata-goes-here.txty4:sizezy4:typey4:TEXTy2:idR1y7:preloadtgoR0y40:assets%2Fimages%2Farcade_tiles_16x16.pdnR2i5664R3R4R5R7R6tgoR0y40:assets%2Fimages%2Farcade_tiles_16x16.pngR2i1214R3y5:IMAGER5R8R6tgoR0y35:assets%2Fimages%2Frhythm_splash.pngR2i808R3R9R5R10R6tgoR2i2313541R3y5:MUSICR5y27:assets%2Fmusic%2Fisland.mp3y9:pathGroupaR12y27:assets%2Fmusic%2Fisland.ogghR6tgoR2i1439569R3R11R5R14R13aR12R14hgoR2i35074R3R11R5y29:assets%2Fsounds%2Fadvance.mp3R13aR15hR6tgoR2i60674R3R11R5y29:assets%2Fsounds%2Fvictory.mp3R13aR16hR6tgoR2i2114R3R11R5y26:flixel%2Fsounds%2Fbeep.mp3R13aR17y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R11R5y28:flixel%2Fsounds%2Fflixel.mp3R13aR19y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3y5:SOUNDR5R18R13aR17R18hgoR2i33629R3R21R5R20R13aR19R20hgoR2i15744R3y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R22R23y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R9R5R28R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R9R5R29R6tgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
+	data = "{\"name\":null,\"assets\":\"aoy4:sizei1439569y4:typey5:MUSICy2:idy27:assets%2Fmusic%2Fisland.oggy9:pathGroupaR4y27:assets%2Fmusic%2Fisland.mp3hy7:preloadtgoR0i2313541R1R2R3R6R5aR4R6hgoy4:pathy40:assets%2Fimages%2Farcade_tiles_16x16.pngR0i1214R1y5:IMAGER3R9R7tgoR8y40:assets%2Fimages%2Farcade_tiles_16x16.pdnR0i5664R1y4:TEXTR3R11R7tgoR8y35:assets%2Fimages%2Frhythm_splash.pngR0i808R1R10R3R13R7tgoR0i60674R1R2R3y29:assets%2Fsounds%2Fvictory.mp3R5aR14hR7tgoR0i35074R1R2R3y29:assets%2Fsounds%2Fadvance.mp3R5aR15hR7tgoR8y34:assets%2Fdata%2Fdata-goes-here.txtR0zR1R12R3R16R7tgoR0i39706R1R2R3y28:flixel%2Fsounds%2Fflixel.mp3R5aR17y28:flixel%2Fsounds%2Fflixel.ogghR7tgoR0i2114R1R2R3y26:flixel%2Fsounds%2Fbeep.mp3R5aR19y26:flixel%2Fsounds%2Fbeep.ogghR7tgoR0i5794R1y5:SOUNDR3R20R5aR19R20hgoR0i33629R1R21R3R18R5aR17R18hgoR0i15744R1y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR3y30:flixel%2Ffonts%2Fnokiafc22.ttfR7tgoR0i29724R1R22R23y36:__ASSET__flixel_fonts_monsterrat_ttfR3y31:flixel%2Ffonts%2Fmonsterrat.ttfR7tgoR8y33:flixel%2Fimages%2Fui%2Fbutton.pngR0i519R1R10R3R28R7tgoR8y36:flixel%2Fimages%2Flogo%2Fdefault.pngR0i3280R1R10R3R29R7tgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
 	manifest = lime_utils_AssetManifest.parse(data,ManifestResources.rootPath);
 	library = lime_utils_AssetLibrary.fromManifest(manifest);
 	lime_utils_Assets.registerLibrary("default",library);
@@ -19528,7 +19528,7 @@ openfl_display_GraphicsShader.prototype = $extend(openfl_display_Shader.prototyp
 });
 var flixel_graphics_tile_FlxGraphicsShader = function() {
 	if(this.__glFragmentSource == null) {
-		this.__glFragmentSource = "\r\n\t\tvarying float openfl_Alphav;\n\t\tvarying vec4 openfl_ColorMultiplierv;\n\t\tvarying vec4 openfl_ColorOffsetv;\n\t\tvarying vec2 openfl_TextureCoordv;\n\t\t\n\t\tuniform bool openfl_HasColorTransform;\n\t\tuniform vec2 openfl_TextureSize;\n\t\tuniform sampler2D bitmap;\n\r\n\t\tuniform bool hasTransform;\r\n\t\tuniform bool hasColorTransform;\r\n\r\n\t\tvec4 flixel_texture2D(sampler2D bitmap, vec2 coord)\r\n\t\t{\r\n\t\t\tvec4 color = texture2D(bitmap, coord);\r\n\t\t\tif (!hasTransform)\r\n\t\t\t\treturn color;\r\n\t\t\t\r\n\t\t\tif (color.a == 0.0)\r\n\t\t\t{\r\n\t\t\t\treturn vec4(0.0, 0.0, 0.0, 0.0);\r\n\t\t\t}\r\n\t\t\telse if (hasColorTransform)\r\n\t\t\t{\r\n\t\t\t\tcolor = vec4(color.rgb / color.a, color.a);\r\n\t\t\t\t\r\n\t\t\t\tmat4 colorMultiplier = mat4(0);\r\n\t\t\t\tcolorMultiplier[0][0] = openfl_ColorMultiplierv.x;\r\n\t\t\t\tcolorMultiplier[1][1] = openfl_ColorMultiplierv.y;\r\n\t\t\t\tcolorMultiplier[2][2] = openfl_ColorMultiplierv.z;\r\n\t\t\t\tcolorMultiplier[3][3] = openfl_ColorMultiplierv.w;\r\n\t\t\t\t\r\n\t\t\t\tcolor = clamp(openfl_ColorOffsetv + (color * colorMultiplier), 0.0, 1.0);\r\n\t\t\t\t\r\n\t\t\t\tif (color.a > 0.0)\r\n\t\t\t\t\treturn vec4(color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);\r\n\t\t\t\telse\r\n\t\t\t\t\treturn vec4(0.0, 0.0, 0.0, 0.0);\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\t{\r\n\t\t\t\treturn color * openfl_Alphav;\r\n\t\t\t}\r\n\t\t}\r\n\t\r\n\t\t\r\n\t\tvoid main(void)\r\n\t\t{\r\n\t\t\tgl_FragColor = flixel_texture2D(bitmap, openfl_TextureCoordv);\r\n\t\t}";
+		this.__glFragmentSource = "\r\n\t\tvarying float openfl_Alphav;\n\t\tvarying vec4 openfl_ColorMultiplierv;\n\t\tvarying vec4 openfl_ColorOffsetv;\n\t\tvarying vec2 openfl_TextureCoordv;\n\t\t\n\t\tuniform bool openfl_HasColorTransform;\n\t\tuniform vec2 openfl_TextureSize;\n\t\tuniform sampler2D bitmap;\n\r\n\t\tuniform bool hasTransform;\r\n\t\tuniform bool hasColorTransform;\r\n\r\n\t\tvec4 flixel_texture2D(sampler2D bitmap, vec2 coord)\r\n\t\t{\r\n\t\t\tvec4 color = texture2D(bitmap, coord);\r\n\t\t\tif (!hasTransform)\r\n\t\t\t{\r\n\t\t\t\treturn color;\r\n\t\t\t}\r\n\r\n\t\t\tif (color.a == 0.0)\r\n\t\t\t{\r\n\t\t\t\treturn vec4(0.0, 0.0, 0.0, 0.0);\r\n\t\t\t}\r\n\r\n\t\t\tif (!hasColorTransform)\r\n\t\t\t{\r\n\t\t\t\treturn color * openfl_Alphav;\r\n\t\t\t}\r\n\r\n\t\t\tcolor = vec4(color.rgb / color.a, color.a);\r\n\r\n\t\t\tmat4 colorMultiplier = mat4(0);\r\n\t\t\tcolorMultiplier[0][0] = openfl_ColorMultiplierv.x;\r\n\t\t\tcolorMultiplier[1][1] = openfl_ColorMultiplierv.y;\r\n\t\t\tcolorMultiplier[2][2] = openfl_ColorMultiplierv.z;\r\n\t\t\tcolorMultiplier[3][3] = openfl_ColorMultiplierv.w;\r\n\r\n\t\t\tcolor = clamp(openfl_ColorOffsetv + (color * colorMultiplier), 0.0, 1.0);\r\n\r\n\t\t\tif (color.a > 0.0)\r\n\t\t\t{\r\n\t\t\t\treturn vec4(color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);\r\n\t\t\t}\r\n\t\t\treturn vec4(0.0, 0.0, 0.0, 0.0);\r\n\t\t}\r\n\t\r\n\t\t\r\n\t\tvoid main(void)\r\n\t\t{\r\n\t\t\tgl_FragColor = flixel_texture2D(bitmap, openfl_TextureCoordv);\r\n\t\t}";
 	}
 	if(this.__glVertexSource == null) {
 		this.__glVertexSource = "\r\n\t\tattribute float openfl_Alpha;\n\t\tattribute vec4 openfl_ColorMultiplier;\n\t\tattribute vec4 openfl_ColorOffset;\n\t\tattribute vec4 openfl_Position;\n\t\tattribute vec2 openfl_TextureCoord;\n\t\t\n\t\tvarying float openfl_Alphav;\n\t\tvarying vec4 openfl_ColorMultiplierv;\n\t\tvarying vec4 openfl_ColorOffsetv;\n\t\tvarying vec2 openfl_TextureCoordv;\n\t\t\n\t\tuniform mat4 openfl_Matrix;\n\t\tuniform bool openfl_HasColorTransform;\n\t\tuniform vec2 openfl_TextureSize;\n\r\n\t\t\r\n\t\tattribute float alpha;\r\n\t\tattribute vec4 colorMultiplier;\r\n\t\tattribute vec4 colorOffset;\r\n\t\tuniform bool hasColorTransform;\r\n\t\t\r\n\t\tvoid main(void)\r\n\t\t{\r\n\t\t\topenfl_Alphav = openfl_Alpha;\n\t\topenfl_TextureCoordv = openfl_TextureCoord;\n\t\t\n\t\tif (openfl_HasColorTransform) {\n\t\t\t\n\t\t\topenfl_ColorMultiplierv = openfl_ColorMultiplier;\n\t\t\topenfl_ColorOffsetv = openfl_ColorOffset / 255.0;\n\t\t\t\n\t\t}\n\t\t\n\t\tgl_Position = openfl_Matrix * openfl_Position;\n\r\n\t\t\t\r\n\t\t\topenfl_Alphav = openfl_Alpha * alpha;\r\n\t\t\t\r\n\t\t\tif (hasColorTransform)\r\n\t\t\t{\r\n\t\t\t\topenfl_ColorOffsetv = colorOffset / 255.0;\r\n\t\t\t\topenfl_ColorMultiplierv = colorMultiplier;\r\n\t\t\t}\r\n\t\t}";
@@ -29103,7 +29103,7 @@ flixel_math__$FlxVector_FlxVector_$Impl_$.isPerpendicular = function(this1,v) {
 	if(v._weak) {
 		v.put();
 	}
-	return Math.abs(dp) < 9.9999999999999984e-015;
+	return Math.abs(dp) < 9.99999999999999841e-15;
 };
 flixel_math__$FlxVector_FlxVector_$Impl_$.crossProductLength = function(this1,v) {
 	var cp = this1.x * v.y - this1.y * v.x;
@@ -29116,14 +29116,14 @@ flixel_math__$FlxVector_FlxVector_$Impl_$.crossProductLengthWeak = function(this
 	return this1.x * v.y - this1.y * v.x;
 };
 flixel_math__$FlxVector_FlxVector_$Impl_$.isParallel = function(this1,v) {
-	var p = Math.abs(this1.x * v.y - this1.y * v.x) < 9.9999999999999984e-015;
+	var p = Math.abs(this1.x * v.y - this1.y * v.x) < 9.99999999999999841e-15;
 	if(v._weak) {
 		v.put();
 	}
 	return p;
 };
 flixel_math__$FlxVector_FlxVector_$Impl_$.isParallelWeak = function(this1,v) {
-	return Math.abs(this1.x * v.y - this1.y * v.x) < 9.9999999999999984e-015;
+	return Math.abs(this1.x * v.y - this1.y * v.x) < 9.99999999999999841e-15;
 };
 flixel_math__$FlxVector_FlxVector_$Impl_$.isZero = function(this1) {
 	if(Math.abs(this1.x) < 0.0000001) {
@@ -29143,7 +29143,7 @@ flixel_math__$FlxVector_FlxVector_$Impl_$.normalize = function(this1) {
 	return this1.scale(1 / Math.sqrt(this1.x * this1.x + this1.y * this1.y));
 };
 flixel_math__$FlxVector_FlxVector_$Impl_$.isNormalized = function(this1) {
-	return Math.abs(this1.x * this1.x + this1.y * this1.y - 1) < 9.9999999999999984e-015;
+	return Math.abs(this1.x * this1.x + this1.y * this1.y - 1) < 9.99999999999999841e-15;
 };
 flixel_math__$FlxVector_FlxVector_$Impl_$.rotateByRadians = function(this1,rads) {
 	var s = Math.sin(rads);
@@ -29250,9 +29250,9 @@ flixel_math__$FlxVector_FlxVector_$Impl_$.perpProductWeak = function(this1,v) {
 };
 flixel_math__$FlxVector_FlxVector_$Impl_$.ratio = function(this1,a,b,v) {
 	var r;
-	if(Math.abs(this1.x * v.y - this1.y * v.x) < 9.9999999999999984e-015) {
+	if(Math.abs(this1.x * v.y - this1.y * v.x) < 9.99999999999999841e-15) {
 		r = NaN;
-	} else if(this1.x * this1.x + this1.y * this1.y < 9.9999999999999984e-015 || v.x * v.x + v.y * v.y < 9.9999999999999984e-015) {
+	} else if(this1.x * this1.x + this1.y * this1.y < 9.99999999999999841e-15 || v.x * v.x + v.y * v.y < 9.99999999999999841e-15) {
 		r = NaN;
 	} else {
 		flixel_math__$FlxVector_FlxVector_$Impl_$._vector1 = flixel_math__$FlxVector_FlxVector_$Impl_$.clone(b,flixel_math__$FlxVector_FlxVector_$Impl_$._vector1);
@@ -29276,10 +29276,10 @@ flixel_math__$FlxVector_FlxVector_$Impl_$.ratio = function(this1,a,b,v) {
 	return r;
 };
 flixel_math__$FlxVector_FlxVector_$Impl_$.ratioWeak = function(this1,a,b,v) {
-	if(Math.abs(this1.x * v.y - this1.y * v.x) < 9.9999999999999984e-015) {
+	if(Math.abs(this1.x * v.y - this1.y * v.x) < 9.99999999999999841e-15) {
 		return NaN;
 	}
-	if(this1.x * this1.x + this1.y * this1.y < 9.9999999999999984e-015 || v.x * v.x + v.y * v.y < 9.9999999999999984e-015) {
+	if(this1.x * this1.x + this1.y * this1.y < 9.99999999999999841e-15 || v.x * v.x + v.y * v.y < 9.99999999999999841e-15) {
 		return NaN;
 	}
 	flixel_math__$FlxVector_FlxVector_$Impl_$._vector1 = flixel_math__$FlxVector_FlxVector_$Impl_$.clone(b,flixel_math__$FlxVector_FlxVector_$Impl_$._vector1);
@@ -29293,9 +29293,9 @@ flixel_math__$FlxVector_FlxVector_$Impl_$.ratioWeak = function(this1,a,b,v) {
 };
 flixel_math__$FlxVector_FlxVector_$Impl_$.findIntersection = function(this1,a,b,v,intersection) {
 	var t;
-	if(Math.abs(this1.x * v.y - this1.y * v.x) < 9.9999999999999984e-015) {
+	if(Math.abs(this1.x * v.y - this1.y * v.x) < 9.99999999999999841e-15) {
 		t = NaN;
-	} else if(this1.x * this1.x + this1.y * this1.y < 9.9999999999999984e-015 || v.x * v.x + v.y * v.y < 9.9999999999999984e-015) {
+	} else if(this1.x * this1.x + this1.y * this1.y < 9.99999999999999841e-15 || v.x * v.x + v.y * v.y < 9.99999999999999841e-15) {
 		t = NaN;
 	} else {
 		flixel_math__$FlxVector_FlxVector_$Impl_$._vector1 = flixel_math__$FlxVector_FlxVector_$Impl_$.clone(b,flixel_math__$FlxVector_FlxVector_$Impl_$._vector1);
@@ -29335,9 +29335,9 @@ flixel_math__$FlxVector_FlxVector_$Impl_$.findIntersectionInBounds = function(th
 		intersection = point;
 	}
 	var t1;
-	if(Math.abs(this1.x * v.y - this1.y * v.x) < 9.9999999999999984e-015) {
+	if(Math.abs(this1.x * v.y - this1.y * v.x) < 9.99999999999999841e-15) {
 		t1 = NaN;
-	} else if(this1.x * this1.x + this1.y * this1.y < 9.9999999999999984e-015 || v.x * v.x + v.y * v.y < 9.9999999999999984e-015) {
+	} else if(this1.x * this1.x + this1.y * this1.y < 9.99999999999999841e-15 || v.x * v.x + v.y * v.y < 9.99999999999999841e-15) {
 		t1 = NaN;
 	} else {
 		flixel_math__$FlxVector_FlxVector_$Impl_$._vector1 = flixel_math__$FlxVector_FlxVector_$Impl_$.clone(b,flixel_math__$FlxVector_FlxVector_$Impl_$._vector1);
@@ -29350,9 +29350,9 @@ flixel_math__$FlxVector_FlxVector_$Impl_$.findIntersectionInBounds = function(th
 		t1 = (this2.y * v.x + -this2.x * v.y) / (this1.y * v.x + -this1.x * v.y);
 	}
 	var t2;
-	if(Math.abs(v.x * this1.y - v.y * this1.x) < 9.9999999999999984e-015) {
+	if(Math.abs(v.x * this1.y - v.y * this1.x) < 9.99999999999999841e-15) {
 		t2 = NaN;
-	} else if(v.x * v.x + v.y * v.y < 9.9999999999999984e-015 || this1.x * this1.x + this1.y * this1.y < 9.9999999999999984e-015) {
+	} else if(v.x * v.x + v.y * v.y < 9.99999999999999841e-15 || this1.x * this1.x + this1.y * this1.y < 9.99999999999999841e-15) {
 		t2 = NaN;
 	} else {
 		flixel_math__$FlxVector_FlxVector_$Impl_$._vector1 = flixel_math__$FlxVector_FlxVector_$Impl_$.clone(a,flixel_math__$FlxVector_FlxVector_$Impl_$._vector1);
@@ -33816,6 +33816,9 @@ hscript_Interp.prototype = {
 			}
 		}
 	}
+	,edef: function(e) {
+		return e;
+	}
 	,error: function(e,rethrow) {
 		if(rethrow == null) {
 			rethrow = false;
@@ -34290,9 +34293,6 @@ hscript_Interp.prototype = {
 		case 25:
 			var e28 = e[4];
 			return this.expr(e28);
-		case 26:
-			var e29 = e[2];
-			return this.expr(e29);
 		}
 	}
 	,doWhileLoop: function(econd,e) {
@@ -47303,7 +47303,7 @@ var hscript_Const = $hxClasses["hscript.Const"] = { __ename__ : ["hscript","Cons
 hscript_Const.CInt = function(v) { var $x = ["CInt",0,v]; $x.__enum__ = hscript_Const; $x.toString = $estr; return $x; };
 hscript_Const.CFloat = function(f) { var $x = ["CFloat",1,f]; $x.__enum__ = hscript_Const; $x.toString = $estr; return $x; };
 hscript_Const.CString = function(s) { var $x = ["CString",2,s]; $x.__enum__ = hscript_Const; $x.toString = $estr; return $x; };
-var hscript_Expr = $hxClasses["hscript.Expr"] = { __ename__ : ["hscript","Expr"], __constructs__ : ["EConst","EIdent","EVar","EParent","EBlock","EField","EBinop","EUnop","ECall","EIf","EWhile","EFor","EBreak","EContinue","EFunction","EReturn","EArray","EArrayDecl","ENew","EThrow","ETry","EObject","ETernary","ESwitch","EDoWhile","EMeta","ECheckType"] };
+var hscript_Expr = $hxClasses["hscript.Expr"] = { __ename__ : ["hscript","Expr"], __constructs__ : ["EConst","EIdent","EVar","EParent","EBlock","EField","EBinop","EUnop","ECall","EIf","EWhile","EFor","EBreak","EContinue","EFunction","EReturn","EArray","EArrayDecl","ENew","EThrow","ETry","EObject","ETernary","ESwitch","EDoWhile","EMeta"] };
 hscript_Expr.EConst = function(c) { var $x = ["EConst",0,c]; $x.__enum__ = hscript_Expr; $x.toString = $estr; return $x; };
 hscript_Expr.EIdent = function(v) { var $x = ["EIdent",1,v]; $x.__enum__ = hscript_Expr; $x.toString = $estr; return $x; };
 hscript_Expr.EVar = function(n,t,e) { var $x = ["EVar",2,n,t,e]; $x.__enum__ = hscript_Expr; $x.toString = $estr; return $x; };
@@ -47334,14 +47334,11 @@ hscript_Expr.ETernary = function(cond,e1,e2) { var $x = ["ETernary",22,cond,e1,e
 hscript_Expr.ESwitch = function(e,cases,defaultExpr) { var $x = ["ESwitch",23,e,cases,defaultExpr]; $x.__enum__ = hscript_Expr; $x.toString = $estr; return $x; };
 hscript_Expr.EDoWhile = function(cond,e) { var $x = ["EDoWhile",24,cond,e]; $x.__enum__ = hscript_Expr; $x.toString = $estr; return $x; };
 hscript_Expr.EMeta = function(name,args,e) { var $x = ["EMeta",25,name,args,e]; $x.__enum__ = hscript_Expr; $x.toString = $estr; return $x; };
-hscript_Expr.ECheckType = function(e,t) { var $x = ["ECheckType",26,e,t]; $x.__enum__ = hscript_Expr; $x.toString = $estr; return $x; };
-var hscript_CType = $hxClasses["hscript.CType"] = { __ename__ : ["hscript","CType"], __constructs__ : ["CTPath","CTFun","CTAnon","CTParent","CTOpt","CTNamed"] };
+var hscript_CType = $hxClasses["hscript.CType"] = { __ename__ : ["hscript","CType"], __constructs__ : ["CTPath","CTFun","CTAnon","CTParent"] };
 hscript_CType.CTPath = function(path,params) { var $x = ["CTPath",0,path,params]; $x.__enum__ = hscript_CType; $x.toString = $estr; return $x; };
 hscript_CType.CTFun = function(args,ret) { var $x = ["CTFun",1,args,ret]; $x.__enum__ = hscript_CType; $x.toString = $estr; return $x; };
 hscript_CType.CTAnon = function(fields) { var $x = ["CTAnon",2,fields]; $x.__enum__ = hscript_CType; $x.toString = $estr; return $x; };
 hscript_CType.CTParent = function(t) { var $x = ["CTParent",3,t]; $x.__enum__ = hscript_CType; $x.toString = $estr; return $x; };
-hscript_CType.CTOpt = function(t) { var $x = ["CTOpt",4,t]; $x.__enum__ = hscript_CType; $x.toString = $estr; return $x; };
-hscript_CType.CTNamed = function(n,t) { var $x = ["CTNamed",5,n,t]; $x.__enum__ = hscript_CType; $x.toString = $estr; return $x; };
 var hscript_Error = $hxClasses["hscript.Error"] = { __ename__ : ["hscript","Error"], __constructs__ : ["EInvalidChar","EUnexpected","EUnterminatedString","EUnterminatedComment","EInvalidPreprocessor","EUnknownVariable","EInvalidIterator","EInvalidOp","EInvalidAccess","ECustom"] };
 hscript_Error.EInvalidChar = function(c) { var $x = ["EInvalidChar",0,c]; $x.__enum__ = hscript_Error; $x.toString = $estr; return $x; };
 hscript_Error.EUnexpected = function(s) { var $x = ["EUnexpected",1,s]; $x.__enum__ = hscript_Error; $x.toString = $estr; return $x; };
@@ -47782,34 +47779,11 @@ hscript_Parser.prototype = {
 			return this.unexpected(tk);
 		case 4:
 			var e2 = this.parseExpr();
-			tk = this.token();
-			switch(tk[1]) {
-			case 5:
-				return this.parseExprNext(hscript_Expr.EParent(e2));
-			case 9:
-				if(e2[1] == 1) {
-					var v = e2[2];
-					return this.parseLambda([{ name : v}],0);
-				}
-				break;
-			case 14:
-				var t = this.parseType();
-				tk = this.token();
-				switch(tk[1]) {
-				case 5:
-					return this.parseExprNext(hscript_Expr.ECheckType(e2,t));
-				case 9:
-					if(e2[1] == 1) {
-						var v1 = e2[2];
-						return this.parseLambda([{ name : v1, t : t}],0);
-					}
-					break;
-				default:
-				}
-				break;
-			default:
+			var t = this.token();
+			if(t != hscript_Token.TPClose) {
+				this.unexpected(t);
 			}
-			return this.unexpected(tk);
+			return this.parseExprNext(hscript_Expr.EParent(e2));
 		case 6:
 			tk = this.token();
 			switch(tk[1]) {
@@ -47896,31 +47870,6 @@ hscript_Parser.prototype = {
 		default:
 			return this.unexpected(tk);
 		}
-	}
-	,parseLambda: function(args,pmin) {
-		try {
-			while(true) {
-				var id = this.getIdent();
-				var t = this.maybe(hscript_Token.TDoubleDot) ? this.parseType() : null;
-				args.push({ name : id, t : t});
-				var tk = this.token();
-				switch(tk[1]) {
-				case 5:
-					throw "__break__";
-					break;
-				case 9:
-					break;
-				default:
-					this.unexpected(tk);
-				}
-			}
-		} catch( e ) { if( e != "__break__" ) throw e; }
-		var t1 = this.token();
-		if(!Type.enumEq(t1,hscript_Token.TOp("->"))) {
-			this.unexpected(t1);
-		}
-		var eret = this.parseExpr();
-		return hscript_Expr.EFunction(args,hscript_Expr.EReturn(eret));
 	}
 	,parseMetaArgs: function() {
 		var tk = this.token();
@@ -48337,33 +48286,6 @@ hscript_Parser.prototype = {
 		switch(tk[1]) {
 		case 3:
 			var op = tk[2];
-			if(op == "->") {
-				switch(e1[1]) {
-				case 1:
-					var i = e1[2];
-					var eret = this.parseExpr();
-					return hscript_Expr.EFunction([{ name : i}],hscript_Expr.EReturn(eret));
-				case 3:
-					var _hx_tmp = e1[2];
-					if(_hx_tmp[1] == 1) {
-						var i1 = _hx_tmp[2];
-						var eret1 = this.parseExpr();
-						return hscript_Expr.EFunction([{ name : i1}],hscript_Expr.EReturn(eret1));
-					}
-					break;
-				case 26:
-					var _hx_tmp1 = e1[2];
-					if(_hx_tmp1[1] == 1) {
-						var t = e1[3];
-						var i2 = _hx_tmp1[2];
-						var eret2 = this.parseExpr();
-						return hscript_Expr.EFunction([{ name : i2, t : t}],hscript_Expr.EReturn(eret2));
-					}
-					break;
-				default:
-				}
-				this.unexpected(tk);
-			}
 			if(this.unops.get(op)) {
 				if(this.isBlock(e1) || e1[1] == 3) {
 					var _this = this.tokens;
@@ -48380,16 +48302,16 @@ hscript_Parser.prototype = {
 			return this.parseExprNext(hscript_Expr.EField(e1,field));
 		case 11:
 			var e2 = this.parseExpr();
-			var t1 = this.token();
-			if(t1 != hscript_Token.TBkClose) {
-				this.unexpected(t1);
+			var t = this.token();
+			if(t != hscript_Token.TBkClose) {
+				this.unexpected(t);
 			}
 			return this.parseExprNext(hscript_Expr.EArray(e1,e2));
 		case 13:
 			var e21 = this.parseExpr();
-			var t2 = this.token();
-			if(t2 != hscript_Token.TDoubleDot) {
-				this.unexpected(t2);
+			var t1 = this.token();
+			if(t1 != hscript_Token.TDoubleDot) {
+				this.unexpected(t1);
 			}
 			var e3 = this.parseExpr();
 			return hscript_Expr.ETernary(e1,e21,e3);
@@ -48399,7 +48321,11 @@ hscript_Parser.prototype = {
 			return e1;
 		}
 	}
-	,parseFunctionArgs: function() {
+	,parseFunctionDecl: function() {
+		var t = this.token();
+		if(t != hscript_Token.TPOpen) {
+			this.unexpected(t);
+		}
 		var args = [];
 		var tk = this.token();
 		if(tk != hscript_Token.TPClose) {
@@ -48443,17 +48369,9 @@ hscript_Parser.prototype = {
 				}
 			}
 		}
-		return args;
-	}
-	,parseFunctionDecl: function() {
-		var t = this.token();
-		if(t != hscript_Token.TPOpen) {
-			this.unexpected(t);
-		}
-		var args = this.parseFunctionArgs();
 		var ret = null;
 		if(this.allowTypes) {
-			var tk = this.token();
+			tk = this.token();
 			if(tk != hscript_Token.TDoubleDot) {
 				var _this = this.tokens;
 				_this.head = new haxe_ds_GenericCell(tk,_this.head);
@@ -48477,7 +48395,6 @@ hscript_Parser.prototype = {
 		return path;
 	}
 	,parseType: function() {
-		var _gthis = this;
 		var t = this.token();
 		switch(t[1]) {
 		case 2:
@@ -48525,109 +48442,12 @@ hscript_Parser.prototype = {
 			}
 			return this.parseTypeNext(hscript_CType.CTPath(path,params));
 		case 4:
-			var a = this.token();
-			var b = this.token();
-			var _this4 = this.tokens;
-			_this4.head = new haxe_ds_GenericCell(b,_this4.head);
-			var _this5 = this.tokens;
-			_this5.head = new haxe_ds_GenericCell(a,_this5.head);
-			var withReturn = function(args) {
-				var _g = _gthis.token();
-				if(_g[1] == 3) {
-					if(_g[2] != "->") {
-						var t1 = _g;
-						_gthis.unexpected(t1);
-					}
-				} else {
-					var t2 = _g;
-					_gthis.unexpected(t2);
-				}
-				return hscript_CType.CTFun(args,_gthis.parseType());
-			};
-			switch(a[1]) {
-			case 2:
-				if(b[1] == 14) {
-					var _g1 = [];
-					var _g11 = 0;
-					var _g2 = this.parseFunctionArgs();
-					while(_g11 < _g2.length) {
-						var arg = _g2[_g11];
-						++_g11;
-						var _g3 = arg.value;
-						if(_g3 != null) {
-							var v1 = _g3;
-							throw new js__$Boot_HaxeError(hscript_Error.ECustom("Default values not allowed in function types"));
-						}
-						_g1.push(hscript_CType.CTNamed(arg.name,arg.opt ? hscript_CType.CTOpt(arg.t) : arg.t));
-					}
-					var args1 = _g1;
-					return withReturn(args1);
-				} else {
-					var t3 = this.parseType();
-					var _g4 = this.token();
-					switch(_g4[1]) {
-					case 5:
-						return this.parseTypeNext(hscript_CType.CTParent(t3));
-					case 9:
-						var args2 = [t3];
-						while(true) {
-							args2.push(this.parseType());
-							if(!this.maybe(hscript_Token.TComma)) {
-								break;
-							}
-						}
-						var t4 = this.token();
-						if(t4 != hscript_Token.TPClose) {
-							this.unexpected(t4);
-						}
-						return withReturn(args2);
-					default:
-						var t5 = _g4;
-						return this.unexpected(t5);
-					}
-				}
-				break;
-			case 5:
-				var _g5 = [];
-				var _g12 = 0;
-				var _g21 = this.parseFunctionArgs();
-				while(_g12 < _g21.length) {
-					var arg1 = _g21[_g12];
-					++_g12;
-					var _g31 = arg1.value;
-					if(_g31 != null) {
-						var v2 = _g31;
-						throw new js__$Boot_HaxeError(hscript_Error.ECustom("Default values not allowed in function types"));
-					}
-					_g5.push(hscript_CType.CTNamed(arg1.name,arg1.opt ? hscript_CType.CTOpt(arg1.t) : arg1.t));
-				}
-				var args3 = _g5;
-				return withReturn(args3);
-			default:
-				var t6 = this.parseType();
-				var _g6 = this.token();
-				switch(_g6[1]) {
-				case 5:
-					return this.parseTypeNext(hscript_CType.CTParent(t6));
-				case 9:
-					var args4 = [t6];
-					while(true) {
-						args4.push(this.parseType());
-						if(!this.maybe(hscript_Token.TComma)) {
-							break;
-						}
-					}
-					var t7 = this.token();
-					if(t7 != hscript_Token.TPClose) {
-						this.unexpected(t7);
-					}
-					return withReturn(args4);
-				default:
-					var t8 = _g6;
-					return this.unexpected(t8);
-				}
+			var t1 = this.parseType();
+			var t2 = this.token();
+			if(t2 != hscript_Token.TPClose) {
+				this.unexpected(t2);
 			}
-			break;
+			return this.parseTypeNext(hscript_CType.CTParent(t1));
 		case 6:
 			var fields = [];
 			var meta = null;
@@ -48638,21 +48458,21 @@ hscript_Parser.prototype = {
 					case 2:
 						if(t[2] == "var") {
 							var name = this.getIdent();
-							var t9 = this.token();
-							if(t9 != hscript_Token.TDoubleDot) {
-								this.unexpected(t9);
+							var t3 = this.token();
+							if(t3 != hscript_Token.TDoubleDot) {
+								this.unexpected(t3);
 							}
 							fields.push({ name : name, t : this.parseType(), meta : meta});
 							meta = null;
-							var t10 = this.token();
-							if(t10 != hscript_Token.TSemicolon) {
-								this.unexpected(t10);
+							var t4 = this.token();
+							if(t4 != hscript_Token.TSemicolon) {
+								this.unexpected(t4);
 							}
 						} else {
 							var name1 = t[2];
-							var t11 = this.token();
-							if(t11 != hscript_Token.TDoubleDot) {
-								this.unexpected(t11);
+							var t5 = this.token();
+							if(t5 != hscript_Token.TDoubleDot) {
+								this.unexpected(t5);
 							}
 							fields.push({ name : name1, t : this.parseType(), meta : meta});
 							t = this.token();
@@ -49541,391 +49361,6 @@ hscript_Parser.prototype = {
 		}
 	}
 	,__class__: hscript_Parser
-};
-var hscript_Tools = function() { };
-$hxClasses["hscript.Tools"] = hscript_Tools;
-hscript_Tools.__name__ = ["hscript","Tools"];
-hscript_Tools.iter = function(e,f) {
-	switch(e[1]) {
-	case 0:case 1:
-		break;
-	case 2:
-		var e1 = e[4];
-		if(e1 != null) {
-			f(e1);
-		}
-		break;
-	case 3:
-		var e2 = e[2];
-		f(e2);
-		break;
-	case 4:
-		var el = e[2];
-		var _g = 0;
-		while(_g < el.length) {
-			var e3 = el[_g];
-			++_g;
-			f(e3);
-		}
-		break;
-	case 5:
-		var e4 = e[2];
-		f(e4);
-		break;
-	case 6:
-		var e21 = e[4];
-		var e11 = e[3];
-		f(e11);
-		f(e21);
-		break;
-	case 7:
-		var e5 = e[4];
-		f(e5);
-		break;
-	case 8:
-		var args = e[3];
-		var e6 = e[2];
-		f(e6);
-		var _g1 = 0;
-		while(_g1 < args.length) {
-			var a = args[_g1];
-			++_g1;
-			f(a);
-		}
-		break;
-	case 9:
-		var e22 = e[4];
-		var e12 = e[3];
-		var c = e[2];
-		f(c);
-		f(e12);
-		if(e22 != null) {
-			f(e22);
-		}
-		break;
-	case 10:
-		var e7 = e[3];
-		var c1 = e[2];
-		f(c1);
-		f(e7);
-		break;
-	case 11:
-		var e8 = e[4];
-		var it = e[3];
-		f(it);
-		f(e8);
-		break;
-	case 12:case 13:
-		break;
-	case 14:
-		var e9 = e[3];
-		f(e9);
-		break;
-	case 15:
-		var e10 = e[2];
-		if(e10 != null) {
-			f(e10);
-		}
-		break;
-	case 16:
-		var i = e[3];
-		var e13 = e[2];
-		f(e13);
-		f(i);
-		break;
-	case 17:
-		var el1 = e[2];
-		var _g2 = 0;
-		while(_g2 < el1.length) {
-			var e14 = el1[_g2];
-			++_g2;
-			f(e14);
-		}
-		break;
-	case 18:
-		var el2 = e[3];
-		var _g3 = 0;
-		while(_g3 < el2.length) {
-			var e15 = el2[_g3];
-			++_g3;
-			f(e15);
-		}
-		break;
-	case 19:
-		var e16 = e[2];
-		f(e16);
-		break;
-	case 20:
-		var c2 = e[5];
-		var e17 = e[2];
-		f(e17);
-		f(c2);
-		break;
-	case 21:
-		var fl = e[2];
-		var _g4 = 0;
-		while(_g4 < fl.length) {
-			var fi = fl[_g4];
-			++_g4;
-			f(fi.e);
-		}
-		break;
-	case 22:
-		var e23 = e[4];
-		var e18 = e[3];
-		var c3 = e[2];
-		f(c3);
-		f(e18);
-		f(e23);
-		break;
-	case 23:
-		var def = e[4];
-		var cases = e[3];
-		var e19 = e[2];
-		f(e19);
-		var _g5 = 0;
-		while(_g5 < cases.length) {
-			var c4 = cases[_g5];
-			++_g5;
-			var _g11 = 0;
-			var _g21 = c4.values;
-			while(_g11 < _g21.length) {
-				var v = _g21[_g11];
-				++_g11;
-				f(v);
-			}
-			f(c4.expr);
-		}
-		if(def != null) {
-			f(def);
-		}
-		break;
-	case 24:
-		var e20 = e[3];
-		var c5 = e[2];
-		f(c5);
-		f(e20);
-		break;
-	case 25:
-		var e24 = e[4];
-		var args1 = e[3];
-		var name = e[2];
-		if(args1 != null) {
-			var _g6 = 0;
-			while(_g6 < args1.length) {
-				var a1 = args1[_g6];
-				++_g6;
-				f(a1);
-			}
-		}
-		f(e24);
-		break;
-	case 26:
-		var e25 = e[2];
-		f(e25);
-		break;
-	}
-};
-hscript_Tools.map = function(e,f) {
-	var edef;
-	switch(e[1]) {
-	case 2:
-		var e1 = e[4];
-		var t = e[3];
-		var n = e[2];
-		edef = hscript_Expr.EVar(n,t,e1 != null ? f(e1) : null);
-		break;
-	case 3:
-		var e2 = e[2];
-		edef = hscript_Expr.EParent(f(e2));
-		break;
-	case 4:
-		var el = e[2];
-		var _g = [];
-		var _g1 = 0;
-		while(_g1 < el.length) {
-			var e3 = el[_g1];
-			++_g1;
-			_g.push(f(e3));
-		}
-		edef = hscript_Expr.EBlock(_g);
-		break;
-	case 5:
-		var fi = e[3];
-		var e4 = e[2];
-		edef = hscript_Expr.EField(f(e4),fi);
-		break;
-	case 6:
-		var e21 = e[4];
-		var e11 = e[3];
-		var op = e[2];
-		edef = hscript_Expr.EBinop(op,f(e11),f(e21));
-		break;
-	case 7:
-		var e5 = e[4];
-		var pre = e[3];
-		var op1 = e[2];
-		edef = hscript_Expr.EUnop(op1,pre,f(e5));
-		break;
-	case 8:
-		var args = e[3];
-		var e6 = e[2];
-		var edef1 = f(e6);
-		var _g2 = [];
-		var _g11 = 0;
-		while(_g11 < args.length) {
-			var a = args[_g11];
-			++_g11;
-			_g2.push(f(a));
-		}
-		edef = hscript_Expr.ECall(edef1,_g2);
-		break;
-	case 9:
-		var e22 = e[4];
-		var e12 = e[3];
-		var c = e[2];
-		edef = hscript_Expr.EIf(f(c),f(e12),e22 != null ? f(e22) : null);
-		break;
-	case 10:
-		var e7 = e[3];
-		var c1 = e[2];
-		edef = hscript_Expr.EWhile(f(c1),f(e7));
-		break;
-	case 11:
-		var e8 = e[4];
-		var it = e[3];
-		var v = e[2];
-		edef = hscript_Expr.EFor(v,f(it),f(e8));
-		break;
-	case 0:case 1:case 12:case 13:
-		edef = e;
-		break;
-	case 14:
-		var t1 = e[5];
-		var name = e[4];
-		var e9 = e[3];
-		var args1 = e[2];
-		edef = hscript_Expr.EFunction(args1,f(e9),name,t1);
-		break;
-	case 15:
-		var e10 = e[2];
-		edef = hscript_Expr.EReturn(e10 != null ? f(e10) : null);
-		break;
-	case 16:
-		var i = e[3];
-		var e13 = e[2];
-		edef = hscript_Expr.EArray(f(e13),f(i));
-		break;
-	case 17:
-		var el1 = e[2];
-		var _g3 = [];
-		var _g12 = 0;
-		while(_g12 < el1.length) {
-			var e14 = el1[_g12];
-			++_g12;
-			_g3.push(f(e14));
-		}
-		edef = hscript_Expr.EArrayDecl(_g3);
-		break;
-	case 18:
-		var el2 = e[3];
-		var cl = e[2];
-		var _g4 = [];
-		var _g13 = 0;
-		while(_g13 < el2.length) {
-			var e15 = el2[_g13];
-			++_g13;
-			_g4.push(f(e15));
-		}
-		edef = hscript_Expr.ENew(cl,_g4);
-		break;
-	case 19:
-		var e16 = e[2];
-		edef = hscript_Expr.EThrow(f(e16));
-		break;
-	case 20:
-		var c2 = e[5];
-		var t2 = e[4];
-		var v1 = e[3];
-		var e17 = e[2];
-		edef = hscript_Expr.ETry(f(e17),v1,t2,f(c2));
-		break;
-	case 21:
-		var fl = e[2];
-		var _g5 = [];
-		var _g14 = 0;
-		while(_g14 < fl.length) {
-			var fi1 = fl[_g14];
-			++_g14;
-			_g5.push({ name : fi1.name, e : f(fi1.e)});
-		}
-		edef = hscript_Expr.EObject(_g5);
-		break;
-	case 22:
-		var e23 = e[4];
-		var e18 = e[3];
-		var c3 = e[2];
-		edef = hscript_Expr.ETernary(f(c3),f(e18),f(e23));
-		break;
-	case 23:
-		var def = e[4];
-		var cases = e[3];
-		var e19 = e[2];
-		var edef2 = f(e19);
-		var _g6 = [];
-		var _g15 = 0;
-		while(_g15 < cases.length) {
-			var c4 = cases[_g15];
-			++_g15;
-			var _g21 = [];
-			var _g31 = 0;
-			var _g41 = c4.values;
-			while(_g31 < _g41.length) {
-				var v2 = _g41[_g31];
-				++_g31;
-				_g21.push(f(v2));
-			}
-			_g6.push({ values : _g21, expr : f(c4.expr)});
-		}
-		edef = hscript_Expr.ESwitch(edef2,_g6,def == null ? null : f(def));
-		break;
-	case 24:
-		var e20 = e[3];
-		var c5 = e[2];
-		edef = hscript_Expr.EDoWhile(f(c5),f(e20));
-		break;
-	case 25:
-		var e24 = e[4];
-		var args2 = e[3];
-		var name1 = e[2];
-		var edef3;
-		if(args2 == null) {
-			edef3 = null;
-		} else {
-			var _g7 = [];
-			var _g16 = 0;
-			while(_g16 < args2.length) {
-				var a1 = args2[_g16];
-				++_g16;
-				_g7.push(f(a1));
-			}
-			edef3 = _g7;
-		}
-		edef = hscript_Expr.EMeta(name1,edef3,f(e24));
-		break;
-	case 26:
-		var t3 = e[3];
-		var e25 = e[2];
-		edef = hscript_Expr.ECheckType(f(e25),t3);
-		break;
-	}
-	return edef;
-};
-hscript_Tools.expr = function(e) {
-	return e;
-};
-hscript_Tools.mk = function(e,p) {
-	return e;
 };
 var js__$Boot_HaxeError = function(val) {
 	Error.call(this);
@@ -67958,7 +67393,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 217198;
+	this.version = 428230;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = ["lime","utils","AssetCache"];
@@ -71455,10 +70890,7 @@ nova_tile_TileUtils.nudgeIntoBounds = function(tiles,rect,testCollisionFn,offset
 	}
 	return nova_utils__$Pair_Pair_$Impl_$.fromFloatArray([nudgeX,nudgeY]);
 };
-nova_tile_TileUtils.horizontalNudgeOutOfObjects = function(collisionRects,rect,maxNudge) {
-	if(maxNudge == null) {
-		maxNudge = 6;
-	}
+nova_tile_TileUtils.horizontalNudgeOutOfObjects = function(collisionRects,rect) {
 	var canNudgeLeft = true;
 	var canNudgeRight = true;
 	var _g = 0;
@@ -71468,10 +70900,10 @@ nova_tile_TileUtils.horizontalNudgeOutOfObjects = function(collisionRects,rect,m
 		if(collisionRect.x + collisionRect.width > rect.x && collisionRect.y + collisionRect.height > rect.y && rect.x + rect.width > collisionRect.x && rect.y + rect.height > collisionRect.y) {
 			var candidateLeft = rect.x + rect.width - collisionRect.x;
 			var candidateRight = collisionRect.x + collisionRect.width - rect.x;
-			if(candidateLeft > maxNudge) {
+			if(candidateLeft > 10) {
 				canNudgeLeft = false;
 			}
-			if(candidateRight > maxNudge) {
+			if(candidateRight > 10) {
 				canNudgeRight = false;
 			}
 		}
@@ -71515,10 +70947,7 @@ nova_tile_TileUtils.horizontalNudgeOutOfObjects = function(collisionRects,rect,m
 	}
 	return 0;
 };
-nova_tile_TileUtils.verticalNudgeOutOfObjects = function(collisionRects,rect,maxNudge) {
-	if(maxNudge == null) {
-		maxNudge = 6;
-	}
+nova_tile_TileUtils.verticalNudgeOutOfObjects = function(collisionRects,rect) {
 	var canNudgeUp = true;
 	var canNudgeDown = true;
 	var _g = 0;
@@ -71528,10 +70957,10 @@ nova_tile_TileUtils.verticalNudgeOutOfObjects = function(collisionRects,rect,max
 		if(collisionRect.x + collisionRect.width > rect.x && collisionRect.y + collisionRect.height > rect.y && rect.x + rect.width > collisionRect.x && rect.y + rect.height > collisionRect.y) {
 			var candidateUp = rect.y + rect.height - collisionRect.y;
 			var candidateDown = collisionRect.y + collisionRect.height - rect.y;
-			if(candidateUp > maxNudge) {
+			if(candidateUp > 10) {
 				canNudgeUp = false;
 			}
-			if(candidateDown > maxNudge) {
+			if(candidateDown > 10) {
 				canNudgeDown = false;
 			}
 		}
@@ -114334,7 +113763,7 @@ lime_math__$RGBA_RGBA_$Impl_$.__alpha16 = this1;
 var _g = 0;
 while(_g < 256) {
 	var i = _g++;
-	lime_math__$RGBA_RGBA_$Impl_$.__alpha16[i] = Math.ceil(i * 257.00392156862745);
+	lime_math__$RGBA_RGBA_$Impl_$.__alpha16[i] = Math.ceil(i * 257.003921568627447);
 }
 var this2 = new Uint8Array(511);
 lime_math__$RGBA_RGBA_$Impl_$.__clamp = this2;
@@ -114463,7 +113892,7 @@ flixel_FlxG.autoPause = true;
 flixel_FlxG.fixedTimestep = true;
 flixel_FlxG.timeScale = 1;
 flixel_FlxG.worldDivisions = 6;
-flixel_FlxG.VERSION = new flixel_system_FlxVersion(4,6,1);
+flixel_FlxG.VERSION = new flixel_system_FlxVersion(4,6,2);
 flixel_FlxG.elapsed = 0;
 flixel_FlxG.maxElapsed = 0.1;
 flixel_FlxG.scaleMode = new flixel_system_scaleModes_RatioScaleMode();
@@ -115718,7 +115147,7 @@ flixel_math_FlxMath.MAX_VALUE_INT = 2147483647;
 flixel_math_FlxMath.SQUARE_ROOT_OF_TWO = 1.41421356237;
 flixel_math_FlxMath.EPSILON = 0.0000001;
 flixel_math__$FlxVector_FlxVector_$Impl_$.EPSILON = 0.0000001;
-flixel_math__$FlxVector_FlxVector_$Impl_$.EPSILON_SQUARED = 9.9999999999999984e-015;
+flixel_math__$FlxVector_FlxVector_$Impl_$.EPSILON_SQUARED = 9.99999999999999841e-15;
 flixel_math__$FlxVector_FlxVector_$Impl_$._vector1 = (function($this) {
 	var $r;
 	var this1 = new flixel_math_FlxPoint(0,0);
@@ -115843,12 +115272,12 @@ flixel_text__$FlxText_FlxTextAlign_$Impl_$.JUSTIFY = "justify";
 flixel_tile_FlxBaseTilemap.offsetAutoTile = [0,0,0,0,2,2,0,3,0,0,0,0,0,0,0,0,11,11,0,0,13,13,0,14,0,0,0,0,18,18,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,51,51,0,0,53,53,0,54,0,0,0,0,0,0,0,0,62,62,0,0,64,64,0,65,0,0,0,0,69,69,0,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,86,86,0,0,88,88,0,89,0,0,0,0,93,93,0,94,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,159,0,0,0,162,0,163,0,0,0,0,0,0,0,0,0,172,0,0,0,175,0,176,0,0,0,0,0,181,0,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,199,0,0,0,202,0,203,0,0,0,0,0,208,0,209];
 flixel_tweens_FlxEase.PI2 = Math.PI / 2;
 flixel_tweens_FlxEase.EL = 2 * Math.PI / .45;
-flixel_tweens_FlxEase.B1 = 0.36363636363636365;
-flixel_tweens_FlxEase.B2 = 0.72727272727272729;
-flixel_tweens_FlxEase.B3 = 0.54545454545454541;
-flixel_tweens_FlxEase.B4 = 0.90909090909090906;
-flixel_tweens_FlxEase.B5 = 0.81818181818181823;
-flixel_tweens_FlxEase.B6 = 0.95454545454545459;
+flixel_tweens_FlxEase.B1 = 0.363636363636363646;
+flixel_tweens_FlxEase.B2 = 0.727272727272727293;
+flixel_tweens_FlxEase.B3 = 0.545454545454545414;
+flixel_tweens_FlxEase.B4 = 0.909090909090909061;
+flixel_tweens_FlxEase.B5 = 0.818181818181818232;
+flixel_tweens_FlxEase.B6 = 0.954545454545454586;
 flixel_tweens_FlxEase.ELASTIC_AMPLITUDE = 1;
 flixel_tweens_FlxEase.ELASTIC_PERIOD = 0.4;
 flixel_tweens_FlxTween.PERSIST = 1;
