@@ -9,32 +9,37 @@ import nova.render.TiledBitmapData;
 import nova.utils.BitmapDataUtils;
 import nova.utils.Pair;
 
+class HighScore {
+	public var name:String;
+	public var score:Int;
+	
+	public function new(name:String, score:Int) {
+		this.name = name;
+		this.score = score;
+	}
+}
 class HighScoreTable {
-	public var names:Array<String>;
-	public var scores:Array<Int>;
+	public var rows:Array<HighScore>;
 	
 	public function new(names:Array<String>, scores:Array<Int>) {
-		this.names = names.slice(0);
-		this.scores = scores.slice(0);
+		rows = [];
+		for (i in 0...names.length) {
+			rows.push(new HighScore(names[i], scores[i]));
+		}
 	}
 	
 	public function add(name:String, score:Int):Int {
-		scores.push(score);
-		names.push(name);
+		rows.push(new HighScore(name, score));
 		
-		var idx = scores.length - 1;
-		while (idx > 0 && scores[idx] > scores[idx - 1]) {
-			var t = scores[idx - 1];
-			scores[idx - 1] = scores[idx];
-			scores[idx] = t;
+		var idx = rows.length - 1;
+		while (idx > 0 && rows[idx].score > rows[idx - 1].score) {
+			var t = rows[idx - 1];
+			rows[idx - 1] = rows[idx];
+			rows[idx] = t;
 			
-			var u = names[idx - 1];
-			names[idx - 1] = names[idx];
-			names[idx] = u;
 			idx -= 1;
 		}
-		scores.pop();
-		names.pop();
+		rows.pop();
 		
 		return idx;
 	}
@@ -79,9 +84,10 @@ class ArcadeCabinet extends FlxLocalSprite implements Focusable {
 		}
 	}
 	
-	public function renderHighScores(?color:FlxColor = FlxColor.WHITE):FlxLocalSprite {
+	public static function renderHighScores(source:String, ?color:FlxColor = FlxColor.WHITE):FlxLocalSprite {
+		var highScoreTable = PlayerData.instance.highScores.get(source);
 		var table:FlxLocalSprite = new FlxLocalSprite();
-		for (i in 0...highScoreTable.names.length) {
+		for (i in 0...highScoreTable.rows.length) {
 			var COLUMN_SEPARATION:Float = 140;
 			var ROW_SEPARATION:Float = 38;
 
@@ -91,13 +97,13 @@ class ArcadeCabinet extends FlxLocalSprite implements Focusable {
 			
 			var lw:LocalWrapper<FlxText> = Utilities.createText();
 			lw._sprite.size = 64;
-			lw._sprite.text = highScoreTable.names[i];
+			lw._sprite.text = highScoreTable.rows[i].name;
 			lw._sprite.color = color;
 			row.add(lw);
 
 			var lw2:LocalWrapper<FlxText> = Utilities.createText();
 			lw2._sprite.size = 64;
-			lw2._sprite.text = Std.string(highScoreTable.scores[i]);
+			lw2._sprite.text = Std.string(highScoreTable.rows[i].score);
 			lw._sprite.color = color;
 			row.add(lw2);
 			lw2.x = COLUMN_SEPARATION;

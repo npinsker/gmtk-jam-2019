@@ -41,11 +41,6 @@ class RhythmGame extends ArcadeCabinet {
 		backgroundLayer.add(background);
 		
 		noteSprites = [];
-		
-		highScoreTable = new ArcadeCabinet.HighScoreTable(
-			["Kot", "Pup", "Swang", "Jurgz", "Borby"],
-			[999000, 910000, 855160, 123230, 55000]
-		);
 	}
 	
 	public function startGame() {
@@ -65,16 +60,16 @@ class RhythmGame extends ArcadeCabinet {
 		scoreDisplay._sprite.color = FlxColor.BLACK;
 		scoreDisplay._sprite.size = 64;
 		scoreDisplay._sprite.text = renderScore();
-		add(scoreDisplay);
+		mainLayer.add(scoreDisplay);
 
 		reticle = new FlxLocalSprite();
 		reticle.loadGraphic(tiles.getTile(1));
 		reticle.xy = [25, 160 - reticle.height/2];
-		add(reticle);
+		mainLayer.add(reticle);
 
 		for (note in notes) {
 			var s:LocalSpriteWrapper = LocalWrapper.fromGraphic(tiles.getTile(0));
-			add(s);
+			mainLayer.add(s);
 			noteSprites.push(s);
 			clipSprites.push(s);
 			s.y = reticle.y;
@@ -132,12 +127,16 @@ class RhythmGame extends ArcadeCabinet {
 		background = LocalWrapper.fromGraphic(new BitmapData(320, 320, false, 0xFF000000));
 		backgroundLayer.add(background);
 		
-		var idx = highScoreTable.add(Constants.PLAYER_NAME, getRealScore());
+		var idx = PlayerData.instance.highScores.get('rhythm').add(Constants.PLAYER_NAME, getRealScore());
 		
-		remove(scoreDisplay);
-		remove(reticle);
+		for (note in noteSprites) {
+			mainLayer.remove(note);
+		}
 
-		var table = renderHighScores();
+		mainLayer.remove(scoreDisplay);
+		mainLayer.remove(reticle);
+
+		var table = ArcadeCabinet.renderHighScores('rhythm');
 		mainLayer.add(table);
 		if (idx < table.children.length) {
 			var nameField:LocalWrapper<FlxText> = cast table.children[idx].children[0];
