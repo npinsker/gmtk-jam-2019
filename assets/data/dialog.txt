@@ -1,11 +1,35 @@
-################
-DIALOG passersby
+#####################
+DIALOG rhythm_cabinet
 
 choice_box:
-  "Hey! Want to play DDR?"
+  "Want to play Rhythm Tappo?"
   > "Yes" yes
   > "No" end
 
 label yes:
 emit "play_rhythm"
+jump end
+
+#####################
+DIALOG potato_cabinet
+
+choice_box:
+  "Want to play Ducky Counter?"
+  > "Yes" yes
+  > "No" end
+
+label yes:
+emit "play_counter"
+jump end
+
+######################
+DIALOG fishing_cabinet
+
+choice_box:
+  "Want to play Fishing Master?"
+  > "Yes" yes
+  > "No" end
+
+label yes:
+emit "play_fishing"
 jump end
