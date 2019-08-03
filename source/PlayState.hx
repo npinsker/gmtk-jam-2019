@@ -18,7 +18,10 @@ import nova.tile.TileUtils;
 import nova.tiled.TiledObjectLoader;
 import nova.tiled.TiledRenderer;
 import nova.ui.dialog.DialogBox;
+import openfl.Assets;
 import openfl.display.BitmapData;
+
+using StringTools;
 
 class PlayState extends FlxState {
 	var TILE_WIDTH:Int = 32;
@@ -37,6 +40,7 @@ class PlayState extends FlxState {
 	
 	var focus:Array<Focusable>;
 	var dialogBox:DialogBox;
+	var dialogMap:Map<String, Array<String>>;
 	var speakTarget:Int = -1;
 	
 	override public function create():Void {
@@ -47,6 +51,8 @@ class PlayState extends FlxState {
 		
 		entityLayer = new FlxLocalSprite();
 		add(entityLayer);
+		
+		dialogMap = parseDialogFile('assets/data/dialog.txt');
 		
 		var map:TiledMap = new TiledMap('assets/data/gmtk_arcade.tmx');
 		var tr:TiledRenderer = new TiledRenderer(map);
@@ -124,24 +130,21 @@ class PlayState extends FlxState {
 		if (InputController.justPressed(CONFIRM)) {
 			if (speakTarget != -1) {
 				var entity = entities.filter(function(x) { return x.id == speakTarget; })[0];
-				if (entity.type == 'rhythm_cabinet') {
-					dialogBox = Constants.instance.dbf.create(
-					["choice_box:", "  \"Want to play DDR?\"", "  > \"DDR\" ddr", "  > \"No\" end", "label ddr:", "emit \"play_rhythm\"", "jump end"],
-					{
-						emitCallback: this.emitCallback,
-						callback: this.dialogCallback,
-					});
-				} else {
-					dialogBox = Constants.instance.dbf.create(
-					["choice_box:", "  \"Hey! Want to play something?\"", "  > \"DDR\" ddr", "  > \"Potato Counter\" count", "  > \"No\" end", "label ddr:", "emit \"play_rhythm\"", "jump end",
-					"label count:", "emit \"play_counter\"", "jump end"],
-					{
-						emitCallback: this.emitCallback,
-						callback: this.dialogCallback,
-					});
+				var dialog:Array<String> = null;
+				if (entity.type == 'rhythm_cabinet' || entity.type == 'potato_cabinet') {
+					dialog = dialogMap.get(entity.type);
+				} else if (dialogMap.exists(entity.name)) {
+					dialog = dialogMap.get(entity.name);
 				}
-				foregroundLayer.add(dialogBox);
-				focus.push(dialogBox);
+				if (dialog != null) {
+					dialogBox = Constants.instance.dbf.create(dialog,
+					{
+						emitCallback: this.emitCallback,
+						callback: this.dialogCallback,
+					});
+					foregroundLayer.add(dialogBox);
+					focus.push(dialogBox);
+				}
 			}
 		}
 	}
@@ -149,11 +152,13 @@ class PlayState extends FlxState {
 	public function handleAnimations() {
 		var checkTalk = new FlxPoint(p.hitbox.x + p.hitbox.width / 2 + p.getDirection().x * TILE_WIDTH,
 		                             p.hitbox.y + p.hitbox.height / 2 + p.getDirection().y * TILE_HEIGHT);
+		var checkTalkHalf = new FlxPoint(p.hitbox.x + p.hitbox.width / 2 + p.getDirection().x * TILE_WIDTH/2,
+		                             p.hitbox.y + p.hitbox.height / 2 + p.getDirection().y * TILE_HEIGHT/2);
 
 		for (entity in entities) {
 			var hasConfirm:Bool = Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm;
 			
-			if ((speakTarget == -1 || speakTarget == entity.id) && entity.hitbox.containsPoint(checkTalk)) {
+			if ((speakTarget == -1 || speakTarget == entity.id) && (entity.hitbox.containsPoint(checkTalk) || entity.hitbox.containsPoint(checkTalkHalf))) {
 				speakTarget = entity.id;
 				if (!hasConfirm) {
 					if (Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm) {
@@ -165,8 +170,8 @@ class PlayState extends FlxState {
 					entity.scratch.confirm = lo;
 					entity.scratch.hasConfirm = true;
 					foregroundLayer.add(lo);
-					lo.x = entity.x + entity.width / 2 - lo.width / 2;
-					lo.y = entity.y - lo.height;
+					lo.x = entity.hitbox.x + entity.hitbox.width / 2 - lo.width / 2;
+					lo.y = entity.y - lo.height + (entity.height > 64 ? 16 : 0);
 					Director.fadeIn(lo, 3);
 				}
 			} else if (hasConfirm) {
@@ -212,6 +217,10 @@ class PlayState extends FlxState {
 			var e:Entity = new Entity(type, bitmap);
 			e.xy = [object.x, object.y];
 			
+			if (Reflect.hasField(object, 'name')) {
+				e.name = object.name;
+			}
+			
 			if (Reflect.hasField(object, 'hitbox')) {
 				e._internal_hitbox = new FlxRect(object.hitbox[0], object.hitbox[1], object.hitbox[2], object.hitbox[3]);
 			} else {
@@ -239,5 +248,45 @@ class PlayState extends FlxState {
 			return Std.int(cast(a, Entity).hitbox.bottom - cast(b, Entity).hitbox.bottom);
 		});
 		super.update(elapsed);
+	}
+	
+	public static function parseDialogFile(path:String):Map<String, Array<String>> {
+		var r:Map<String, Array<String>> = new Map<String, Array<String>>();
+		if (!Assets.exists(path)) {
+		  return r;
+		}
+
+		var content:String = Assets.getText(path);
+		if (content == null) {
+		  return r;
+		}
+		var lines:Array<String> = content.split('\n').filter(function(s:String) { return s.trim() != ''; }).map(function(s) { return s.replace('\r', ''); });
+		
+		var anchor = 0;
+		var name:String = "";
+		
+		for (i in 0...lines.length) {
+			if (lines[i].indexOf("###") == 0) {
+				if (i == anchor) {
+					anchor = i + 1;
+					continue;
+				}
+				r.set(name, lines.slice(anchor, i));
+				name = "";
+			} else if (lines[i].indexOf("DIALOG") == 0) {
+				var tok = lines[i].split(' ');
+				name = tok[1];
+				anchor = i + 1;
+			}
+		}
+		if (anchor < lines.length) {
+			if (name == "") {
+				trace("Error: no DIALOG tag for dialog box within file " + path + "!");
+			} else {
+				r.set(name, lines.slice(anchor));
+			}
+		}
+		
+		return r;
 	}
 }
