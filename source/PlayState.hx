@@ -11,6 +11,7 @@ import nova.input.Focusable;
 import nova.input.InputController;
 import nova.render.FlxLocalSprite;
 import nova.tile.TileUtils;
+import nova.ui.dialog.DialogBox;
 
 class PlayState extends FlxState {
 	var TILE_WIDTH:Int = 32;
@@ -24,6 +25,7 @@ class PlayState extends FlxState {
 	var foregroundLayer:FlxLocalSprite;
 	
 	var focus:Array<Focusable>;
+	var dialogBox:DialogBox;
 	var speakTarget:Int = -1;
 	
 	override public function create():Void {
@@ -73,6 +75,19 @@ class PlayState extends FlxState {
 		
 		amt = TileUtils.verticalNudgeOutOfObjects(entities.map(function(k) { return k.hitbox; }), p.hitbox);
 		p.y += amt;
+		
+		if (InputController.justPressed(CONFIRM)) {
+			if (speakTarget != -1) {
+				dialogBox = Constants.instance.dbf.create(
+				["choice_box:", "  \"Hey! Want to play DDR?\"", "  > \"Yes\" yes", "  > \"No\" end", "label yes:", "emit \"play_rhythm\"", "jump end"],
+				{
+					emitCallback: this.emitCallback,
+					callback: this.dialogCallback,
+				});
+				foregroundLayer.add(dialogBox);
+				focus.push(dialogBox);
+			}
+		}
 	}
 
 	public function handleAnimations() {
@@ -107,9 +122,26 @@ class PlayState extends FlxState {
 			}
 		}
 	}
+	
+	public function dialogCallback(returnString:String):Void {
+		focus.remove(dialogBox);
+		foregroundLayer.remove(dialogBox);
+	}
+	
+	public function emitCallback(emitString:String):Void {
+		if (emitString == 'play_rhythm') {
+			var rg:RhythmGame = new RhythmGame();
+			foregroundLayer.add(rg);
+			rg.xy = [FlxG.width / 2 - rg.width / 2, FlxG.height / 2 - rg.height / 2 - 20];
+			focus.push(rg);
+			Director.moveBy(rg, [0, 20], 20);
+			Director.fadeIn(rg, 20);
+		}
+	}
 
 	override public function update(elapsed:Float):Void {
 		Director.update();
+		InputController.update();
 		
 		if (focus.length == 0) {
 			handleInput();
