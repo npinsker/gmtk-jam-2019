@@ -50,9 +50,8 @@ class CounterGame extends ArcadeCabinet {
 		
 		phase = 1;
 		guessed = 0;
-		guessedText = new LocalWrapper<FlxText>(new FlxText());
+		guessedText = Utilities.createText();
 		guessedText._sprite.size = 36;
-		guessedText._sprite.font = 'assets/data/m3x6.ttf';
 		guessedText._sprite.text = "0";
 		mainLayer.add(guessedText);
 		

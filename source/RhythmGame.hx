@@ -5,6 +5,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import nova.input.InputController;
 import nova.render.FlxLocalSprite;
+import openfl.display.BitmapData;
 
 using nova.animation.Director;
 
@@ -28,7 +29,8 @@ class RhythmGame extends ArcadeCabinet {
 	public var noteSprites:Array<LocalSpriteWrapper>;
 	
 	public var playing:Bool = false;
-	public var score:Float = 0;
+	public var score:Int;
+	public var maxScore:Int;
 	public var scoreDisplay:LocalWrapper<FlxText>;
 	
 	public var background:FlxLocalSprite;
@@ -40,6 +42,11 @@ class RhythmGame extends ArcadeCabinet {
 		backgroundLayer.add(background);
 		
 		noteSprites = [];
+		
+		highScoreTable = new ArcadeCabinet.HighScoreTable(
+			["Kot", "Pup", "Borby", "Jurgz", "Swang"],
+			[999000, 910000, 855160, 123230, 55000]
+		);
 	}
 	
 	public function startGame() {
@@ -50,13 +57,15 @@ class RhythmGame extends ArcadeCabinet {
 		backgroundLayer.add(background);
 		
 		SoundManager.playMusic('island');
+		FlxG.sound.music.onComplete = finishGame;
 		
-		scoreDisplay = new LocalWrapper<FlxText>(new FlxText());
+		score = 0;
+		maxScore = 3 * notes.length;
+		scoreDisplay = Utilities.createText();
 		scoreDisplay.xy = [25, -8];
 		scoreDisplay._sprite.color = FlxColor.BLACK;
-		scoreDisplay._sprite.font = 'assets/data/m3x6.ttf';
 		scoreDisplay._sprite.size = 64;
-		scoreDisplay._sprite.text = "Score: " + score;
+		scoreDisplay._sprite.text = renderScore();
 		add(scoreDisplay);
 
 		reticle = new FlxLocalSprite();
@@ -104,10 +113,29 @@ class RhythmGame extends ArcadeCabinet {
 				
 				Director.wait(1).call(function() { remove(flash); });
 				
-				scoreDisplay._sprite.text = "Score: " + score;
+				scoreDisplay._sprite.text = renderScore();
 				break;
 			}
 		}
+	}
+	
+	public function renderScore() {
+		var rawScore:Float = score / maxScore * 1000000;
+		var displayScore:Int = Std.int(Math.round(rawScore / 10) * 10 + 0.5);
+		return "Score: " + displayScore;
+	}
+	
+	public function finishGame() {
+		backgroundLayer.remove(background);
+		background = LocalWrapper.fromGraphic(new BitmapData(320, 320, false, 0xFF000000));
+		backgroundLayer.add(background);
+		
+		remove(scoreDisplay);
+		remove(reticle);
+
+		var table = renderHighScores();
+		mainLayer.add(table);
+		table.xy = [width/2 - table.width/2, height/2 - table.height/2];
 	}
 	
 	public function setNotePositions(beat:Float):Void {
@@ -127,6 +155,13 @@ class RhythmGame extends ArcadeCabinet {
 		if (InputController.justPressed(CANCEL)) {
 			closeCallback();
 		}
+
+		#if debug
+		if (InputController.justPressed(X)) {
+			FlxG.sound.music.stop();
+			finishGame();
+		}
+		#end
 	}
 	
 	override public function update(elapsed:Float):Void {
