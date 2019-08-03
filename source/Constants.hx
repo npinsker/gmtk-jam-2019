@@ -3,6 +3,8 @@ package;
 import nova.ui.dialog.DialogBox;
 import nova.ui.dialog.DialogBoxAddons;
 import nova.ui.dialog.DialogBoxFactory;
+import nova.utils.BitmapDataUtils;
+import openfl.Assets;
 
 class Constants {
 	public static var instance:Constants = new Constants();
@@ -37,6 +39,11 @@ class Constants {
 			},
 			textOffset: [40, 50],
 			advanceStyle: TYPEWRITER,
+			selectOptionSprite: {
+				image: 'assets/images/ui.png',
+				transform: function(b) { return BitmapDataUtils.crop(b, [24, 0], [27, 18]); },
+				offset: [0, 10],
+			},
 			textPreprocess: function(db:DialogBox, text:String) {
 				var a:String = DialogBoxAddons.parsePercentVariables(db, text);
 				return a;
