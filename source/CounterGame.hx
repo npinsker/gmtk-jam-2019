@@ -75,9 +75,13 @@ class CounterGame extends FlxLocalSprite implements Focusable {
 			Director.wait(Std.int(15 + 10 * Math.random())).call(function() { addPotato(); });
 		} else {
 			Director.wait(60).call(function() {
-				endPotato(
+				endCounterPhase();
 			});
 		}
+	}
+	
+	public function endCounterPhase() {
+		
 	}
 
 	public function handleTap():Void {
