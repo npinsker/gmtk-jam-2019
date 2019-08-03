@@ -1,7 +1,6 @@
 package;
 
 import flixel.FlxGame;
-import flixel.input.keyboard.FlxKey;
 import nova.input.InputController;
 import openfl.display.Sprite;
 
@@ -18,5 +17,7 @@ class Main extends Sprite {
 		InputController.addKeyMapping(UP, UP);
 		InputController.addKeyMapping(S, DOWN);
 		InputController.addKeyMapping(DOWN, DOWN);
+		
+		InputController.addKeyMapping(SPACE, CONFIRM);
 	}
 }
