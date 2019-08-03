@@ -118,7 +118,7 @@ class RhythmGame extends ArcadeCabinet {
 	}
 	
 	public function renderScore() {
-		return "Score: " + getRealScore();
+		return Std.string(getRealScore());
 	}
 	
 	public function finishGame() {

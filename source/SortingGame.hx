@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.math.FlxRect;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import nova.render.NovaEmitter;
 import openfl.display.BitmapData;
 import nova.input.Focusable;
 import nova.input.InputController;
@@ -18,13 +19,16 @@ class SortingGame extends ArcadeCabinet {
 	public var score:Float = 0;
 	
 	public var judgeSprite:LocalSpriteWrapper;
-	public var judgeIsBlue:Bool = true;
+	public var judgeIsBlue:Bool = false;
+	public var colors:Array<Int> = [];
+	public var queuePosition:Int = -5;
+	public var scoreDisplay:LocalWrapper<FlxText>;
 	
 	public var background:FlxLocalSprite;
 	public function new(callback:Void -> Void) {
 		super('assets/images/sorting_cabinet_shell.png', [320, 256], [10, 10], callback);
 		
-		background = LocalWrapper.fromGraphic('assets/images/counter_splash.png', {
+		background = LocalWrapper.fromGraphic('assets/images/sorting_splash.png', {
 			'scale': [4, 4],
 		});
 		backgroundLayer.add(background);
@@ -34,43 +38,102 @@ class SortingGame extends ArcadeCabinet {
 		phase = 1;
 
 		backgroundLayer.remove(background);
-		background = LocalWrapper.fromGraphic('assets/images/counter_bg.png', {
+		background = LocalWrapper.fromGraphic('assets/images/sorting_bg.png', {
 			'scale': [4, 4],
 		});
 		backgroundLayer.add(background);
 		
-		var bx:BitmapData = new BitmapData(64, 64, true, 0xFF0000FF);
-		judgeSprite = LocalWrapper.fromGraphic(bx);
+		judgeSprite = LocalWrapper.fromGraphic(tiles.stitchTiles([9, 10]), {
+			frameSize: [64, 64]
+		});
+		judgeSprite._sprite.animation.add('red', [0], 1, false);
+		judgeSprite._sprite.animation.add('blue', [1], 1, false);
+		judgeSprite._sprite.animation.play('red');
 		mainLayer.add(judgeSprite);
 		judgeSprite.x = 70;
 		judgeSprite.y = height / 2 - judgeSprite.height / 2;
-		judgeIsBlue = true;
+
+		scoreDisplay = Utilities.createText();
+		scoreDisplay.xy = [25, -8];
+		scoreDisplay._sprite.color = FlxColor.WHITE;
+		scoreDisplay._sprite.size = 64;
+		scoreDisplay._sprite.text = "0";
+		mainLayer.add(scoreDisplay);
 		
 		score = 0;
 		addBot();
 	}
 	
 	public function addBot() {
-		var b:LocalSpriteWrapper = LocalWrapper.fromGraphic(tiles.getTile(Std.int(Math.random() * 2 + 7)));
+		var color = Std.int(Math.random() * 2);
+		var b:LocalSpriteWrapper = LocalWrapper.fromGraphic(tiles.getTile(Std.int(color + 7)));
+		colors.push(color);
 		mainLayer.add(b);
 		clipSprites.push(b);
+		
+		var moveSpeed:Int = Std.int(60 - Math.min(2 * score / 3, 35) - Math.max(0, Math.min((score - 60) / 7, 20)));
 
-		b.x = judgeSprite.x + 6 * 60;
+		b.x = judgeSprite.x + 5 * 75;
 		b.y = judgeSprite.y;
 		for (b in clipSprites) {
-			Director.moveBy(b, [ -60, 0], 60).wait(25);
+			Director.moveBy(b, [ -75, 0], moveSpeed);
 		}
-		Director.wait(60 + 25).call(function() { addBot(); });
+		Director.wait(moveSpeed).call(checkDone);
+	}
+	
+	public function checkDone() {
+		var moveSpeed:Int = Std.int(60 - Math.min(2 * score / 3, 50));
+		var waitSpeed:Int = Std.int(Math.max(3, moveSpeed / 4));
+
+		queuePosition += 1;
+		if (queuePosition >= 0) {
+			var shouldBeBlue = (colors[queuePosition] == 1);
+			if (shouldBeBlue == judgeIsBlue) {
+				score += 1;
+				
+				var amtToSpawn:Int = Std.int(Math.max(4, 20 - score / 3));
+				var px:NovaEmitter = new NovaEmitter(judgeSprite.x, judgeSprite.y);
+				px.addSimpleParticles((shouldBeBlue ? 0xFF2211FF : 0xFFFF1122), 4, amtToSpawn);
+				mainLayer.add(px);
+				px.lifespan = [0.12, 0.35];
+				px.endAlpha = [0, 0];
+				px.limit = amtToSpawn;
+				px.launchAngle = [-Math.PI / 2, -Math.PI / 2];
+				px.onCreate = function(p) { p.x = Math.random() * 64; p.y = Math.random() * 10; };
+				px.speed = [150, 200];
+				px.rate = 0.01;
+
+				scoreDisplay._sprite.text = Std.string(score);
+				Director.wait(waitSpeed).call(addBot);
+			} else {
+				endGame();
+			}
+		} else {
+			Director.wait(waitSpeed).call(addBot);
+		}
+		
+		if (colors.length > 10) {
+			mainLayer.remove(clipSprites[0]);
+			clipSprites.splice(0, 1);
+			colors.splice(0, 1);
+			queuePosition -= 1;
+		}
 	}
 
 	public function handleTap():Void {
 		judgeIsBlue = !judgeIsBlue;
 		
 		if (judgeIsBlue) {
-			judgeSprite._sprite.makeGraphic(32, 32, 0xFF0000FF);
+			judgeSprite._sprite.animation.play('blue');
 		} else {
-			judgeSprite._sprite.makeGraphic(32, 32, 0xFFFF0000);
+			judgeSprite._sprite.animation.play('red');
 		}
+	}
+	
+	public function endGame():Void {
+		phase = 2;
+		
+		closeCallback();
 	}
 
 	override public function handleInput():Void {

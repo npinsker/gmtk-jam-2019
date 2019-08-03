@@ -104,7 +104,7 @@ class ArcadeCabinet extends FlxLocalSprite implements Focusable {
 			var lw2:LocalWrapper<FlxText> = Utilities.createText();
 			lw2._sprite.size = 64;
 			lw2._sprite.text = Std.string(highScoreTable.rows[i].score);
-			lw._sprite.color = color;
+			lw2._sprite.color = color;
 			row.add(lw2);
 			lw2.x = COLUMN_SEPARATION;
 			

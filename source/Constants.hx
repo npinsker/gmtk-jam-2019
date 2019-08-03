@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxColor;
 import nova.ui.dialog.DialogBox;
 import nova.ui.dialog.DialogBoxAddons;
 import nova.ui.dialog.DialogBoxFactory;
@@ -61,23 +62,26 @@ class Constants {
 		];
 		dbf = new DialogBoxFactory({
 			background: {
-				image: 'assets/images/dialog_bubble.png',
+				image: 'assets/images/dialog_box1.png',
 			},
 			advanceCallback: function() {
 				SoundManager.addSound('advance', 0.75);
 			},
 			textFormat: {
-				size: 24,
+				size: 30,
+				font: 'assets/data/m3x6.ttf',
+				color: FlxColor.WHITE,
 			},
 			choiceTextFormat: {
-				size: 24,
+				size: 30,
+				font: 'assets/data/m3x6.ttf',
+				color: FlxColor.WHITE,
 			},
-			textOffset: [40, 50],
+			textOffset: [44, 8],
 			advanceStyle: TYPEWRITER,
 			selectOptionSprite: {
 				image: 'assets/images/ui.png',
-				transform: function(b) { return BitmapDataUtils.crop(b, [24, 0], [27, 18]); },
-				offset: [0, 10],
+				transform: function(b) { return BitmapDataUtils.crop(b, [24, 0], [27, 25]); },
 			},
 			textPreprocess: function(db:DialogBox, text:String) {
 				var a:String = DialogBoxAddons.parsePercentVariables(db, text);
