@@ -124,7 +124,7 @@ class RhythmGame extends ArcadeCabinet {
 	public function finishGame() {
 		phase = 2;
 		backgroundLayer.remove(background);
-		background = LocalWrapper.fromGraphic(new BitmapData(width, height, false, 0xFF000000));
+		background = LocalWrapper.fromGraphic(new BitmapData(Std.int(width), Std.int(height), false, 0xFF000000));
 		backgroundLayer.add(background);
 		
 		var idx = PlayerData.instance.highScores.get('rhythm').add(Constants.PLAYER_NAME, getRealScore());

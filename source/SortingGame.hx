@@ -132,7 +132,7 @@ class SortingGame extends ArcadeCabinet {
 		phase = 2;
 		
 		backgroundLayer.remove(background);
-		background = LocalWrapper.fromGraphic(new BitmapData(width, height, false, 0xFFEFCB92));
+		background = LocalWrapper.fromGraphic(new BitmapData(Std.int(width), Std.int(height), false, 0xFFEFCB92));
 		backgroundLayer.add(background);
 		
 		var idx = PlayerData.instance.highScores.get('sorting').add(Constants.PLAYER_NAME, score);
