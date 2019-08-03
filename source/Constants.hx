@@ -22,7 +22,16 @@ class Constants {
 					frames: [77, 78, 93, 94, 109, 110], columns: 2, type: 'fishing_cabinet', hitbox: [0, 70, 48, 26]
 				},
 				120 => {
-					frames: [120, 121, 136, 137, 152, 153], columns: 2, type: 'potato_cabinet', hitbox: [0, 70, 45, 26]
+					frames: [120, 121, 136, 137], columns: 2, type: 'potato_cabinet', hitbox: [0, 36, 45, 26]
+				},
+				122 => {
+					frames: [122, 123, 138, 139], columns: 2, type: 'solid', hitbox: [13, 10, 38, 54]
+				},
+				124 => {
+					frames: [124, 125, 140, 141], columns: 2, type: 'solid', hitbox: [13, 10, 38, 54]
+				},
+				126 => {
+					frames: [126], columns: 1, type: 'solid', hitbox: [6, 13, 26, 19]
 				}
 			]
 		];

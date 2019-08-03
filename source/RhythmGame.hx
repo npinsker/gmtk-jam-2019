@@ -52,7 +52,7 @@ class RhythmGame extends ArcadeCabinet {
 		SoundManager.playMusic('island');
 		
 		scoreDisplay = new LocalWrapper<FlxText>(new FlxText());
-		scoreDisplay.xy = [20, 5];
+		scoreDisplay.xy = [25, -8];
 		scoreDisplay._sprite.color = FlxColor.BLACK;
 		scoreDisplay._sprite.font = 'assets/data/m3x6.ttf';
 		scoreDisplay._sprite.size = 64;
