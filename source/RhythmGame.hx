@@ -28,7 +28,6 @@ class RhythmGame extends ArcadeCabinet {
 	
 	public var noteSprites:Array<LocalSpriteWrapper>;
 	
-	public var playing:Bool = false;
 	public var score:Int;
 	public var maxScore:Int;
 	public var scoreDisplay:LocalWrapper<FlxText>;
@@ -42,11 +41,6 @@ class RhythmGame extends ArcadeCabinet {
 		backgroundLayer.add(background);
 		
 		noteSprites = [];
-		
-		highScoreTable = new ArcadeCabinet.HighScoreTable(
-			["Kot", "Pup", "Borby", "Jurgz", "Swang"],
-			[999000, 910000, 855160, 123230, 55000]
-		);
 	}
 	
 	public function startGame() {
@@ -66,16 +60,16 @@ class RhythmGame extends ArcadeCabinet {
 		scoreDisplay._sprite.color = FlxColor.BLACK;
 		scoreDisplay._sprite.size = 64;
 		scoreDisplay._sprite.text = renderScore();
-		add(scoreDisplay);
+		mainLayer.add(scoreDisplay);
 
 		reticle = new FlxLocalSprite();
 		reticle.loadGraphic(tiles.getTile(1));
 		reticle.xy = [25, 160 - reticle.height/2];
-		add(reticle);
+		mainLayer.add(reticle);
 
 		for (note in notes) {
 			var s:LocalSpriteWrapper = LocalWrapper.fromGraphic(tiles.getTile(0));
-			add(s);
+			mainLayer.add(s);
 			noteSprites.push(s);
 			clipSprites.push(s);
 			s.y = reticle.y;
@@ -83,7 +77,7 @@ class RhythmGame extends ArcadeCabinet {
 		
 		var beat = (FlxG.sound.music.time / 1000 + OFFSET) / 60 * BPM;
 		setNotePositions(beat);
-		playing = true;
+		phase = 1;
 	}
 	
 	public function handleTap():Void {
@@ -119,22 +113,37 @@ class RhythmGame extends ArcadeCabinet {
 		}
 	}
 	
+	public function getRealScore() {
+		return Std.int(Math.round(score / maxScore * 1000000 / 10) * 10 + 0.5);
+	}
+	
 	public function renderScore() {
-		var rawScore:Float = score / maxScore * 1000000;
-		var displayScore:Int = Std.int(Math.round(rawScore / 10) * 10 + 0.5);
-		return "Score: " + displayScore;
+		return Std.string(getRealScore());
 	}
 	
 	public function finishGame() {
+		phase = 2;
 		backgroundLayer.remove(background);
-		background = LocalWrapper.fromGraphic(new BitmapData(320, 320, false, 0xFF000000));
+		background = LocalWrapper.fromGraphic(new BitmapData(width, height, false, 0xFF000000));
 		backgroundLayer.add(background);
 		
-		remove(scoreDisplay);
-		remove(reticle);
+		var idx = PlayerData.instance.highScores.get('rhythm').add(Constants.PLAYER_NAME, getRealScore());
+		
+		for (note in noteSprites) {
+			mainLayer.remove(note);
+		}
 
-		var table = renderHighScores();
+		mainLayer.remove(scoreDisplay);
+		mainLayer.remove(reticle);
+
+		var table = ArcadeCabinet.renderHighScores('rhythm');
 		mainLayer.add(table);
+		if (idx < table.children.length) {
+			var nameField:LocalWrapper<FlxText> = cast table.children[idx].children[0];
+			var scoreField:LocalWrapper<FlxText> = cast table.children[idx].children[1];
+			nameField._sprite.color = new FlxColor(0xFF6600);
+			scoreField._sprite.color = new FlxColor(0xFFAA00);
+		}
 		table.xy = [width/2 - table.width/2, height/2 - table.height/2];
 	}
 	
@@ -146,10 +155,12 @@ class RhythmGame extends ArcadeCabinet {
 
 	override public function handleInput():Void {
 		if (InputController.justPressed(CONFIRM)) {
-			if (!playing) {
+			if (phase == 0) {
 				startGame();
-			} else {
+			} else if (phase == 1) {
 				handleTap();
+			} else {
+				closeCallback();
 			}
 		}
 		if (InputController.justPressed(CANCEL)) {
@@ -165,7 +176,7 @@ class RhythmGame extends ArcadeCabinet {
 	}
 	
 	override public function update(elapsed:Float):Void {
-		if (playing) {
+		if (phase == 1) {
 			var beat = (FlxG.sound.music.time / 1000 + OFFSET) / 60 * BPM;
 			setNotePositions(beat);
 		}

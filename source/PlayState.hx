@@ -150,6 +150,8 @@ class PlayState extends FlxState {
 					});
 					foregroundLayer.add(dialogBox);
 					focus.push(dialogBox);
+					
+					dialogBox.y = FlxG.height - dialogBox.height;
 				}
 			}
 		}

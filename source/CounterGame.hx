@@ -9,6 +9,7 @@ import nova.input.InputController;
 import nova.render.FlxLocalSprite;
 import nova.render.TiledBitmapData;
 import nova.utils.BitmapDataUtils;
+import openfl.display.BitmapData;
 
 using nova.animation.Director;
 
@@ -17,12 +18,13 @@ class CounterGame extends ArcadeCabinet {
 	
 	public var noteSprites:Array<FlxLocalSprite>;
 	
-	public var phase:Int = 0;
-	public var score:Float = 0;
+	public var score:Int = 0;
+	public var round:Int = 1;
 	public var wonRound:Bool = false;
 	public var correctNumber:Int;
 	public var remaining:Int;
 	public var guessed:Int;
+	public var duckyGfx:LocalSpriteWrapper;
 	public var guessedText:LocalWrapper<FlxText>;
 	public var trueText:LocalWrapper<FlxText>;
 	
@@ -51,34 +53,57 @@ class CounterGame extends ArcadeCabinet {
 		phase = 1;
 		guessed = 0;
 		guessedText = Utilities.createText();
-		guessedText._sprite.size = 36;
+		guessedText._sprite.color = FlxColor.BLACK;
+		guessedText._sprite.size = 54;
 		guessedText._sprite.text = "0";
+		guessedText.xy = [34, 8];
 		mainLayer.add(guessedText);
 		
-		correctNumber = Std.int(25 + Math.random() * 15);
+		duckyGfx = LocalWrapper.fromGraphic(tiles.getTile(17));
+		duckyGfx.xy = [-9, -5];
+		mainLayer.add(duckyGfx);
+		
+		correctNumber = Std.int(6 + 2 * round + Math.random() * (8 + 2 * round));
 		remaining = correctNumber;
 		addPotato();
 	}
 	
 	public function addPotato() {
 		remaining -= 1;
-		var potato:LocalSpriteWrapper = LocalWrapper.fromGraphic(tiles.stitchTiles([5, 6]), {
+		var bd:BitmapData = tiles.stitchTiles([5, 6]);
+		var destinationX:Float = Std.int(this.width) + 30;
+		var flipping:Bool = (round >= 4 && Math.random() < 0.4);
+
+		if (flipping) {
+			bd = BitmapDataUtils.flip(bd, "|");
+		}
+		var potato:LocalSpriteWrapper = LocalWrapper.fromGraphic(bd, {
 			animation: [0, 1],
 			frameRate: 3,
 		});
+
 		clipSprites.push(potato);
 		mainLayer.add(potato);
 		potato.x = -30 - potato.width;
-		potato.y = Math.random() * 204 + 30 - potato.height / 2;
-		Director.moveTo(potato, [Std.int(this.width) + 30, Std.int(Math.random() * 204 + 30 - potato.height / 2)], Std.int(360 + Math.random() * 25)).call(function() {
+		potato.y = Math.random() * 184 + 40 - potato.height / 2;
+
+		if (flipping) {
+			var tmp = destinationX;
+			destinationX = potato.x;
+			potato.x = tmp;
+		}
+
+		Director.moveTo(potato, [Std.int(destinationX), Std.int(Math.random() * 184 + 40 - potato.height / 2)], Std.int(320 + Math.random() * 100 - (round < 15 ? 10 * round : 150))).call(function() {
 			clipSprites.remove(potato);
 			mainLayer.remove(potato);
 		});
 		
 		if (remaining > 0) {
-			Director.wait(Std.int(15 + 10 * Math.random())).call(function() { addPotato(); });
+			var spread = 30 - (round < 8 ? 2 * round : 16);
+			var waitTime:Int = Std.int(60 + spread * Math.random() - (round < 14 ? 2 * round : 28) - (round < 3 ? 10 * round : 30));
+			Director.wait(waitTime < 2 ? 2 : waitTime).call(function() { addPotato(); });
 		} else {
-			Director.wait(360).call(function() {
+			Director.wait(420).call(function() {
 				endCounterPhase();
 			});
 		}
@@ -87,37 +112,84 @@ class CounterGame extends ArcadeCabinet {
 	public function endCounterPhase() {
 		wonRound = (guessed == correctNumber);
 		mainLayer.remove(guessedText);
-		phase = 2;
+		phase = -1;
 		
-		guessedText._sprite.size = 96;
+		if (wonRound) {
+			score += correctNumber;
+		}
 		
-		trueText = new LocalWrapper<FlxText>(new FlxText());
-		trueText._sprite.size = 96;
-		trueText._sprite.font = 'assets/data/m3x6.ttf';
-		trueText._sprite.text = Std.string(correctNumber);
+		Director.wait(60).call(function() {
+			guessedText._sprite.size = 96;
+			guessedText.x = 100;
+			mainLayer.add(guessedText);
+		});
 		
-		mainLayer.add(guessedText);
-		mainLayer.add(trueText);
-		
-		guessedText.x = 100;
-		trueText.x = this.width - 100 - trueText._sprite.textField.textWidth;
+		Director.wait(120).call(function() {
+			trueText = Utilities.createText();
+			trueText._sprite.size = 96;
+			trueText._sprite.text = Std.string(correctNumber);
+			trueText._sprite.color = FlxColor.BLACK;
+			
+			mainLayer.add(trueText);
+			
+			trueText.x = this.width - 100 - trueText._sprite.textField.textWidth;
+		});
+		Director.wait(180).call(function() {
+			var roundStatus:LocalSpriteWrapper;
+			if (wonRound) {
+				roundStatus = LocalWrapper.fromGraphic(tiles.stitchTiles([15]));
+			} else {
+				roundStatus = LocalWrapper.fromGraphic(tiles.stitchTiles([16]));
+			}
+			mainLayer.add(roundStatus);
+			
+			roundStatus.x = width / 2 - roundStatus.width / 2;
+			roundStatus.y = height - 80;
+			
+			phase = 2;
+		});
 	}
 
 	public function handleTap():Void {
 		guessed += 1;
 		guessedText._sprite.text = Std.string(guessed);
+		Director.jumpInArc(duckyGfx, 8, 4).jumpInArc(3, 3);
 		Director.jumpInArc(guessedText, 8, 4).jumpInArc(3, 3);
 	}
 
 	public function handleAdvanceRound():Void {
 		phase = 1;
+		var children = mainLayer.children.slice(0);
+		for (child in children) {
+			mainLayer.remove(child);
+		}
 		if (wonRound) {
-			mainLayer.remove(guessedText);
-			mainLayer.remove(trueText);
+			round += 1;
 			startGame();
 		} else {
-			closeCallback();
+			phase = 3;
+			finishGame();
 		}
+	}
+
+	public function finishGame() {
+		phase = 3;
+		var children = mainLayer.children.slice(0);
+		for (child in children) {
+			mainLayer.remove(child);
+		}
+		
+		var idx = PlayerData.instance.highScores.get('ducky').add(Constants.PLAYER_NAME, score);
+
+		var table = ArcadeCabinet.renderHighScores('ducky', FlxColor.BLACK);
+		mainLayer.add(table);
+		if (idx < table.children.length) {
+			var nameField:LocalWrapper<FlxText> = cast table.children[idx].children[0];
+			var scoreField:LocalWrapper<FlxText> = cast table.children[idx].children[1];
+			nameField._sprite.color = new FlxColor(0xFF6600);
+			scoreField._sprite.color = new FlxColor(0xFFAA00);
+		}
+		table.xy = [width/2 - table.width/2, height/2 - table.height/2];
 	}
 
 	override public function handleInput():Void {
@@ -128,6 +200,8 @@ class CounterGame extends ArcadeCabinet {
 				handleTap();
 			} else if (phase == 2) {
 				handleAdvanceRound();
+			} else if (phase == 3) {
+				closeCallback();
 			}
 		}
 		if (InputController.justPressed(CANCEL)) {

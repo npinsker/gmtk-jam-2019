@@ -26,7 +26,7 @@ jump end
 DIALOG sorting_cabinet
 
 choice_box:
-  "Want to play Color Match?"
+  "Want to play Fruit Sorter?"
   > "Yes" yes
   > "No" end
 
@@ -76,7 +76,7 @@ choice_box:
   o "Help with specific game?"
   > "Rhythm Tappo" tappo
   > "Ducky Counter" ducky
-  > "Color Match" match
+  > "Fruit Sorter" sorter
   > "Never mind" end
 
 label tappo:
@@ -90,6 +90,6 @@ o "Tap button to increase count."
 jump instructions2
 
 label sorter:
-o "Red and blue robot come down belt."
-o "Switch color of light to match robot color."
+o "Red and blue fruit come down belt."
+o "Switch color of light to match fruit color."
 jump instructions2
