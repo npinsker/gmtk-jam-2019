@@ -26,9 +26,17 @@ class CounterGame extends FlxLocalSprite implements Focusable {
 	
 	public var sprites:Array<LocalSpriteWrapper>;
 	
+	public var mainLayer:FlxLocalSprite;
+	public var foregroundLayer:FlxLocalSprite;
+	
 	public var background:FlxLocalSprite;
 	public function new() {
 		super();
+		
+		mainLayer = new FlxLocalSprite();
+		foregroundLayer = new FlxLocalSprite();
+		add(mainLayer);
+		add(foregroundLayer);
 		
 		this.width = 320;
 		this.height = 320;
@@ -37,17 +45,23 @@ class CounterGame extends FlxLocalSprite implements Focusable {
 			return BitmapDataUtils.scaleFn(4, 4)(b);
 		});
 		
-		background = LocalWrapper.fromGraphic('assets/images/counter_splash.png', {
+		background = LocalWrapper.fromGraphic('assets/images/rhythm_splash.png', {
 			'scale': [4, 4],
 		});
-		add(background);
+		mainLayer.add(background);
+		
+		var cabinetShell = LocalWrapper.fromGraphic('assets/images/rhythm_cabinet_shell.png', {
+			'scale': [4, 4],
+		});
+		foregroundLayer.add(cabinetShell);
+		cabinetShell.xy = [ -40, -80];
 		
 		noteSprites = [];
 		sprites = [];
 	}
 	
 	public function startGame() {
-		remove(background);
+		mainLayer.remove(background);
 		
 		playing = true;
 		
@@ -63,12 +77,12 @@ class CounterGame extends FlxLocalSprite implements Focusable {
 			frameRate: 3,
 		});
 		sprites.push(potato);
-		add(potato);
+		mainLayer.add(potato);
 		potato.x = -30 - potato.width;
 		potato.y = Math.random() * 380 + 50 - potato.height / 2;
 		Director.moveTo(potato, [320 + 30, Std.int(Math.random() * 380 + 50 - potato.height / 2)], Std.int(60 + Math.random() * 25)).call(function() {
 			sprites.remove(potato);
-			remove(potato);
+			mainLayer.remove(potato);
 		});
 		
 		if (remaining > 0) {
@@ -99,5 +113,13 @@ class CounterGame extends FlxLocalSprite implements Focusable {
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
+		
+		for (sprite in sprites) {
+			var left:Float = Math.max(0, -sprite.x);
+			var right:Float = Math.min(320 - sprite.width, sprite.x);
+			var up:Float = Math.max(0, -sprite.y);
+			var down:Float = Math.min(320 - sprite.height, sprite.y);
+			sprite._sprite.clipRect.set(left, up, right - left, down - up);
+		}
 	}
 }

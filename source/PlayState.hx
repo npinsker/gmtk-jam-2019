@@ -130,6 +130,7 @@ class PlayState extends FlxState {
 	}
 	
 	public function emitCallback(emitString:String):Void {
+		trace(emitString);
 		if (emitString == 'play_rhythm') {
 			var rg:RhythmGame = new RhythmGame();
 			foregroundLayer.add(rg);
@@ -137,14 +138,16 @@ class PlayState extends FlxState {
 			focus.push(rg);
 			Director.moveBy(rg, [0, 20], 20);
 			Director.fadeIn(rg, 20);
+			return;
 		}
-		if (emitString == 'play_counter') {
+		else if (emitString == 'play_counter') {
 			var cg:CounterGame = new CounterGame();
 			foregroundLayer.add(cg);
 			cg.xy = [FlxG.width / 2 - cg.width / 2, FlxG.height / 2 - cg.height / 2 - 20];
 			focus.push(cg);
 			Director.moveBy(cg, [0, 20], 20);
 			Director.fadeIn(cg, 20);
+			return;
 		}
 	}
 
