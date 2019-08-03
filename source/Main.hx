@@ -20,5 +20,7 @@ class Main extends Sprite {
 		InputController.addKeyMapping(DOWN, DOWN);
 		
 		InputController.addKeyMapping(SPACE, CONFIRM);
+		InputController.addKeyMapping(BACKSPACE, CANCEL);
+		InputController.addKeyMapping(ESCAPE, CANCEL);
 	}
 }

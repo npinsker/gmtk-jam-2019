@@ -17,31 +17,44 @@ class CounterGame extends ArcadeCabinet {
 	
 	public var noteSprites:Array<FlxLocalSprite>;
 	
-	public var playing:Bool = false;
+	public var phase:Int = 0;
 	public var score:Float = 0;
-	public var scoreDisplay:LocalWrapper<FlxText>;
+	public var wonRound:Bool = false;
 	public var correctNumber:Int;
 	public var remaining:Int;
+	public var guessed:Int;
+	public var guessedText:LocalWrapper<FlxText>;
+	public var trueText:LocalWrapper<FlxText>;
 	
 	public var sprites:Array<LocalSpriteWrapper>;
 	
 	public var background:FlxLocalSprite;
-	public function new() {
-		super('assets/images/rhythm_cabinet_shell.png', [10, 20]);
+	public function new(callback:Void -> Void) {
+		super('assets/images/rhythm_cabinet_shell.png', [10, 20], callback);
 		
 		background = LocalWrapper.fromGraphic('assets/images/counter_splash.png', {
 			'scale': [4, 4],
 		});
-		mainLayer.add(background);
+		backgroundLayer.add(background);
 		
 		noteSprites = [];
 		sprites = [];
 	}
 	
 	public function startGame() {
-		mainLayer.remove(background);
+		backgroundLayer.remove(background);
+		background = LocalWrapper.fromGraphic('assets/images/counter_bg.png', {
+			'scale': [4, 4],
+		});
+		backgroundLayer.add(background);
 		
-		playing = true;
+		phase = 1;
+		guessed = 0;
+		guessedText = new LocalWrapper<FlxText>(new FlxText());
+		guessedText._sprite.size = 36;
+		guessedText._sprite.font = 'assets/data/m3x6.ttf';
+		guessedText._sprite.text = "0";
+		mainLayer.add(guessedText);
 		
 		correctNumber = Std.int(25 + Math.random() * 15);
 		remaining = correctNumber;
@@ -66,26 +79,60 @@ class CounterGame extends ArcadeCabinet {
 		if (remaining > 0) {
 			Director.wait(Std.int(15 + 10 * Math.random())).call(function() { addPotato(); });
 		} else {
-			Director.wait(60).call(function() {
+			Director.wait(360).call(function() {
 				endCounterPhase();
 			});
 		}
 	}
 	
 	public function endCounterPhase() {
+		wonRound = (guessed == correctNumber);
+		mainLayer.remove(guessedText);
+		phase = 2;
 		
+		guessedText._sprite.size = 96;
+		
+		trueText = new LocalWrapper<FlxText>(new FlxText());
+		trueText._sprite.size = 96;
+		trueText._sprite.font = 'assets/data/m3x6.ttf';
+		trueText._sprite.text = Std.string(correctNumber);
+		
+		mainLayer.add(guessedText);
+		mainLayer.add(trueText);
+		
+		guessedText.x = 100;
+		trueText.x = 320 - 100 - trueText._sprite.textField.textWidth;
 	}
 
 	public function handleTap():Void {
+		guessed += 1;
+		guessedText._sprite.text = Std.string(guessed);
+		Director.jumpInArc(guessedText, 8, 4).jumpInArc(3, 3);
+	}
+
+	public function handleAdvanceRound():Void {
+		phase = 1;
+		if (wonRound) {
+			mainLayer.remove(guessedText);
+			mainLayer.remove(trueText);
+			startGame();
+		} else {
+			closeCallback();
+		}
 	}
 
 	override public function handleInput():Void {
 		if (InputController.justPressed(CONFIRM)) {
-			if (!playing) {
+			if (phase == 0) {
 				startGame();
-			} else {
+			} else if (phase == 1) {
 				handleTap();
+			} else if (phase == 2) {
+				handleAdvanceRound();
 			}
+		}
+		if (InputController.justPressed(CANCEL)) {
+			closeCallback();
 		}
 	}
 

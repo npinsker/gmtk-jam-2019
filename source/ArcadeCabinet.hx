@@ -8,20 +8,25 @@ import nova.utils.BitmapDataUtils;
 import nova.utils.Pair;
 
 class ArcadeCabinet extends FlxLocalSprite implements Focusable {
+	public var backgroundLayer:FlxLocalSprite;
 	public var mainLayer:FlxLocalSprite;
 	public var foregroundLayer:FlxLocalSprite;
+	public var closeCallback:Void -> Void;
 	
 	public var tiles:TiledBitmapData;
 	public var clipSprites:Array<LocalSpriteWrapper>;
 
-	public function new(cabinetImage:String = null, cabinetOffset:Pair<Int> = null) {
+	public function new(cabinetImage:String = null, cabinetOffset:Pair<Int> = null, callback: Void -> Void) {
 		super();
 		
+		backgroundLayer = new FlxLocalSprite();
 		mainLayer = new FlxLocalSprite();
 		foregroundLayer = new FlxLocalSprite();
+		add(backgroundLayer);
 		add(mainLayer);
 		add(foregroundLayer);
 		
+		this.closeCallback = callback;
 		this.width = 320;
 		this.height = 320;
 		this.clipSprites = [];

@@ -190,7 +190,7 @@ class PlayState extends FlxState {
 	
 	public function emitCallback(emitString:String):Void {
 		if (emitString == 'play_rhythm') {
-			var rg:RhythmGame = new RhythmGame();
+			var rg:RhythmGame = new RhythmGame(closeCallback);
 			foregroundLayer.add(rg);
 			rg.xy = [FlxG.width / 2 - rg.width / 2, FlxG.height / 2 - rg.height / 2 - 20];
 			focus.push(rg);
@@ -199,7 +199,7 @@ class PlayState extends FlxState {
 			return;
 		}
 		else if (emitString == 'play_counter') {
-			var cg:CounterGame = new CounterGame();
+			var cg:CounterGame = new CounterGame(closeCallback);
 			foregroundLayer.add(cg);
 			cg.xy = [FlxG.width / 2 - cg.width / 2, FlxG.height / 2 - cg.height / 2 - 20];
 			focus.push(cg);
@@ -207,6 +207,12 @@ class PlayState extends FlxState {
 			Director.fadeIn(cg, 20);
 			return;
 		}
+	}
+	
+	public function closeCallback() {
+		var sp:FlxSprite = cast focus.last();
+		foregroundLayer.remove(sp);
+		focus.pop();
 	}
 	
 	public function addEntitiesFromTiled(map:TiledMap, objectLoader:TiledObjectLoader) {

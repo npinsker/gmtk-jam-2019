@@ -32,30 +32,36 @@ class RhythmGame extends ArcadeCabinet {
 	public var scoreDisplay:LocalWrapper<FlxText>;
 	
 	public var background:FlxLocalSprite;
-	public function new() {
-		super('assets/images/rhythm_cabinet_shell.png', [10, 20]);
+	public function new(callback:Void -> Void) {
+		super('assets/images/rhythm_cabinet_shell.png', [10, 20], callback);
 		background = LocalWrapper.fromGraphic('assets/images/rhythm_splash.png', {
 			'scale': [4, 4],
 		});
-		add(background);
+		backgroundLayer.add(background);
 		
 		noteSprites = [];
 	}
 	
 	public function startGame() {
-		remove(background);
+		backgroundLayer.remove(background);
+		background = LocalWrapper.fromGraphic('assets/images/rhythm_bg.png', {
+			'scale': [4, 4],
+		});
+		backgroundLayer.add(background);
+		
 		SoundManager.playMusic('island');
 		
 		scoreDisplay = new LocalWrapper<FlxText>(new FlxText());
-		scoreDisplay.color = FlxColor.WHITE;
-		scoreDisplay.xy = [40, 40];
-		scoreDisplay._sprite.size = 36;
+		scoreDisplay.xy = [20, 5];
+		scoreDisplay._sprite.color = FlxColor.BLACK;
+		scoreDisplay._sprite.font = 'assets/data/m3x6.ttf';
+		scoreDisplay._sprite.size = 64;
 		scoreDisplay._sprite.text = "Score: " + score;
 		add(scoreDisplay);
 
 		reticle = new FlxLocalSprite();
 		reticle.loadGraphic(tiles.getTile(1));
-		reticle.xy = [80, 160];
+		reticle.xy = [25, 160 - reticle.height/2];
 		add(reticle);
 
 		for (note in notes) {
@@ -117,6 +123,9 @@ class RhythmGame extends ArcadeCabinet {
 			} else {
 				handleTap();
 			}
+		}
+		if (InputController.justPressed(CANCEL)) {
+			closeCallback();
 		}
 	}
 	

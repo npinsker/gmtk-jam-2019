@@ -4,7 +4,6 @@ import nova.ui.dialog.DialogBox;
 import nova.ui.dialog.DialogBoxAddons;
 import nova.ui.dialog.DialogBoxFactory;
 import nova.utils.BitmapDataUtils;
-import openfl.Assets;
 
 class Constants {
 	public static var instance:Constants = new Constants();
@@ -21,6 +20,9 @@ class Constants {
 				},
 				77 => {
 					frames: [77, 78, 93, 94, 109, 110], columns: 2, type: 'fishing_cabinet', hitbox: [0, 70, 48, 26]
+				},
+				120 => {
+					frames: [120, 121, 136, 137, 152, 153], columns: 2, type: 'potato_cabinet', hitbox: [0, 70, 45, 26]
 				}
 			]
 		];
