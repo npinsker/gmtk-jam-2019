@@ -79,7 +79,8 @@ class PlayState extends FlxState {
 		if (InputController.justPressed(CONFIRM)) {
 			if (speakTarget != -1) {
 				dialogBox = Constants.instance.dbf.create(
-				["choice_box:", "  \"Hey! Want to play DDR?\"", "  > \"Yes\" yes", "  > \"No\" end", "label yes:", "emit \"play_rhythm\"", "jump end"],
+				["choice_box:", "  \"Hey! Want to play something?\"", "  > \"DDR\" ddr", "  > \"Potato Counter\" count", "  > \"No\" end", "label ddr:", "emit \"play_rhythm\"", "jump end",
+				"label count:", "emit \"play_counter\"", "jump end"],
 				{
 					emitCallback: this.emitCallback,
 					callback: this.dialogCallback,
@@ -136,6 +137,14 @@ class PlayState extends FlxState {
 			focus.push(rg);
 			Director.moveBy(rg, [0, 20], 20);
 			Director.fadeIn(rg, 20);
+		}
+		if (emitString == 'play_counter') {
+			var cg:CounterGame = new CounterGame();
+			foregroundLayer.add(cg);
+			cg.xy = [FlxG.width / 2 - cg.width / 2, FlxG.height / 2 - cg.height / 2 - 20];
+			focus.push(cg);
+			Director.moveBy(cg, [0, 20], 20);
+			Director.fadeIn(cg, 20);
 		}
 	}
 
