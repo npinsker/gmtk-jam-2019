@@ -1,9 +1,13 @@
 package;
 
+import flixel.FlxSprite;
 import flixel.math.FlxRect;
 import flixel.util.FlxColor;
+import nova.animation.AnimationSet;
 import nova.render.FlxLocalSprite;
 import nova.utils.Pair;
+import openfl.display.BitmapData;
+import openfl.display.Sprite;
 
 enum Direction {
 	LEFT;
@@ -20,14 +24,36 @@ class Entity extends FlxLocalSprite {
 	
 	public var scratch:Dynamic = {};
 	public var facingDir:Direction;
+	public var spriteRef:FlxSprite = null;
 
-	public function new() {
+	public function new(?bitmapData:BitmapData, ?animationSet:AnimationSet) {
 		super();
-		
-		this.makeGraphic(32, 32, FlxColor.BLUE);
-		_internal_hitbox = new FlxRect(0, 8, 32, 24);
-		
 		id = __next_id++;
+		
+		if (bitmapData == null) {
+			this.makeGraphic(32, 32, FlxColor.BLUE);
+			_internal_hitbox = new FlxRect(0, 8, 32, 24);
+			return;
+		}
+		
+		if (animationSet == null) {
+			var newSprite:LocalSpriteWrapper = LocalSpriteWrapper.fromGraphic(bitmapData);
+			spriteRef = newSprite._sprite;
+			add(newSprite);
+			return;
+		}
+		
+		var newSprite:LocalSpriteWrapper = LocalSpriteWrapper.fromGraphic(bitmapData, {
+			frameSize: [animationSet.spriteSize.x, animationSet.spriteSize.y]
+		});
+		width = newSprite.width;
+		height = newSprite.height;
+		animationSet.addToFlxSprite(newSprite._sprite);
+		if (animationSet.names().indexOf('stand') != -1) {
+			newSprite._sprite.animation.play('stand');
+		}
+		spriteRef = newSprite._sprite;
+		add(newSprite);
 	}
 	
 	public var hitbox(get, null):FlxRect;
@@ -46,6 +72,14 @@ class Entity extends FlxLocalSprite {
 		if (facingDir == UP) return [ 0, -1];
 		if (facingDir == DOWN) return [ 0, 1];
 		return [0, 0];
+	}
+
+	public function getDirectionString():String {
+		if (facingDir == LEFT) return 'l';
+		if (facingDir == RIGHT) return 'r';
+		if (facingDir == UP) return 'u';
+		if (facingDir == DOWN) return 'd';
+		return null;
 	}
 	
 	public static function getNextID():Int {

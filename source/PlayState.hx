@@ -6,12 +6,15 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
+import nova.animation.AnimationSet;
 import nova.animation.Director;
 import nova.input.Focusable;
 import nova.input.InputController;
 import nova.render.FlxLocalSprite;
+import nova.render.TiledBitmapData;
 import nova.tile.TileUtils;
 import nova.ui.dialog.DialogBox;
+import openfl.display.BitmapData;
 
 class PlayState extends FlxState {
 	var TILE_WIDTH:Int = 32;
@@ -23,6 +26,7 @@ class PlayState extends FlxState {
 	
 	var entityLayer:FlxLocalSprite;
 	var foregroundLayer:FlxLocalSprite;
+	var tileAccessor:TiledBitmapData;
 	
 	var focus:Array<Focusable>;
 	var dialogBox:DialogBox;
@@ -33,9 +37,19 @@ class PlayState extends FlxState {
 		
 		entityLayer = new FlxLocalSprite();
 		add(entityLayer);
+		
+		tileAccessor = new TiledBitmapData('assets/images/test.png', 32, 32);
 
-		p = new Entity();
-		p.makeGraphic(32, 32, flixel.util.FlxColor.RED);
+		var playerBitmap:BitmapData = tileAccessor.stitchTiles([96, 97, 98, 99, 112, 113, 114, 115, 128, 129, 130, 131]);
+		var as:AnimationSet = new AnimationSet([32, 32], [
+			new AnimationFrames('stand', [0, 1], 3),
+			new AnimationFrames('d', [2, 3], 4),
+			new AnimationFrames('l', [4, 5], 4),
+			new AnimationFrames('r', [6, 7], 4),
+			new AnimationFrames('u', [10, 11], 4),
+		]);
+		p = new Entity(playerBitmap, as);
+		p._internal_hitbox = new FlxRect(1, 24, 16, 7);
 		entityLayer.add(p);
 		
 		entities = [];
@@ -54,11 +68,15 @@ class PlayState extends FlxState {
 	}
 	
 	public function handleInput() {
+		var triedToMove:Bool = false;
+		
 		if (InputController.pressed(LEFT)) {
 			p.x -= 4;
+			triedToMove = true;
 			p.facingDir = Entity.Direction.LEFT;
 		} else if (InputController.pressed(RIGHT)) {
 			p.x += 4;
+			triedToMove = true;
 			p.facingDir = Entity.Direction.RIGHT;
 		}
 		
@@ -67,14 +85,20 @@ class PlayState extends FlxState {
 		
 		if (InputController.pressed(UP)) {
 			p.y -= 4;
+			triedToMove = true;
 			p.facingDir = Entity.Direction.UP;
 		} else if (InputController.pressed(DOWN)) {
 			p.y += 4;
+			triedToMove = true;
 			p.facingDir = Entity.Direction.DOWN;
 		}
 		
 		amt = TileUtils.verticalNudgeOutOfObjects(entities.map(function(k) { return k.hitbox; }), p.hitbox);
 		p.y += amt;
+
+		if (triedToMove) {
+			p.spriteRef.animation.play(p.getDirectionString());
+		}
 		
 		if (InputController.justPressed(CONFIRM)) {
 			if (speakTarget != -1) {
@@ -130,6 +154,7 @@ class PlayState extends FlxState {
 	}
 	
 	public function emitCallback(emitString:String):Void {
+		trace(emitString);
 		if (emitString == 'play_rhythm') {
 			var rg:RhythmGame = new RhythmGame();
 			foregroundLayer.add(rg);
@@ -137,14 +162,16 @@ class PlayState extends FlxState {
 			focus.push(rg);
 			Director.moveBy(rg, [0, 20], 20);
 			Director.fadeIn(rg, 20);
+			return;
 		}
-		if (emitString == 'play_counter') {
+		else if (emitString == 'play_counter') {
 			var cg:CounterGame = new CounterGame();
 			foregroundLayer.add(cg);
 			cg.xy = [FlxG.width / 2 - cg.width / 2, FlxG.height / 2 - cg.height / 2 - 20];
 			focus.push(cg);
 			Director.moveBy(cg, [0, 20], 20);
 			Director.fadeIn(cg, 20);
+			return;
 		}
 	}
 

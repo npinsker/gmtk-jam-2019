@@ -3,22 +3,17 @@ package;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import nova.input.Focusable;
 import nova.input.InputController;
 import nova.render.FlxLocalSprite;
-import nova.render.TiledBitmapData;
-import nova.utils.BitmapDataUtils;
 
 using nova.animation.Director;
 
-class RhythmGame extends FlxLocalSprite implements Focusable {
+class RhythmGame extends ArcadeCabinet {
 	public var reticle:FlxLocalSprite;
 	public var BPM:Float = 85.000;
 	public var OFFSET:Float = 0.122;
 	public var INPUT_LAG:Float = 0.01666;
-	public var SCROLL_SPEED:Float = 320.0;
-	
-	public var tiles:TiledBitmapData;
+	public var SCROLL_SPEED:Float = 240.0;
 	
 	public var notes:Array<Float> = [
 		5, 7, 9, 11, 12, 12.83333, 13, 14, 14.83333, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37,
@@ -30,7 +25,7 @@ class RhythmGame extends FlxLocalSprite implements Focusable {
 		84.5, 85.5, 86.5,
 	];
 	
-	public var noteSprites:Array<FlxLocalSprite>;
+	public var noteSprites:Array<LocalSpriteWrapper>;
 	
 	public var playing:Bool = false;
 	public var score:Float = 0;
@@ -38,15 +33,7 @@ class RhythmGame extends FlxLocalSprite implements Focusable {
 	
 	public var background:FlxLocalSprite;
 	public function new() {
-		super();
-		
-		this.width = 320;
-		this.height = 320;
-		
-		tiles = new TiledBitmapData('assets/images/arcade_tiles_16x16.png', 16, 16, function(b) {
-			return BitmapDataUtils.scaleFn(4, 4)(b);
-		});
-		
+		super('assets/images/rhythm_cabinet_shell.png', [10, 20]);
 		background = LocalWrapper.fromGraphic('assets/images/rhythm_splash.png', {
 			'scale': [4, 4],
 		});
@@ -72,10 +59,10 @@ class RhythmGame extends FlxLocalSprite implements Focusable {
 		add(reticle);
 
 		for (note in notes) {
-			var s:FlxLocalSprite = new FlxLocalSprite();
-			s.loadGraphic(tiles.getTile(0));
+			var s:LocalSpriteWrapper = LocalWrapper.fromGraphic(tiles.getTile(0));
 			add(s);
 			noteSprites.push(s);
+			clipSprites.push(s);
 			s.y = reticle.y;
 		}
 		
@@ -123,7 +110,7 @@ class RhythmGame extends FlxLocalSprite implements Focusable {
 		}
 	}
 
-	public function handleInput():Void {
+	override public function handleInput():Void {
 		if (InputController.justPressed(CONFIRM)) {
 			if (!playing) {
 				startGame();
@@ -138,5 +125,7 @@ class RhythmGame extends FlxLocalSprite implements Focusable {
 			var beat = (FlxG.sound.music.time / 1000 + OFFSET) / 60 * BPM;
 			setNotePositions(beat);
 		}
+		
+		super.update(elapsed);
 	}
 }
