@@ -43,6 +43,7 @@ class CounterGame extends ArcadeCabinet {
 		noteSprites = [];
 		sprites = [];
 		this.special = special;
+		this.special = true;
 	}
 	
 	public function startGame() {
@@ -65,7 +66,7 @@ class CounterGame extends ArcadeCabinet {
 		duckyGfx.xy = [-9, 0];
 		mainLayer.add(duckyGfx);
 		
-		correctNumber = Std.int(6 + 2 * round + Math.random() * (8 + 2 * round));
+		correctNumber = Std.int(6 + 3 * round + Math.random() * (8 + 2 * round));
 		remaining = correctNumber;
 		addPotato();
 	}
@@ -74,7 +75,7 @@ class CounterGame extends ArcadeCabinet {
 		remaining -= 1;
 		var bd:BitmapData = tiles.stitchTiles(!special ? [5, 6] : [20, 21]);
 		var destinationX:Float = Std.int(this.width) + 30;
-		var flipping:Bool = ((round >= 4 || special) && Math.random() < 0.4);
+		var flipping:Bool = ((round >= 4 || special) && Math.random() < 0.5);
 
 		if (flipping) {
 			bd = BitmapDataUtils.flip(bd, "|");
@@ -95,7 +96,7 @@ class CounterGame extends ArcadeCabinet {
 			potato.x = tmp;
 		}
 		
-		var moveFrames:Int = Std.int(320 + Math.random() * 100 - (round < 15 ? 10 * round : 150));
+		var moveFrames:Int = Std.int(250 + Math.random() * 100 - (round < 15 ? 10 * round : 150));
 		if (special && Math.random() < 0.1) {
 			moveFrames = Std.int(55 + 20 * Math.random());
 		}
@@ -107,11 +108,11 @@ class CounterGame extends ArcadeCabinet {
 		
 		if (remaining > 0) {
 			var spread = 30 - (round < 8 ? 2 * round : 16);
-			var waitTime:Int = Std.int(60 + spread * Math.random() - (round < 14 ? 2 * round : 28) - (round < 3 ? 10 * round : 30));
+			var waitTime:Int = Std.int(60 + spread * Math.random() - (round < 6 ? 4 * round : 24) - (round < 3 ? 10 * round : 30));
 			if (special) waitTime = Std.int(0.8 * waitTime);
 			Director.wait(waitTime < 2 ? 2 : waitTime).call(function() { addPotato(); });
 		} else {
-			Director.wait(420).call(function() {
+			Director.wait(350).call(function() {
 				endCounterPhase();
 			});
 		}
@@ -126,7 +127,7 @@ class CounterGame extends ArcadeCabinet {
 			score += correctNumber;
 		}
 		
-		Director.wait(60).call(function() {
+		Director.wait(45).call(function() {
 			guessedText._sprite.size = 96;
 			guessedText.x = 85;
 			mainLayer.add(guessedText);
@@ -136,7 +137,7 @@ class CounterGame extends ArcadeCabinet {
 			mainLayer.add(leftGfx);
 		});
 		
-		Director.wait(120).call(function() {
+		Director.wait(90).call(function() {
 			trueText = Utilities.createText();
 			trueText._sprite.size = 96;
 			trueText._sprite.text = Std.string(correctNumber);
@@ -152,7 +153,7 @@ class CounterGame extends ArcadeCabinet {
 			rightGfx.xy = [trueText.x + trueText.width + 38, trueText.y + 17];
 			mainLayer.add(rightGfx);
 		});
-		Director.wait(180).call(function() {
+		Director.wait(135).call(function() {
 			var roundStatus:LocalSpriteWrapper;
 			if (wonRound) {
 				roundStatus = LocalWrapper.fromGraphic(tiles.stitchTiles([15]));
