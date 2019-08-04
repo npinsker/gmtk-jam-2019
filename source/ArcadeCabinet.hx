@@ -50,6 +50,7 @@ class ArcadeCabinet extends FlxLocalSprite implements Focusable {
 	public var mainLayer:FlxLocalSprite;
 	public var foregroundLayer:FlxLocalSprite;
 	public var closeCallback:Void -> Void;
+	public var special:Bool = false;
 	
 	public var tiles:TiledBitmapData;
 	public var clipSprites:Array<LocalSpriteWrapper>;

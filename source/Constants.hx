@@ -151,7 +151,7 @@ class Constants {
 				image: 'assets/images/dialog_box1.png',
 			},
 			advanceCallback: function() {
-				SoundManager.addSound('advance', 0.75);
+				SoundManager.addSound('advance', 0.4);
 			},
 			textFormat: {
 				size: 30,
@@ -172,6 +172,11 @@ class Constants {
 			textPreprocess: function(db:DialogBox, text:String) {
 				var a:String = DialogBoxAddons.parsePercentVariables(db, text);
 				return a;
+			},
+			textAppearCallback: function(frame) {
+				if (frame % 4 == 0) {
+					SoundManager.addSound('dialog_type', 1.0, 0.6, 6);
+				}
 			}
 		});
 	}

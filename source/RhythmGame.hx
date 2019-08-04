@@ -54,7 +54,7 @@ class RhythmGame extends ArcadeCabinet {
 		FlxG.sound.music.onComplete = finishGame;
 		
 		score = 0;
-		maxScore = 3 * notes.length;
+		maxScore = 4 * notes.length;
 		scoreDisplay = Utilities.createText();
 		scoreDisplay.xy = [25, -8];
 		scoreDisplay._sprite.color = FlxColor.BLACK;
@@ -94,10 +94,10 @@ class RhythmGame extends ArcadeCabinet {
 				flash.xy = reticle.xy;
 				
 				if (distanceInFrames <= 2) {
-					score += 3;
+					score += 4;
 					flash.loadGraphic(tiles.getTile(2));
 				} else if (distanceInFrames <= 5) {
-					score += 2;
+					score += 3;
 					flash.loadGraphic(tiles.getTile(3));
 				} else {
 					score += 1;

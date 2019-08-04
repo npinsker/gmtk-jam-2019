@@ -15,16 +15,16 @@ class PlayerData {
 	public function new() {
 		highScores = [
 			'rhythm' => new ArcadeCabinet.HighScoreTable(
-				["Kot", "Pup", "Swang", "Jurgz", "Froggo"],
-				[999000, 910000, 855160, 123230, 55000]
+				["Slug*", "jun", "TAG", "Octo", "sota"],
+				[772000, 660410, 425500, 353800, 255000]
 			),
 			'ducky' => new ArcadeCabinet.HighScoreTable(
-				["Kot", "m4u5", "Swang", "Kanga", "Octo"],
-				[225, 129, 49, 22, 17]
+				["QUEEN", "lil_s", "lil_s", "Borby", "fish"],
+				[325, 129, 116, 72, 37]
 			),
 			'sorting' => new ArcadeCabinet.HighScoreTable(
-				["Kot", "AAA", "Octo", "Borby", "Kot"],
-				[83, 64, 49, 22, 17]
+				["squid", "frog", "Octo", "chaos", "AAA"],
+				[63, 54, 49, 32, 27]
 			),
 		];
 	}

@@ -23,13 +23,15 @@ class SortingGame extends ArcadeCabinet {
 	public var scoreDisplay:LocalWrapper<FlxText>;
 	
 	public var background:FlxLocalSprite;
-	public function new(callback:Void -> Void) {
+	public function new(callback:Void -> Void, ?special:Bool = false) {
 		super('assets/images/sorting_cabinet_shell.png', [320, 256], [10, 10], callback);
 		
 		background = LocalWrapper.fromGraphic('assets/images/sorting_splash.png', {
 			'scale': [4, 4],
 		});
 		backgroundLayer.add(background);
+		this.special = special;
+		this.special = true;
 	}
 	
 	public function startGame() {
@@ -64,7 +66,8 @@ class SortingGame extends ArcadeCabinet {
 	
 	public function addBot() {
 		var color = Std.int(Math.random() * 2);
-		var b:LocalSpriteWrapper = LocalWrapper.fromGraphic(tiles.getTile(Std.int(color + 7)));
+		var tile = (!special ? color + 7 : 23 - color);
+		var b:LocalSpriteWrapper = LocalWrapper.fromGraphic(tiles.getTile(tile));
 		colors.push(color);
 		mainLayer.add(b);
 		clipSprites.push(b);
@@ -103,6 +106,10 @@ class SortingGame extends ArcadeCabinet {
 
 				scoreDisplay._sprite.text = Std.string(score);
 				Director.wait(waitSpeed).call(addBot);
+				
+				if (special && Math.random() < 0.2 && clipSprites.length > 6) {
+					Director.fadeOut(clipSprites[6], moveSpeed);
+				}
 			} else {
 				endGame();
 			}

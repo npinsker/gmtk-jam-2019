@@ -54,13 +54,13 @@ class CounterGame extends ArcadeCabinet {
 		guessed = 0;
 		guessedText = Utilities.createText();
 		guessedText._sprite.color = FlxColor.BLACK;
-		guessedText._sprite.size = 54;
+		guessedText._sprite.size = 64;
 		guessedText._sprite.text = "0";
-		guessedText.xy = [34, 8];
+		guessedText.xy = [52, 3];
 		mainLayer.add(guessedText);
 		
 		duckyGfx = LocalWrapper.fromGraphic(tiles.getTile(17));
-		duckyGfx.xy = [-9, -5];
+		duckyGfx.xy = [-9, 0];
 		mainLayer.add(duckyGfx);
 		
 		correctNumber = Std.int(6 + 2 * round + Math.random() * (8 + 2 * round));
@@ -111,8 +111,12 @@ class CounterGame extends ArcadeCabinet {
 	
 	public function endCounterPhase() {
 		wonRound = (guessed == correctNumber);
-		mainLayer.remove(guessedText);
 		phase = -1;
+		
+		var children = mainLayer.children.slice(0);
+		for (child in children) {
+			mainLayer.remove(child);
+		}
 		
 		if (wonRound) {
 			score += correctNumber;
@@ -120,8 +124,12 @@ class CounterGame extends ArcadeCabinet {
 		
 		Director.wait(60).call(function() {
 			guessedText._sprite.size = 96;
-			guessedText.x = 100;
+			guessedText.x = 85;
 			mainLayer.add(guessedText);
+			
+			var leftGfx = LocalWrapper.fromGraphic(tiles.getTile(17));
+			leftGfx.xy = [guessedText.x - leftGfx.width - 2, 17];
+			mainLayer.add(leftGfx);
 		});
 		
 		Director.wait(120).call(function() {
@@ -129,10 +137,16 @@ class CounterGame extends ArcadeCabinet {
 			trueText._sprite.size = 96;
 			trueText._sprite.text = Std.string(correctNumber);
 			trueText._sprite.color = FlxColor.BLACK;
+			trueText.y = guessedText.y;
 			
 			mainLayer.add(trueText);
 			
-			trueText.x = this.width - 100 - trueText._sprite.textField.textWidth;
+			trueText.x = this.width - 85 - trueText._sprite.textField.textWidth;
+			trueText._sprite.alignment = RIGHT;
+			
+			var rightGfx = LocalWrapper.fromGraphic(tiles.getTile(5));
+			rightGfx.xy = [trueText.x + trueText.width + 38, trueText.y + 17];
+			mainLayer.add(rightGfx);
 		});
 		Director.wait(180).call(function() {
 			var roundStatus:LocalSpriteWrapper;
@@ -155,6 +169,7 @@ class CounterGame extends ArcadeCabinet {
 		guessedText._sprite.text = Std.string(guessed);
 		Director.jumpInArc(duckyGfx, 8, 4).jumpInArc(3, 3);
 		Director.jumpInArc(guessedText, 8, 4).jumpInArc(3, 3);
+		SoundManager.addSound('increment', 0.8, 0.75, 6);
 	}
 
 	public function handleAdvanceRound():Void {

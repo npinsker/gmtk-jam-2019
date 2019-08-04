@@ -151,6 +151,7 @@ class PlayState extends FlxState {
 					});
 					foregroundLayer.add(dialogBox);
 					focus.push(dialogBox);
+					SoundManager.addSound('advance', 0.4);
 					
 					dialogBox.y = FlxG.height - dialogBox.height;
 				}
