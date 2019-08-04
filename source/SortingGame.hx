@@ -31,7 +31,6 @@ class SortingGame extends ArcadeCabinet {
 		name = 'sorting';
 		backgroundLayer.add(background);
 		this.special = special;
-		this.special = true;
 	}
 	
 	public function startGame() {

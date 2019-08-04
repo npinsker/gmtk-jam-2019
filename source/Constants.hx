@@ -36,8 +36,17 @@ class Constants {
 	public function new() {
 		idToInfo = [
 			'test' => [
+				1 => {
+					tiles: [1], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0],
+				},
 				2 => {
-					tiles: [2, 18], columns: 1, type: 'solid', hitbox: [0, 32, 32, 16],
+					tiles: [2, 18], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0],
+				},
+				3 => {
+					tiles: [3], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0],
+				},
+				32 => {
+					tiles: [32], columns: 1, type: 'talkable', hitbox: [0, 0, 15, 24],
 				},
 				75 => {
 					tiles: [75, 76, 91, 92, 107, 108], columns: 2, type: 'rhythm_cabinet', hitbox: [0, 70, 56, 26]
@@ -85,7 +94,7 @@ class Constants {
 					tiles: [165, 166], columns: 1, frames: 2, type: 'solid', name: 'tv_blue', hitbox: MARTIAN_HITBOX, 
 				},
 				167 => {
-					tiles: [167, 168], columns: 1, frames: 2, type: 'solid', name: 'tv_pink', hitbox: MARTIAN_HITBOX, fps: 3,
+					tiles: [167, 168], columns: 1, frames: 2, type: 'solid', name: 'tv_pink', hitbox: [0, 20, 8, 12], fps: 3,
 				},
 				178 => {
 					tiles: [178, 179], columns: 1, frames: 2, type: 'solid', name: 'dog_red', hitbox: MARTIAN_HITBOX,
@@ -102,7 +111,7 @@ class Constants {
 
 				// Hitbox might be wrong
 				182 => {
-					tiles: [182, 183], columns: 1, frames: 2, type: 'talkable', name: 'lil_skunk', 
+					tiles: [182, 183], columns: 1, frames: 2, type: 'talkable', name: 'lil_skunk', hitbox: [0, 22, 15, 10],
 				},
 				// Renamed from lil_skunk
 				150 => {
@@ -176,6 +185,7 @@ class Constants {
 				color: FlxColor.WHITE,
 			},
 			textOffset: [9, 10],
+			optionsOffset: [0, -9],
 			textPadding: [46, 0],
 			advanceStyle: TYPEWRITER,
 			selectOptionSprite: {

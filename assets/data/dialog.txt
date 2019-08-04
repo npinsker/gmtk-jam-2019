@@ -194,6 +194,7 @@ choice_box:
 
 label instructions:
 o "All games, play with only one button."
+emit "hacky_set_select_size"
 
 label instructions2:
 choice_box:

@@ -67,7 +67,6 @@ class RhythmGame extends ArcadeCabinet {
 		
 		noteSprites = [];
 		this.special = special;
-		this.special = true;
 		
 		if (this.special) {
 			shaders = [];

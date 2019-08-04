@@ -259,6 +259,12 @@ class PlayState extends FlxState {
 				dialogBox.globalVariables.set(tokens[1], Std.parseInt(tokens[2]));
 			}
 		}
+		
+		if (emitString == 'hacky_set_select_size') {
+			if (dialogBox != null) {
+				dialogBox.options.choiceTextFormat.size = 24;
+			}
+		}
 	}
 	
 	public function readdDialogBox(dialog_name:String) {
@@ -272,11 +278,10 @@ class PlayState extends FlxState {
 		foregroundLayer.add(dialogBox);
 		focus.push(dialogBox);
 		SoundManager.addSound('advance', 0.4);
-		dialogBox.y = FlxG.height - dialogBox.height;	
+		dialogBox.y = FlxG.height - dialogBox.height;
 	}
 
 	public function closeCallback(game:ArcadeCabinet, score:Int) {
-		trace(game.name + " / " + game.special + " / " + score);
 		if (game.name == 'counter' && game.special && score >= 100) {
 			triggers.set(Constants.COUNT_KING_QUEST_PROGRESS, 2);
 			this.readdDialogBox('skunklass');
