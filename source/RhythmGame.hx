@@ -134,7 +134,7 @@ class RhythmGame extends ArcadeCabinet {
 		gradeDisplay.xy = [width - 19 - gradeDisplay.width, 5];
 
 		reticle = LocalWrapper.fromGraphic(tiles.getTile(1));
-		reticle.xy = [25, 170 - reticle.height/2];
+		reticle.xy = [25, 166 - reticle.height/2];
 		mainLayer.add(reticle);
 	}
 	

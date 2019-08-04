@@ -36,6 +36,8 @@ class CounterGame extends ArcadeCabinet {
 		
 		background = LocalWrapper.fromGraphic('assets/images/counter_splash.png', {
 			'scale': [4, 4],
+			'animation': [0, 1],
+			'frameRate': 2,
 		});
 		backgroundLayer.add(background);
 		name = 'counter';
