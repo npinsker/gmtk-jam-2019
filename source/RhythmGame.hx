@@ -140,14 +140,16 @@ class RhythmGame extends ArcadeCabinet {
 		setNotePositions(beat);
 		phase = 1;
 		
-		background._sprite.shader = new InvertShader();
-		shaders.push(cast background._sprite.shader);
-		shaders[shaders.length - 1].active.value = [false];
-		for (child in mainLayer.children) {
-			var ls:LocalSpriteWrapper = cast child;
-			ls._sprite.shader = new InvertShader();
-			shaders.push(cast ls._sprite.shader);
+		if (special) {
+			background._sprite.shader = new InvertShader();
+			shaders.push(cast background._sprite.shader);
 			shaders[shaders.length - 1].active.value = [false];
+			for (child in mainLayer.children) {
+				var ls:LocalSpriteWrapper = cast child;
+				ls._sprite.shader = new InvertShader();
+				shaders.push(cast ls._sprite.shader);
+				shaders[shaders.length - 1].active.value = [false];
+			}
 		}
 	}
 	

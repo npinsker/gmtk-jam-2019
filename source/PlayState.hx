@@ -282,6 +282,13 @@ class PlayState extends FlxState {
 			if (dialogBox != null) {
 				dialogBox.globalVariables.set(tokens[1], value);
 			}
+			
+			for (entity in entities) {
+				if (entity.type == 'talkable' && entity.name == 'lock') {
+					var lsw:Entity = cast entity;
+					lsw.spriteRef.animation.play(Std.string(triggers.get(Constants.OVERALL_QUEST_PROGRESS)));
+				}
+			}
 		}
 		
 		if (emitString == 'hacky_set_select_size') {
@@ -369,9 +376,18 @@ class PlayState extends FlxState {
 			
 			var an:AnimationSet = null;
 			if (Reflect.hasField(object, 'frames')) {
-				an = new AnimationSet([32, 32], [
-					new AnimationFrames('stand', [for (i in 0...object.frames) i], (Reflect.hasField(object, 'fps') ? object.fps : 1), true)
-				]);
+				if (object.type == 'talkable' && object.name == 'lock') {
+					an = new AnimationSet([32, 32], [
+						new AnimationFrames('0', [0], 1, false),
+						new AnimationFrames('1', [1], 1, false),
+						new AnimationFrames('2', [2], 1, false),
+						new AnimationFrames('3', [3], 1, false),
+					]);
+				} else {
+					an = new AnimationSet([32, 32], [
+						new AnimationFrames('stand', [for (i in 0...object.frames) i], (Reflect.hasField(object, 'fps') ? object.fps : 1), true)
+					]);
+				}
 			}
 			var e:Entity = new Entity(type, bitmap, an);
 			e.xy = [object.x, object.y];
