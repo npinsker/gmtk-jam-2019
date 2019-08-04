@@ -256,7 +256,14 @@ class PlayState extends FlxState {
 		for (object in objects.entities) {
 			var bitmap = tileAccessor.stitchTiles(object.tiles, object.columns);
 			var type = Reflect.hasField(object, 'type') ? object.type : '';
-			var e:Entity = new Entity(type, bitmap);
+			
+			var an:AnimationSet = null;
+			if (Reflect.hasField(object, 'frames')) {
+				an = new AnimationSet([32, 32], [
+					new AnimationFrames('stand', [for (i in 0...object.frames) i], 2, true)
+				]);
+			}
+			var e:Entity = new Entity(type, bitmap, an);
 			e.xy = [object.x, object.y];
 			
 			if (Reflect.hasField(object, 'name')) {
