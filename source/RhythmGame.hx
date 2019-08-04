@@ -232,10 +232,13 @@ class RhythmGame extends ArcadeCabinet {
 		backgroundLayer.add(background);
 		FlxG.sound.music.stop();
 		
-		var idx = PlayerData.instance.highScores.get('rhythm').add(Constants.PLAYER_NAME, getRealScore());
-		
 		clearScreen();
-
+		if (special) {
+			closeCallback(this, 1000000);
+			return;
+		}
+		
+		var idx = PlayerData.instance.highScores.get('rhythm').add(Constants.PLAYER_NAME, getRealScore());
 		var table = ArcadeCabinet.renderHighScores('rhythm');
 		mainLayer.add(table);
 		if (idx < table.children.length) {

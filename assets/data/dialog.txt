@@ -62,11 +62,36 @@ if OVERALL_QUEST_PROGRESS == 0:
 "I actually wrote the music for one of the tracks! 'Games N Stuff.'"
 
 ################
+DIALOG frog
+
+if INTRO_BARTENDER == 0:
+  "Human? In this arcade? You'll be eaten alive! *ribbit*"
+  jump end
+
+if SORT_KING_QUEST_PROGRESS == 0:
+  "*ribbit* Arcade Kings...hmm..."
+  "...Try asking squid in noodle cup. *ribbit*"
+  jump end
+
+"(The frog is sleeping...)"
+
+################
+DIALOG bunny
+
+if OVERALL_QUEST_PROGRESS == 0 or OVERALL_QUEST_PROGRESS == 1:
+  "This bunny is ignoring you..."
+  jump end
+
+"Oh, you're an arcade king! I didn't realize!"
+"Have you taken a look at the lock in that corner? It's started to glow!"
+
+################
 DIALOG martian_green_fwd
 
 if OVERALL_QUEST_PROGRESS == 0:
   "This person is ignoring you..."
   jump end
+
 "You are sufficient at games. For a human."
 
 ################
@@ -100,8 +125,8 @@ debug OVERALL_QUEST_PROGRESS
 if INTRO_BARTENDER == 0:
   b "Hey, kid. I'll talk to you."
   b "What brings a kid like you to a place like this?"
-  b "...You're searching for the [Game Genie]? Isn't that an urban legend?"
-  b "You heard you can summon him if you beat New Game City's secret [Arcade Kings]?"
+  b "...You're searching for the Game Genie? Isn't that an urban legend?"
+  b "What? You can summon him if you beat New Game City's secret Arcade Kings?"
   b "And they're all at this arcade?"
   b "Never heard that before. Maybe if you ask around you'll hear something useful."
   emit "set INTRO_BARTENDER 1"
@@ -109,8 +134,8 @@ if INTRO_BARTENDER == 0:
 
 choice_box:
 "What can I get you?"
-  > "A drink" drink
   > "Any gossip?" gossip
+  > "A drink" drink
   > "Leave" end
 
 label gossip:
@@ -124,6 +149,8 @@ if SORT_KING_QUEST_PROGRESS == 0:
   b "I heard a rumor that something lives in that Cup Noodle."
   b "Something that likes... sorts?"
   jump end
+b "I got nothing. Seems like you're doing alright on your own though!"
+jump end
 
 label drink:
 "You forgot your ID at home..."
@@ -195,12 +222,12 @@ if COUNT_KING_QUEST_PROGRESS == 1:
 
 if COUNT_KING_QUEST_PROGRESS == 2:
   s "Alright, kid. You got me."
-  s "I'm the [Count King...] or I was. You just bested me, fair and square."
+  s "I'm the Count King... or I was. You just bested me, fair and square."
   s "I guess you get this? Take it. You've earned it."
   s "Don't tell my brother you won. I'll never hear the end of it..."
+  emit "add OVERALL_QUEST_PROGRESS 1"
   "[You mastered a game! Some people will be more willing to talk to you!]"
   emit "set COUNT_KING_QUEST_PROGRESS 3"
-  emit "add OVERALL_QUEST_PROGRESS 1"
   jump end
 
 s "You're pretty good for a human! I'm rooting for you."
@@ -248,9 +275,9 @@ if RHYTHM_KING_QUEST_PROGRESS == 1:
 if RHYTHM_KING_QUEST_PROGRESS == 2:
   s "Well played, short stuff."
   s "Here's your prize."
+  emit "add OVERALL_QUEST_PROGRESS 1"
   "[You mastered a game! Some people will be more willing to talk to you!]"
   emit "set RHYTHM_KING_QUEST_PROGRESS 3"
-  emit "add OVERALL_QUEST_PROGRESS 1"
   jump end
 
 s "You've got moves. I dig it."
@@ -262,7 +289,6 @@ define s = Character("Slug Shack")
 
 s "Hey, that...wasn't good. You weren't gettin' into it at all."
 s "Go practice your flow, yo. Then try again."
-
 
 
 ################
@@ -283,7 +309,7 @@ if INTRO_BARTENDER == 0:
 if SORT_KING_QUEST_PROGRESS == 0:
   r "... ..."
   r "Something is definitely splashing inside..."
-  r "You feel that if you [beat the Cup Noodle creature's high score], it may speak to you."
+  r "You feel that if you beat the Cup Noodle creature's high score, it may speak to you."
   jump end
 
 if SORT_KING_QUEST_PROGRESS == 1:
@@ -300,9 +326,9 @@ if SORT_KING_QUEST_PROGRESS == 1:
 if SORT_KING_QUEST_PROGRESS == 2:
   s "!! !! (gurgle)"
   "(The Cup Noodle creature gave you a prize for winning!)"
+  emit "add OVERALL_QUEST_PROGRESS 1"
   "[You mastered a game! Some people will be more willing to talk to you!]"
   emit "set RHYTHM_KING_QUEST_PROGRESS 3"
-  emit "add OVERALL_QUEST_PROGRESS 1"
   jump end
 
 s "...! ...!"

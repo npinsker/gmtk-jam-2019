@@ -13,12 +13,14 @@ using nova.animation.Director;
 class SortingGame extends ArcadeCabinet {
 
 	public var score:Int = 0;
+	public static var NUMBER_IN_SPECIAL_ROUND:Int = 60;
 	
 	public var judgeSprite:LocalSpriteWrapper;
 	public var judgeIsBlue:Bool = false;
 	public var colors:Array<Int> = [];
 	public var queuePosition:Int = -5;
 	public var scoreDisplay:LocalWrapper<FlxText>;
+	public var spritesAdded:Int = 0;
 	
 	public var background:FlxLocalSprite;
 	public function new(callback:ArcadeCabinet -> Int -> Void, ?special:Bool = false) {
@@ -32,6 +34,7 @@ class SortingGame extends ArcadeCabinet {
 		name = 'sorting';
 		backgroundLayer.add(background);
 		this.special = special;
+		this.special = true;
 	}
 	
 	public function startGame() {
@@ -65,17 +68,19 @@ class SortingGame extends ArcadeCabinet {
 	}
 	
 	public function addBot() {
-		var color = Std.int(Math.random() * 2);
-		var tile = (!special ? color + 7 : 23 - color);
-		var b:LocalSpriteWrapper = LocalWrapper.fromGraphic(tiles.getTile(tile));
-		colors.push(color);
-		mainLayer.add(b);
-		clipSprites.push(b);
+		if (!special || spritesAdded < NUMBER_IN_SPECIAL_ROUND) {
+			var color = Std.int(Math.random() * 2);
+			var tile = (!special ? color + 7 : 23 - color);
+			var b:LocalSpriteWrapper = LocalWrapper.fromGraphic(tiles.getTile(tile));
+			colors.push(color);
+			mainLayer.add(b);
+			clipSprites.push(b);
+			spritesAdded += 1;
+			b.x = judgeSprite.x + 5 * 75;
+			b.y = judgeSprite.y;
+		}
 		
 		var moveSpeed:Int = Std.int(60 - Math.min(1.3 * score, 35) - Math.max(0, Math.min((score - 40) / 7, 20)));
-
-		b.x = judgeSprite.x + 5 * 75;
-		b.y = judgeSprite.y;
 		for (b in clipSprites) {
 			Director.moveBy(b, [ -75, 0], moveSpeed);
 		}
@@ -92,6 +97,15 @@ class SortingGame extends ArcadeCabinet {
 			if (shouldBeBlue == judgeIsBlue) {
 				score += 1;
 				SoundManager.addSound('advance', 0.4);
+				scoreDisplay._sprite.text = Std.string(score);
+				
+				if (special && score == NUMBER_IN_SPECIAL_ROUND) {
+					Director.wait(90).call(function() {
+						Director.clearTag('__sortingGame');
+						closeCallback(this, 1000);
+					});
+					return;
+				}
 				
 				var amtToSpawn:Int = Std.int(Math.max(4, 20 - score / 3));
 				var px:NovaEmitter = new NovaEmitter(judgeSprite.x, judgeSprite.y);
@@ -105,10 +119,9 @@ class SortingGame extends ArcadeCabinet {
 				px.speed = [150, 200];
 				px.rate = 0.01;
 
-				scoreDisplay._sprite.text = Std.string(score);
 				Director.wait(null, waitSpeed, '__sortingGame').call(addBot);
 				
-				if (special && Math.random() < 0.2 && clipSprites.length > 8 && score > 20) {
+				if (special && Math.random() < (0.2 + score/300) && clipSprites.length > 8 && clipSprites[8].alpha >= 0.99 && score > 10) {
 					Director.fadeOut(clipSprites[8], moveSpeed);
 				}
 			} else {
@@ -179,7 +192,6 @@ class SortingGame extends ArcadeCabinet {
 		}
 		#if debug
 		if (InputController.justPressed(X)) {
-			if (FlxG.sound.music != null) FlxG.sound.music.stop();
 			Director.clearTag('__sortingGame');
 			closeCallback(this, 1000);
 		}

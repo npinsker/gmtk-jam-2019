@@ -87,7 +87,7 @@ class Constants {
 				},
 
 				160 => {
-					tiles: [160, 161], columns: 1, frames: 2, type: 'solid', name: 'martian_green_fwd', hitbox: MARTIAN_HITBOX, fps: 2,
+					tiles: [160, 161], columns: 1, frames: 2, type: 'talkable', name: 'martian_green_fwd', hitbox: MARTIAN_HITBOX, fps: 2,
 				},
 				163 => {
 					tiles: [163, 164], columns: 1, frames: 2, type: 'solid', name: 'martian_green_right_reach', hitbox: [8, 24, 8, 7],
@@ -97,6 +97,9 @@ class Constants {
 				},
 				167 => {
 					tiles: [167, 168], columns: 1, frames: 2, type: 'solid', name: 'tv_pink', hitbox: [0, 20, 8, 12], fps: 3,
+				},
+				176 => {
+					tiles: [176, 177], columns: 1, frames: 2, type: 'talkable', name: 'bunny', hitbox: [0, 24, 10, 8], fps: 1,
 				},
 				178 => {
 					tiles: [178, 179], columns: 1, frames: 2, type: 'solid', name: 'dog_red', hitbox: [3, 24, 6, 8],
@@ -120,7 +123,7 @@ class Constants {
 					tiles: [150, 151], columns: 1, frames: 2, type: 'talkable', name: 'skunklass', hitbox: [5, 20, 20, 11], zOffset: 20,
 				},
 				152 => {
-					tiles: [152, 152], columns: 1, frames: 3, type: 'talkable', name: 'frog', hitbox: [5, 23, 20, 8],
+					tiles: [152, 152], columns: 1, frames: 3, type: 'talkable', name: 'frog', hitbox: [0, 23, 21, 8],
 				},
 				200 => {
 					tiles: [200, 201], columns: 1, frames: 2, type: 'talkable', name: 'slug_shack', hitbox: [5, 20, 7, 11],
