@@ -15,6 +15,7 @@ class Constants {
 	public static var SORT_KING_QUEST_PROGRESS:String = 'SORT_KING_QUEST_PROGRESS';
 
 	public static var INTRO_BARTENDER:String = "INTRO_BARTENDER";
+	public static var GAME_COMPLETE:String = "GAME_COMPLETE";
 
 	public static var ALL_QUESTS:Array<String> = [
 		OVERALL_QUEST_PROGRESS,
@@ -23,6 +24,7 @@ class Constants {
 		SORT_KING_QUEST_PROGRESS,
 
 		INTRO_BARTENDER,
+		GAME_COMPLETE,
 	];
 	
 	public static var PLAYER_NAME:String = 'Miku';
@@ -40,7 +42,7 @@ class Constants {
 					tiles: [1], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0], zOffset: 100,
 				},
 				2 => {
-					tiles: [2, 18], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0], zOffset: 100,
+					tiles: [2, 18], columns: 1, type: 'solid', hitbox: [16, 32, 0, 0], zOffset: 100,
 				},
 				3 => {
 					tiles: [3], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0], zOffset: 100,
@@ -69,7 +71,7 @@ class Constants {
 					tiles: [116, 117], columns: 1, frames: 2, type: 'talkable', name: 'deadmaus', hitbox: [4, 13, 15, 13], fps: 2,
 				},
 				118 => {
-					tiles: [118, 119], columns: 1, frames: 2, type: 'talkable', name: 'octopus', hitbox: [0, 8, 32, 13], fps: 3,
+					tiles: [118, 119, 48, 49], columns: 1, frames: 4, type: 'talkable', name: 'octopus', hitbox: [0, 8, 32, 13], fps: 3,
 				},
 				133 => {
 					tiles: [133, 134], columns: 1, frames: 2, type: 'talkable', name: 'bartender', hitbox: [5, 20, 20, 11], fps: 2, zOffset: 120,
@@ -97,7 +99,7 @@ class Constants {
 					tiles: [167, 168], columns: 1, frames: 2, type: 'solid', name: 'tv_pink', hitbox: [0, 20, 8, 12], fps: 3,
 				},
 				178 => {
-					tiles: [178, 179], columns: 1, frames: 2, type: 'solid', name: 'dog_red', hitbox: [0, 24, 12, 8],
+					tiles: [178, 179], columns: 1, frames: 2, type: 'solid', name: 'dog_red', hitbox: [3, 24, 6, 8],
 				},
 				180 => {
 					tiles: [180, 181], columns: 1, frames: 2, type: 'talkable', name: 'dog_blue', hitbox: [0, 24, 12, 8],

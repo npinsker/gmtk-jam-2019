@@ -106,16 +106,12 @@ class RhythmGame extends ArcadeCabinet {
 		}
 	}
 	
-	public function startGame() {
+	public function initialGameSetup() {
 		backgroundLayer.remove(background);
 		background = LocalWrapper.fromGraphic('assets/images/rhythm_bg.png', {
 			'scale': [4, 4],
 		});
 		backgroundLayer.add(background);
-		
-		SoundManager.playMusic('jackpot');
-		FlxG.sound.music.onComplete = finishGame;
-		
 		score = 0;
 		maxScore = 4 * notes.length;
 		scoreDisplay = Utilities.createText();
@@ -124,7 +120,7 @@ class RhythmGame extends ArcadeCabinet {
 		scoreDisplay._sprite.size = 64;
 		scoreDisplay._sprite.text = renderScore();
 		mainLayer.add(scoreDisplay);
-		
+
 		gradeDisplay = LocalWrapper.fromGraphic(tiles.stitchTiles([30, 31, 32, 33]), {
 			frameSize: [64, 64]
 		});
@@ -138,6 +134,11 @@ class RhythmGame extends ArcadeCabinet {
 		reticle = LocalWrapper.fromGraphic(tiles.getTile(1));
 		reticle.xy = [25, 160 - reticle.height/2];
 		mainLayer.add(reticle);
+	}
+	
+	public function startGame() {
+		SoundManager.playMusic('jackpot');
+		FlxG.sound.music.onComplete = finishGame;
 
 		for (note in notes) {
 			var s:LocalSpriteWrapper = LocalWrapper.fromGraphic(tiles.getTile(0));
@@ -253,7 +254,10 @@ class RhythmGame extends ArcadeCabinet {
 	override public function handleInput():Void {
 		if (InputController.justPressed(CONFIRM)) {
 			if (phase == 0) {
-				startGame();
+				SoundManager.addSound('advance', 0.4);
+				phase = -1;
+				initialGameSetup();
+				Director.wait(30).call(startGame);
 			} else if (phase == 1) {
 				handleTap();
 			} else {
