@@ -137,7 +137,7 @@ class PlayState extends FlxState {
 			if (speakTarget != -1) {
 				var entity = entities.filter(function(x) { return x.id == speakTarget; })[0];
 				var dialog:Array<String> = null;
-				if (entity.type == 'rhythm_cabinet' || entity.type == 'potato_cabinet' || entity.type == 'sorting_cabinet') {
+				if (entity.type == 'rhythm_cabinet' || entity.type == 'potato_cabinet' || entity.type == 'sorting_cabinet' || entity.type == 'fishing_cabinet') {
 					dialog = dialogMap.get(entity.type);
 				} else if (dialogMap.exists(entity.name)) {
 					dialog = dialogMap.get(entity.name);
@@ -147,6 +147,7 @@ class PlayState extends FlxState {
 					{
 						emitCallback: this.emitCallback,
 						callback: this.dialogCallback,
+						globalVariables: triggers,
 					});
 					foregroundLayer.add(dialogBox);
 					focus.push(dialogBox);
@@ -162,13 +163,19 @@ class PlayState extends FlxState {
 		                             p.hitbox.y + p.hitbox.height / 2 + p.getDirection().y * TILE_HEIGHT);
 		var checkTalkHalf = new FlxPoint(p.hitbox.x + p.hitbox.width / 2 + p.getDirection().x * TILE_WIDTH/2,
 		                             p.hitbox.y + p.hitbox.height / 2 + p.getDirection().y * TILE_HEIGHT/2);
+		var checkTalkDouble = new FlxPoint(p.hitbox.x + p.hitbox.width / 2 + p.getDirection().x * TILE_WIDTH*2,
+		                             p.hitbox.y + p.hitbox.height / 2 + p.getDirection().y * TILE_HEIGHT*2);
 
 		for (entity in entities) {
 			var hasConfirm:Bool = Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm;
 			
 			if (entity.type == 'solid') continue;
 			
-			if ((speakTarget == -1 || speakTarget == entity.id) && (entity.hitbox.containsPoint(checkTalk) || entity.hitbox.containsPoint(checkTalkHalf))) {
+			var sweepTest:Bool = entity.hitbox.containsPoint(checkTalk) || entity.hitbox.containsPoint(checkTalkHalf);
+			if (entity.type == 'talkable' && entity.name == 'bartender') {
+				sweepTest = sweepTest || entity.hitbox.containsPoint(checkTalkDouble);
+			}
+			if ((speakTarget == -1 || speakTarget == entity.id) && sweepTest) {
 				speakTarget = entity.id;
 				if (!hasConfirm) {
 					if (Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm) {
@@ -196,6 +203,7 @@ class PlayState extends FlxState {
 	public function dialogCallback(returnString:String):Void {
 		focus.remove(dialogBox);
 		foregroundLayer.remove(dialogBox);
+		dialogBox = null;
 	}
 	
 	public function emitCallback(emitString:String):Void {
@@ -225,6 +233,14 @@ class PlayState extends FlxState {
 			Director.moveBy(sg, [0, 20], 20);
 			Director.fadeIn(sg, 20);
 			return;
+		}
+		
+		if (emitString.startsWith('set')) {
+			var tokens = emitString.split(' ');
+			triggers.set(tokens[1], Std.parseInt(tokens[2]));
+			if (dialogBox != null) {
+				dialogBox.globalVariables.set(tokens[1], Std.parseInt(tokens[2]));
+			}
 		}
 	}
 	
