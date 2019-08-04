@@ -22,7 +22,7 @@ class Entity extends FlxLocalSprite {
 	public var _internal_hitbox:FlxRect = null;
 	public var id:Int;
 	public var type:String;
-	public var name:String;
+	public var name:String = "";
 	public var zOffset:Int = 0;
 	
 	public var scratch:Dynamic = {};

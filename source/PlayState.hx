@@ -9,10 +9,10 @@ import flixel.addons.editors.tiled.TiledMap;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import nova.animation.AnimationSet;
-import nova.animation.Director;
 import nova.input.Focusable;
 import nova.input.InputController;
 import nova.render.FlxLocalSprite;
+import nova.render.NovaEmitter;
 import nova.render.TiledBitmapData;
 import nova.tile.TileUtils;
 import nova.tiled.TiledObjectLoader;
@@ -22,6 +22,7 @@ import openfl.Assets;
 import openfl.display.BitmapData;
 
 using StringTools;
+using nova.animation.Director;
 
 class PlayState extends FlxState {
 	var TILE_WIDTH:Int = 32;
@@ -43,6 +44,7 @@ class PlayState extends FlxState {
 	var dialogMap:Map<String, Array<String>>;
 	var speakTarget:Int = -1;
 	var triggers:Map<String, Int>;
+	var locked:Bool = false;
 	
 	override public function create():Void {
 		super.create();
@@ -57,6 +59,7 @@ class PlayState extends FlxState {
 		for (quest in Constants.ALL_QUESTS) {
 			triggers.set(quest, 0);
 		}
+		triggers.set(Constants.OVERALL_QUEST_PROGRESS, 3);
 		
 		dialogMap = parseDialogFile('assets/data/dialog.txt');
 		
@@ -190,8 +193,9 @@ class PlayState extends FlxState {
 					distance = Math.max(0, p.hitbox.top - hitbox.bottom);
 				}
 			}
-			if (distance > 20 && (entity.type != 'talkable' || entity.name != 'bartender')) continue;
-			if (distance > 44) continue;
+			var threshold = 20;
+			if (entity.type == 'talkable' && (entity.name == 'bartender' || entity.name == 'lock')) threshold = 44;
+			if (distance > threshold) continue;
 
 			if (hitEntity && distance < bestDistance) {
 				bestDistance = distance;
@@ -291,10 +295,60 @@ class PlayState extends FlxState {
 			}
 		}
 		
+		if (emitString == 'end_game') {
+			locked = true;
+			
+			var octopus:Entity = null;
+			for (entity in entities) {
+				var ex:Entity = cast entity;
+				if (ex.type == 'talkable' && ex.name == 'octopus') {
+					octopus = ex;
+				}
+			}
+			
+			var px:NovaEmitter = new NovaEmitter(octopus.x, octopus.y);
+			px.addSimpleParticles(0xFFD9D9FF, 3, 40);
+			px.addSimpleParticles(0xFFCCEEFF, 3, 40);
+			foregroundLayer.add(px);
+			px.lifespan = [0.35, 0.9];
+			px.endAlpha = [0, 0];
+			px.limit = 120;
+			px.launchAngle = [-Math.PI / 2, -Math.PI / 2];
+			px.onCreate = function(p) { p.x = Math.random() * 32; p.y = Math.random() * 16; };
+			px.speed = [40, 60];
+			px.rate = 0.04;
+			
+			Director.wait(180).call(function() {
+				octopus.spriteRef.animation.play('game_genie');
+			});
+			Director.wait(240).call(function() {
+				p.spriteRef.animation.play('l');
+				this.readdDialogBox('game_genie');
+			});
+		}
+		
 		if (emitString == 'hacky_set_select_size') {
 			if (dialogBox != null) {
 				dialogBox.options.choiceTextFormat.size = 24;
 			}
+		}
+		
+		if (emitString == 'hide') {
+			if (dialogBox != null) {
+				dialogBox.setLocked(true);
+				dialogBox.visible = false;
+			}
+		}
+		
+		if (emitString == 'show') {
+			if (dialogBox != null) {
+				dialogBox.setLocked(false);
+				dialogBox.visible = true;
+			}
+		}
+		
+		if (emitString == 'unlock') {
+			locked = false;
 		}
 	}
 	
@@ -306,6 +360,7 @@ class PlayState extends FlxState {
 			emitCallback: this.emitCallback,
 			callback: this.dialogCallback,
 		});
+		dialogBox.skip = false;
 		foregroundLayer.add(dialogBox);
 		focus.push(dialogBox);
 		SoundManager.addSound('advance', 0.4);
@@ -376,12 +431,17 @@ class PlayState extends FlxState {
 			
 			var an:AnimationSet = null;
 			if (Reflect.hasField(object, 'frames')) {
-				if (object.type == 'talkable' && object.name == 'lock') {
+				if (object.name == 'lock') {
 					an = new AnimationSet([32, 32], [
 						new AnimationFrames('0', [0], 1, false),
 						new AnimationFrames('1', [1], 1, false),
 						new AnimationFrames('2', [2], 1, false),
 						new AnimationFrames('3', [3], 1, false),
+					]);
+				} else if (object.name == 'octopus') {
+					an = new AnimationSet([32, 32], [
+						new AnimationFrames('stand', [0, 1], (Reflect.hasField(object, 'fps') ? object.fps : 1), true),
+						new AnimationFrames('game_genie', [2, 3], (Reflect.hasField(object, 'fps') ? object.fps : 1), true)
 					]);
 				} else {
 					an = new AnimationSet([32, 32], [
@@ -416,7 +476,7 @@ class PlayState extends FlxState {
 		InputController.update();
 		
 		if (focus.length == 0) {
-			handleInput();
+			if (!locked) handleInput();
 		} else {
 			focus[focus.length - 1].handleInput();
 		}

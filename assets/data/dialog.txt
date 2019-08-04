@@ -82,6 +82,7 @@ if OVERALL_QUEST_PROGRESS == 2:
 if OVERALL_QUEST_PROGRESS == 3:
   "All three indentations are glowing!"
   "The lock is opening!"
+  emit end_game
   jump end
 
 
@@ -93,7 +94,7 @@ define b = Character("Bartender")
 debug OVERALL_QUEST_PROGRESS
 
 if INTRO_BARTENDER == 0:
-  b "I'll talk to you, kid. Bartender's neutrality."
+  b "Hey, kid. I'll talk to you."
   b "What brings a kid like you to a place like this?"
   b "...You're searching for the [Game Genie]? Isn't that an urban legend?"
   b "You heard you can summon him if you beat New Game City's secret [Arcade Kings]? And they're all at this arcade?"
@@ -124,6 +125,12 @@ DIALOG lil_skunk
 
 define s = Character("Lil Skunk")
 
+if GAME_COMPLETE == 1:
+  s "Wow! You met the Game Genie?"
+  s "...huh? That octopus right over there?"
+  s "Come on, be serious. I'm not that dumb."
+  jump end
+
 if INTRO_BARTENDER == 0:
   s "Uh, who are you?"
   jump end
@@ -148,6 +155,13 @@ s "You beat Skunklass?!?! You're the best Ducky Counter I've ever seen..."
 DIALOG skunklass
 
 define s = Character("Skunklass")
+
+if GAME_COMPLETE == 1:
+  s "Human! Great to see you!!"
+  s "You're the master of the arcade now!"
+  s "But that doesn't mean you're the best counter!"
+  s "FIGHT ME!!!"
+  jump end
 
 if COUNT_KING_QUEST_PROGRESS == 0:
   "This person seems busy... You don't feel like you can talk to her right now..."
@@ -195,6 +209,11 @@ DIALOG slug_shack
 
 define s = Character("Slug Shack")
 
+if GAME_COMPLETE == 1:
+  s "I heard you met the Game Genie."
+  s "Totally groovy."
+  jump end
+
 if INTRO_BARTENDER == 0:
   s "This snail has headphones in his ears. He can't hear you..."
   jump end
@@ -208,7 +227,7 @@ if RHYTHM_KING_QUEST_PROGRESS == 0:
 if RHYTHM_KING_QUEST_PROGRESS == 1:
   s "Yo. You beat my high score."
   s "...You don't want the autograph?"
-  s "Does that mean...you're challenging me? You wanna be the [Rhythm King]?"
+  s "So...you're challenging me? You wanna be the [Rhythm King]?"
   s "Nice, nice. Let's do this."
 
   "[Slug Shack wants to fight!]"
@@ -240,6 +259,11 @@ s "Go practice your flow, yo. Then try again."
 DIALOG ramenpus
 
 define r = Character("Cup Noodle")
+
+if GAME_COMPLETE == 1:
+  r "... (gurgle)"
+  r "(You feel a friendly aura emanating from the creature.)"
+  jump end
 
 if INTRO_BARTENDER == 0:
   r "... ..."
@@ -284,12 +308,12 @@ DIALOG bear_turn
 define r = Character("Bear")
 
 if INTRO_BARTENDER == 0:
-  r "You look new here."
-  r "Oh, looking for info? Go talk to the bartender."
+  r "I'm busy."
   jump end
 
 if OVERALL_QUEST_PROGRESS == 0:
-  r "The three Arcade Kings? Never heard of 'em."
+  r "Talked to the bartender, did you?"
+  r "The three Arcade Kings...never heard of 'em."
   r "You could go try talking to Slug Shack. He loves rhythm games."
   r "He's listening to music over by the orange cabinets."
   jump end
@@ -301,10 +325,45 @@ DIALOG dog_blue
 
 "Hey! Buzz off! I just lost 'cause of you!"
 
+#################
+DIALOG game_genie
+
+define o = Character("Game Genie")
+
+o "Congratulations, Miku!"
+o "It is I, the Game Genie."
+
+o "As a reward for defeating the Three Arcade Kings..."
+o "I will grant you one wish...but *only one* wish."
+o "Choose it wisely."
+emit hide
+wait 2.0
+emit show
+
+o "Hm?"
+o "You want a video game about yourself?"
+o "Very good, very good."
+o "I shall make you a video game...but it's a rush job, so don't expect too much."
+o "It shall be called...FILL IN TITLE."
+o "And it shall be based on this very quest."
+emit hide
+wait 2.0
+emit show
+
+o "It is done."
+o "Farewell, Miku. May your pocket always be full of change."
+emit "set GAME_COMPLETE 1"
+emit unlock
+
 ##############
 DIALOG octopus
 
 define o = Character("Octopus")
+
+if GAME_COMPLETE == 1:
+  "Game Genie" "I wish you luck on your adventures, Miku."
+  "Game Genie" "You are welcome back here anytime."
+  jump end
 
 choice_box:
   o "Human know how to play games?"
