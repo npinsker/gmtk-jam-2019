@@ -78,7 +78,7 @@ class SortingGame extends ArcadeCabinet {
 		for (b in clipSprites) {
 			Director.moveBy(b, [ -75, 0], moveSpeed);
 		}
-		Director.wait(moveSpeed).call(checkDone);
+		Director.wait(null, moveSpeed, '__sortingGame').call(checkDone);
 	}
 	
 	public function checkDone() {
@@ -104,7 +104,7 @@ class SortingGame extends ArcadeCabinet {
 				px.rate = 0.01;
 
 				scoreDisplay._sprite.text = Std.string(score);
-				Director.wait(waitSpeed).call(addBot);
+				Director.wait(null, waitSpeed, '__sortingGame').call(addBot);
 				
 				if (special && Math.random() < 0.2 && clipSprites.length > 8 && score > 20) {
 					Director.fadeOut(clipSprites[8], moveSpeed);
@@ -165,16 +165,19 @@ class SortingGame extends ArcadeCabinet {
 			} else if (phase == 1) {
 				handleTap();
 			} else if (phase == 2) {
+				Director.clearTag('__sortingGame');
 				closeCallback(this, score);
 			}
 		}
 		if (InputController.justPressed(CANCEL)) {
 			phase = -1;
+			Director.clearTag('__sortingGame');
 			closeCallback(this, 0);
 		}
 		#if debug
 		if (InputController.justPressed(X)) {
 			if (FlxG.sound.music != null) FlxG.sound.music.stop();
+			Director.clearTag('__sortingGame');
 			closeCallback(this, 1000);
 		}
 		#end

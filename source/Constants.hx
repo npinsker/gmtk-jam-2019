@@ -31,7 +31,7 @@ class Constants {
 	
 	public var idToInfo:Map<String, Map<Int, Dynamic>>;
 
-	private var MARTIAN_HITBOX:Array<Int> = [6, 18, 8, 10];  // formerly [0, 20, 20, 10]
+	private var MARTIAN_HITBOX:Array<Int> = [6, 18, 8, 12];  // formerly [0, 20, 20, 10]
 
 	public function new() {
 		idToInfo = [
@@ -46,7 +46,7 @@ class Constants {
 					tiles: [3], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0], zOffset: 100,
 				},
 				32 => {
-					tiles: [32, 33, 34, 35], columns: 1, frames: 4, type: 'talkable', name: 'lock', hitbox: [0, 8, 32, 32],
+					tiles: [32, 33, 34, 35], columns: 1, frames: 4, type: 'talkable', name: 'lock', hitbox: [0, 14, 14, 10],
 				},
 				75 => {
 					tiles: [75, 76, 91, 92, 107, 108], columns: 2, type: 'rhythm_cabinet', hitbox: [0, 70, 56, 26]
@@ -58,7 +58,7 @@ class Constants {
 					tiles: [89, 90, 105, 106], columns: 2, type: 'sorting_cabinet', hitbox: [0, 36, 38, 26]
 				},
 				120 => {
-					tiles: [120, 121, 136, 137], columns: 2, type: 'potato_cabinet', hitbox: [0, 36, 45, 26]
+					tiles: [120, 121, 136, 137], columns: 2, type: 'potato_cabinet', hitbox: [2, 36, 46, 26]
 				},
 				
 				// NPCs
@@ -88,7 +88,7 @@ class Constants {
 					tiles: [160, 161], columns: 1, frames: 2, type: 'solid', name: 'martian_green_fwd', hitbox: MARTIAN_HITBOX, fps: 2,
 				},
 				163 => {
-					tiles: [163, 164], columns: 1, frames: 2, type: 'solid', name: 'martian_green_right_reach', hitbox: MARTIAN_HITBOX,
+					tiles: [163, 164], columns: 1, frames: 2, type: 'solid', name: 'martian_green_right_reach', hitbox: [8, 24, 8, 7],
 				},
 				165 => {
 					tiles: [165, 166], columns: 1, frames: 2, type: 'solid', name: 'tv_blue', hitbox: MARTIAN_HITBOX, 
@@ -97,16 +97,16 @@ class Constants {
 					tiles: [167, 168], columns: 1, frames: 2, type: 'solid', name: 'tv_pink', hitbox: [0, 20, 8, 12], fps: 3,
 				},
 				178 => {
-					tiles: [178, 179], columns: 1, frames: 2, type: 'solid', name: 'dog_red', hitbox: MARTIAN_HITBOX,
+					tiles: [178, 179], columns: 1, frames: 2, type: 'solid', name: 'dog_red', hitbox: [0, 24, 12, 8],
 				},
 				180 => {
-					tiles: [180, 181], columns: 1, frames: 2, type: 'solid', name: 'dog_blue', hitbox: MARTIAN_HITBOX,
+					tiles: [180, 181], columns: 1, frames: 2, type: 'talkable', name: 'dog_blue', hitbox: [0, 24, 12, 8],
 				},
 				198 => {
 					tiles: [198, 199], columns: 1, frames: 2, type: 'solid', name: 'bear_left', hitbox: MARTIAN_HITBOX,
 				},
 				195 => {
-					tiles: [196, 197, 196, 197, 196, 197, 198, 199, 198, 199, 198, 199], columns: 1, frames: 12, fps: 3, type: 'solid', name: 'bear_turn', hitbox: MARTIAN_HITBOX,
+					tiles: [196, 197, 196, 197, 196, 197, 198, 199, 198, 199, 198, 199], columns: 1, frames: 12, fps: 3, type: 'talkable', name: 'bear_turn', hitbox: [1, 24, 11, 8],
 				},
 
 				// Hitbox might be wrong

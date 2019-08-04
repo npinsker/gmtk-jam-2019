@@ -191,7 +191,7 @@ class PlayState extends FlxState {
 				}
 			}
 			if (distance > 20 && (entity.type != 'talkable' || entity.name != 'bartender')) continue;
-			if (distance > 52) continue;
+			if (distance > 44) continue;
 
 			if (hitEntity && distance < bestDistance) {
 				bestDistance = distance;
@@ -220,7 +220,7 @@ class PlayState extends FlxState {
 					entity.scratch.hasConfirm = true;
 					foregroundLayer.add(lo);
 					lo.x = entity.hitbox.x + entity.hitbox.width / 2 - lo.width / 2;
-					lo.y = entity.y - lo.height + (entity.height > 64 ? 16 : 0);
+					lo.y = entity.y - lo.height + 4 + (entity.height > 64 ? 16 : 0);
 					Director.fadeIn(lo, 3);
 				}
 			} else if (hasConfirm) {
