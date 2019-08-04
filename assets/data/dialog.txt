@@ -72,6 +72,10 @@ if OVERALL_QUEST_PROGRESS == 0:
 ################
 DIALOG lock
 
+if GAME_COMPLETE == 1:
+  "The lock appears faded, its power released."
+  jump end
+
 "A very strange lock with three indentations. It seems important."
 if OVERALL_QUEST_PROGRESS == 1:
   "One of them is glowing!"
