@@ -26,7 +26,7 @@ using StringTools;
 class PlayState extends FlxState {
 	var TILE_WIDTH:Int = 32;
 	var TILE_HEIGHT:Int = 32;
-	var PLAYER_SPEED:Float = 3.0;  // will be 1.6 in final version
+	var PLAYER_SPEED:Float = 1.6;
 	
 	var p:Entity;
 	
@@ -165,7 +165,7 @@ class PlayState extends FlxState {
 
 			var hasConfirm:Bool = Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm;
 
-			var hitbox = entity.hitbox;
+			var hitbox = nova.utils.GeomUtils.expand(entity.hitbox, 4);
 			var hitEntity:Bool = false;
 			var distance:Float = 10000;
 			var str = p.getDirectionString();
@@ -266,6 +266,8 @@ class PlayState extends FlxState {
 		dialogBox = Constants.instance.dbf.create(dialog,
 		{
 			globalVariables: triggers,
+			emitCallback: this.emitCallback,
+			callback: this.dialogCallback,
 		});
 		foregroundLayer.add(dialogBox);
 		focus.push(dialogBox);

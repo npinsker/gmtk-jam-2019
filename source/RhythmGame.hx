@@ -250,7 +250,7 @@ class RhythmGame extends ArcadeCabinet {
 		#if debug
 		if (InputController.justPressed(X)) {
 			FlxG.sound.music.stop();
-			finishGame();
+			closeCallback(this, 1000000);
 		}
 		#end
 	}

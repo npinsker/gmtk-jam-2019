@@ -170,8 +170,15 @@ class SortingGame extends ArcadeCabinet {
 			}
 		}
 		if (InputController.justPressed(CANCEL)) {
+			phase = -1;
 			closeCallback(this, 0);
 		}
+		#if debug
+		if (InputController.justPressed(X)) {
+			if (FlxG.sound.music != null) FlxG.sound.music.stop();
+			closeCallback(this, 1000);
+		}
+		#end
 	}
 
 	override public function update(elapsed:Float):Void {

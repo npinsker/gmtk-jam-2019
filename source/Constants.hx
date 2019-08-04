@@ -175,8 +175,8 @@ class Constants {
 				font: 'assets/data/m3x6.ttf',
 				color: FlxColor.WHITE,
 			},
-			textOffset: [17, 8],
-			textPadding: [36, 0],
+			textOffset: [9, 10],
+			textPadding: [46, 0],
 			advanceStyle: TYPEWRITER,
 			selectOptionSprite: {
 				image: 'assets/images/ui.png',
