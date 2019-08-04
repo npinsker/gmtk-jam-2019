@@ -60,7 +60,13 @@ class PlayState extends FlxState {
 			triggers.set(quest, 0);
 		}
 		
+		foregroundLayer = new FlxLocalSprite();
+		add(foregroundLayer);
+		
 		dialogMap = parseDialogFile('assets/data/dialog.txt');
+		
+		entities = [];
+		focus = [];
 		
 		readdDialogBox('welcome');
 	}
@@ -88,16 +94,11 @@ class PlayState extends FlxState {
 		var tiles = tr.renderStaticScreen([0, 0, map.width, map.height], to);
 		backgroundLayer.add(LocalSpriteWrapper.fromGraphic(tiles));
 		
-		entities = [];
-		
 		addEntitiesFromTiled(map, to);
 		
-		focus = [];
-		
-		foregroundLayer = new FlxLocalSprite();
-		add(foregroundLayer);
-		
 		SoundManager.playMusic(Constants.OVERWORLD_MUSIC);
+		Director.fadeIn(backgroundLayer, 45);
+		Director.fadeIn(entityLayer, 45);
 	}
 	
 	public function handleInput() {
