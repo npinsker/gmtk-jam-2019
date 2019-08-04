@@ -34,6 +34,9 @@ class Constants {
 				89 => {
 					tiles: [89, 90, 105, 106], columns: 2, type: 'sorting_cabinet', hitbox: [0, 36, 38, 26]
 				},
+				120 => {
+					tiles: [120, 121, 136, 137], columns: 2, type: 'potato_cabinet', hitbox: [0, 36, 45, 26]
+				},
 				
 				// NPCs
 				116 => {
@@ -45,10 +48,22 @@ class Constants {
 				118 => {
 					tiles: [118], columns: 1, type: 'talkable', name: 'octopus', hitbox: [0, 8, 32, 13],
 				},
-				
-				120 => {
-					tiles: [120, 121, 136, 137], columns: 2, type: 'potato_cabinet', hitbox: [0, 36, 45, 26]
+				133 => {
+					tiles: [133], columns: 1, type: 'talkable', name: 'bartender', hitbox: [5, 20, 20, 11],
 				},
+				146 => {
+					tiles: [146], columns: 1, type: 'solid', hitbox: [0, 20, 20, 10],
+				},
+				149 => {
+					tiles: [149], columns: 1, type: 'talkable', name: 'lil_skunk', hitbox: [5, 20, 20, 11],
+				},
+				150 => {
+					tiles: [150], columns: 1, type: 'talkable', name: 'frog', hitbox: [5, 23, 20, 8],
+				},
+				151 => {
+					tiles: [151], columns: 1, type: 'talkable', name: 'slug_shack', hitbox: [6, 20, 20, 11],
+				},
+				
 				122 => {
 					tiles: [122, 138], columns: 1, type: 'solid', hitbox: [13, 10, 19, 54]
 				},
@@ -67,7 +82,7 @@ class Constants {
 				
 				// back of bar
 				154 => {
-					tiles: [154, 155, 41, 171], columns: 2, type: 'solid', hitbox: [2, 15, 62, 27]
+					tiles: [154, 155, 41, 171], columns: 2, type: 'solid', hitbox: [2, 22, 62, 20]
 				},
 				170 => {
 					tiles: [170], columns: 1, type: 'solid', hitbox: [1, 0, 28, 32],
