@@ -143,7 +143,7 @@ class CounterGame extends ArcadeCabinet {
 			guessedText.x = 85;
 			mainLayer.add(guessedText);
 			
-			var leftGfx = LocalWrapper.fromGraphic(tiles.getTile(17));
+			var leftGfx = LocalWrapper.fromGraphic(tiles.getTile(!special ? 17 : 19));
 			leftGfx.xy = [guessedText.x - leftGfx.width - 2, 17];
 			mainLayer.add(leftGfx);
 			SoundManager.addSound('blip', 0.6, 0.6);

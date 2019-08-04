@@ -122,7 +122,7 @@ class Constants {
 				},
 				// Renamed from lil_skunk
 				150 => {
-					tiles: [150, 151], columns: 1, frames: 2, type: 'talkable', name: 'skunklass', hitbox: [5, 20, 20, 11], zOffset: 20,
+					tiles: [150, 151], columns: 1, frames: 2, type: 'talkable', name: 'skunklass', hitbox: [5, 20, 20, 11], zOffset: 15,
 				},
 				152 => {
 					tiles: [152, 152], columns: 1, frames: 3, type: 'talkable', name: 'frog', hitbox: [0, 23, 21, 8],
