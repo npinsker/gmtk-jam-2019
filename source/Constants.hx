@@ -13,7 +13,17 @@ class Constants {
 	public static var RHYTHM_KING_QUEST_PROGRESS:String = 'RHYTHM_KING_QUEST_PROGRESS';
 	public static var COUNT_KING_QUEST_PROGRESS:String = 'COUNT_KING_QUEST_PROGRESS';
 	public static var SORT_KING_QUEST_PROGRESS:String = 'SORT_KING_QUEST_PROGRESS';
-	public static var ALL_QUESTS:Array<String> = [OVERALL_QUEST_PROGRESS, RHYTHM_KING_QUEST_PROGRESS, COUNT_KING_QUEST_PROGRESS, SORT_KING_QUEST_PROGRESS];
+
+	public static var INTRO_BARTENDER:String = "INTRO_BARTENDER";
+
+	public static var ALL_QUESTS:Array<String> = [
+		OVERALL_QUEST_PROGRESS,
+		RHYTHM_KING_QUEST_PROGRESS,
+		COUNT_KING_QUEST_PROGRESS,
+		SORT_KING_QUEST_PROGRESS,
+
+		INTRO_BARTENDER,
+	];
 	
 	public static var PLAYER_NAME:String = 'Miku';
 
@@ -92,7 +102,7 @@ class Constants {
 
 				// Hitbox might be wrong
 				182 => {
-					tiles: [182, 183], columns: 1, frames: 2, type: 'talkable', name: 'lil_skunk', hitbox: [5, 20, 6, 11],
+					tiles: [182, 183], columns: 1, frames: 2, type: 'talkable', name: 'lil_skunk', 
 				},
 				// Renamed from lil_skunk
 				150 => {

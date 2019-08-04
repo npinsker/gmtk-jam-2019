@@ -245,12 +245,27 @@ class PlayState extends FlxState {
 		}
 	}
 	
+	public function readdDialogBox(dialog_name:String) {
+		var dialog:Array<String> = dialogMap.get(dialog_name);
+		dialogBox = Constants.instance.dbf.create(dialog,
+		{
+			globalVariables: triggers,
+		});
+		foregroundLayer.add(dialogBox);
+		focus.push(dialogBox);
+		SoundManager.addSound('advance', 0.4);
+		dialogBox.y = FlxG.height - dialogBox.height;	
+	}
+
 	public function closeCallback(game:ArcadeCabinet, score:Int) {
 		trace(game.name + " / " + game.special + " / " + score);
-		
-		var sp:FlxSprite = cast focus.last();
-		foregroundLayer.remove(sp);
-		focus.pop();
+		if (game.name == 'counter' && game.special && score >= 100) {
+			triggers.set(Constants.COUNT_KING_QUEST_PROGRESS, 2);
+			this.readdDialogBox('skunklass');
+		}
+
+		foregroundLayer.remove(game);
+		focus.remove(game);
 	}
 	
 	public function addEntitiesFromTiled(map:TiledMap, objectLoader:TiledObjectLoader) {
