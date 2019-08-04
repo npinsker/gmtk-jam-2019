@@ -6,7 +6,6 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import nova.render.NovaEmitter;
 import openfl.display.BitmapData;
-import nova.input.Focusable;
 import nova.input.InputController;
 import nova.render.FlxLocalSprite;
 
@@ -31,7 +30,6 @@ class SortingGame extends ArcadeCabinet {
 		});
 		backgroundLayer.add(background);
 		this.special = special;
-		this.special = true;
 	}
 	
 	public function startGame() {
@@ -107,8 +105,8 @@ class SortingGame extends ArcadeCabinet {
 				scoreDisplay._sprite.text = Std.string(score);
 				Director.wait(waitSpeed).call(addBot);
 				
-				if (special && Math.random() < 0.2 && clipSprites.length > 6) {
-					Director.fadeOut(clipSprites[6], moveSpeed);
+				if (special && Math.random() < 0.2 && clipSprites.length > 8 && score > 20) {
+					Director.fadeOut(clipSprites[8], moveSpeed);
 				}
 			} else {
 				endGame();
