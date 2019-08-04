@@ -264,7 +264,7 @@ if RHYTHM_KING_QUEST_PROGRESS == 0:
 if RHYTHM_KING_QUEST_PROGRESS == 1:
   s "Yo. You beat my high score."
   s "...You don't want the autograph?"
-  s "So...you're challenging me? You wanna be the [Rhythm King]?"
+  s "So...you're challenging me? You wanna be the Rhythm King?"
   s "Nice, nice. Let's do this."
 
   "[Slug Shack wants to fight!]"
@@ -360,6 +360,16 @@ r "Wonder what that lock over there does."
 DIALOG dog_blue
 
 "Hey! Buzz off! I just lost 'cause of you!"
+
+##############
+DIALOG dog_red
+
+if OVERALL_QUEST_PROGRESS == 0:
+  r "Um, aren't you too young to be in here?"
+  jump end
+
+"When I was younger, I used to be great at Rhythm Tappo."
+"I once even scored a perfect 1,000,000 points..."
 
 #################
 DIALOG game_genie

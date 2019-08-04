@@ -83,6 +83,7 @@ class PlayState extends FlxState {
 		p._internal_hitbox = new FlxRect(1, 24, 16, 7);
 		entityLayer.add(p);
 		p.xy = [12 * 32, 10 * 32];
+		p.spriteRef.animation.play('u');
 		
 		entities = [];
 		
@@ -92,6 +93,8 @@ class PlayState extends FlxState {
 		
 		foregroundLayer = new FlxLocalSprite();
 		add(foregroundLayer);
+		
+		SoundManager.playMusic(Constants.OVERWORLD_MUSIC);
 	}
 	
 	public function handleInput() {
@@ -287,7 +290,7 @@ class PlayState extends FlxState {
 			}
 			
 			if (tokens[1] == Constants.OVERALL_QUEST_PROGRESS) {
-				SoundManager.addSound('victory', 1.0, 0.6);
+				SoundManager.addSound('victory', 1.0, 0.0, 60);
 			}
 			
 			for (entity in entities) {
@@ -300,6 +303,7 @@ class PlayState extends FlxState {
 		
 		if (emitString == 'end_game') {
 			locked = true;
+			FlxG.sound.music.pause();
 			
 			var octopus:Entity = null;
 			for (entity in entities) {
@@ -327,6 +331,7 @@ class PlayState extends FlxState {
 			Director.wait(240).call(function() {
 				p.spriteRef.animation.play('l');
 				this.readdDialogBox('game_genie');
+				FlxG.sound.music.resume();
 			});
 		}
 		

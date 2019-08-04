@@ -64,7 +64,7 @@ class CounterGame extends ArcadeCabinet {
 		mainLayer.add(guessedText);
 		
 		duckyGfx = LocalWrapper.fromGraphic(tiles.getTile(17));
-		duckyGfx.xy = [-9, 0];
+		duckyGfx.xy = [-4, 0];
 		mainLayer.add(duckyGfx);
 		
 		correctNumber = Std.int(6 + 3 * round + Math.random() * (8 + 2 * round));
@@ -117,9 +117,9 @@ class CounterGame extends ArcadeCabinet {
 				if (remaining >= 50 + 16 * Math.random()) waitTime = Std.int(waitTime * 2.5);
 				else waitTime = Std.int(2 + 6 * Math.random());
 			}
-			Director.wait(waitTime < 2 ? 2 : waitTime).call(function() { addPotato(); });
+			Director.wait(null, waitTime < 2 ? 2 : waitTime, '__counterGame').call(function() { addPotato(); });
 		} else {
-			Director.wait(350).call(function() {
+			Director.wait(null, 350, '__counterGame').call(function() {
 				endCounterPhase();
 			});
 		}
@@ -146,6 +146,7 @@ class CounterGame extends ArcadeCabinet {
 			var leftGfx = LocalWrapper.fromGraphic(tiles.getTile(17));
 			leftGfx.xy = [guessedText.x - leftGfx.width - 2, 17];
 			mainLayer.add(leftGfx);
+			SoundManager.addSound('blip', 0.6, 0.6);
 		});
 		
 		Director.wait(45 + dramaticWaitTime).call(function() {
@@ -163,13 +164,17 @@ class CounterGame extends ArcadeCabinet {
 			var rightGfx = LocalWrapper.fromGraphic(tiles.getTile(!special ? 5 : 20));
 			rightGfx.xy = [trueText.x + trueText.width + 38, trueText.y + 17];
 			mainLayer.add(rightGfx);
+			SoundManager.addSound('blip', 0.6, 0.6);
 		});
 		Director.wait(90 + dramaticWaitTime).call(function() {
 			var roundStatus:LocalSpriteWrapper;
 			if (wonRound) {
 				roundStatus = LocalWrapper.fromGraphic(tiles.stitchTiles([15]));
+				SoundManager.addSound('small_victory', 0.6, 0.6);
 			} else {
 				roundStatus = LocalWrapper.fromGraphic(tiles.stitchTiles([16]));
+				FlxG.camera.shake(0.006, 0.15);
+				SoundManager.addSound('explosion', 0.6, 0.6);
 			}
 			mainLayer.add(roundStatus);
 			
@@ -241,11 +246,12 @@ class CounterGame extends ArcadeCabinet {
 			}
 		}
 		if (InputController.justPressed(CANCEL)) {
+			Director.clearTag('__counterGame');
 			closeCallback(this, 0);
 		}
 		#if debug
 		if (InputController.justPressed(X)) {
-			if (FlxG.sound.music != null) FlxG.sound.music.stop();
+			Director.clearTag('__counterGame');
 			closeCallback(this, 1000);
 		}
 		#end
