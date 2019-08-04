@@ -37,13 +37,13 @@ class Constants {
 		idToInfo = [
 			'test' => [
 				1 => {
-					tiles: [1], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0],
+					tiles: [1], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0], zOffset: 100,
 				},
 				2 => {
-					tiles: [2, 18], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0],
+					tiles: [2, 18], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0], zOffset: 100,
 				},
 				3 => {
-					tiles: [3], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0],
+					tiles: [3], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0], zOffset: 100,
 				},
 				32 => {
 					tiles: [32], columns: 1, type: 'talkable', hitbox: [0, 0, 15, 24],
@@ -115,7 +115,7 @@ class Constants {
 				},
 				// Renamed from lil_skunk
 				150 => {
-					tiles: [150, 151], columns: 1, frames: 2, type: 'talkable', name: 'skunklass', hitbox: [5, 20, 20, 11],
+					tiles: [150, 151], columns: 1, frames: 2, type: 'talkable', name: 'skunklass', hitbox: [5, 20, 20, 11], zOffset: 20,
 				},
 				152 => {
 					tiles: [152, 152], columns: 1, frames: 3, type: 'talkable', name: 'frog', hitbox: [5, 23, 20, 8],

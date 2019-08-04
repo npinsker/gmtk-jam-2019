@@ -158,14 +158,14 @@ class PlayState extends FlxState {
 			}
 		}
 	}
-
-	public function handleAnimations() {
+	
+	public function getTalkableTarget():Entity {
+		var bestDistance:Float = 10000;
+		var best:Entity = null;
 		for (entity in entities) {
 			if (entity.type == 'solid') continue;
 
-			var hasConfirm:Bool = Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm;
-
-			var hitbox = nova.utils.GeomUtils.expand(entity.hitbox, 4);
+			var hitbox = nova.utils.GeomUtils.expand(entity.hitbox, 6);
 			var hitEntity:Bool = false;
 			var distance:Float = 10000;
 			var str = p.getDirectionString();
@@ -190,9 +190,23 @@ class PlayState extends FlxState {
 					distance = Math.max(0, p.hitbox.top - hitbox.bottom);
 				}
 			}
-			
-			var sweepTest:Bool = (distance < 20 || (entity.type == 'talkable' && entity.name == 'bartender' && distance < 52));
-			if ((speakTarget == -1 || speakTarget == entity.id) && sweepTest) {
+			if (distance > 20 && (entity.type != 'talkable' || entity.name != 'bartender')) continue;
+			if (distance > 52) continue;
+
+			if (hitEntity && distance < bestDistance) {
+				bestDistance = distance;
+				best = entity;
+			}
+		}
+		return best;
+	}
+
+	public function handleAnimations() {
+		var targetEntity = getTalkableTarget();
+		
+		for (entity in entities) {
+			var hasConfirm:Bool = Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm;
+			if (targetEntity != null && targetEntity.id == entity.id) {
 				speakTarget = entity.id;
 				if (!hasConfirm) {
 					if (Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm) {
@@ -209,7 +223,6 @@ class PlayState extends FlxState {
 					Director.fadeIn(lo, 3);
 				}
 			} else if (hasConfirm) {
-				speakTarget = -1;
 				entity.scratch.hasConfirm = false;
 				var lo:LocalSpriteWrapper = entity.scratch.confirm;
 				foregroundLayer.remove(lo);
@@ -310,6 +323,10 @@ class PlayState extends FlxState {
 				e.name = object.name;
 			}
 			
+			if (Reflect.hasField(object, 'zOffset')) {
+				e.zOffset = object.zOffset;
+			}
+			
 			if (Reflect.hasField(object, 'hitbox')) {
 				e._internal_hitbox = new FlxRect(object.hitbox[0], object.hitbox[1], object.hitbox[2], object.hitbox[3]);
 			} else {
@@ -334,7 +351,7 @@ class PlayState extends FlxState {
 		handleAnimations();
 		
 		entityLayer.children.sort(function(a, b) {
-			return Std.int(cast(a, Entity).hitbox.bottom - cast(b, Entity).hitbox.bottom);
+			return Std.int(cast(a, Entity).hitbox.bottom + cast(a, Entity).zOffset - cast(b, Entity).hitbox.bottom - cast(b, Entity).zOffset);
 		});
 		super.update(elapsed);
 	}
