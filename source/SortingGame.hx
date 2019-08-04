@@ -34,7 +34,6 @@ class SortingGame extends ArcadeCabinet {
 		name = 'sorting';
 		backgroundLayer.add(background);
 		this.special = special;
-		this.special = true;
 	}
 	
 	public function startGame() {
@@ -58,7 +57,7 @@ class SortingGame extends ArcadeCabinet {
 
 		scoreDisplay = Utilities.createText();
 		scoreDisplay.xy = [25, -8];
-		scoreDisplay._sprite.color = FlxColor.WHITE;
+		scoreDisplay._sprite.color = FlxColor.BLACK;
 		scoreDisplay._sprite.size = 64;
 		scoreDisplay._sprite.text = "0";
 		mainLayer.add(scoreDisplay);
