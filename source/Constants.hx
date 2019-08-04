@@ -11,7 +11,9 @@ class Constants {
 	
 	public static var OVERALL_QUEST_PROGRESS:String = 'OVERALL_QUEST_PROGRESS';
 	public static var RHYTHM_KING_QUEST_PROGRESS:String = 'RHYTHM_KING_QUEST_PROGRESS';
-	public static var ALL_QUESTS:Array<String> = [OVERALL_QUEST_PROGRESS, RHYTHM_KING_QUEST_PROGRESS];
+	public static var COUNT_KING_QUEST_PROGRESS:String = 'COUNT_KING_QUEST_PROGRESS';
+	public static var SORT_KING_QUEST_PROGRESS:String = 'SORT_KING_QUEST_PROGRESS';
+	public static var ALL_QUESTS:Array<String> = [OVERALL_QUEST_PROGRESS, RHYTHM_KING_QUEST_PROGRESS, COUNT_KING_QUEST_PROGRESS, SORT_KING_QUEST_PROGRESS];
 	
 	public static var PLAYER_NAME:String = 'Miku';
 
@@ -19,7 +21,7 @@ class Constants {
 	
 	public var idToInfo:Map<String, Map<Int, Dynamic>>;
 
-	private var MARTIAN_HITBOX:Array<Int> = [6, 18, 9, 10];  // formerly [0, 20, 20, 10]
+	private var MARTIAN_HITBOX:Array<Int> = [6, 18, 8, 10];  // formerly [0, 20, 20, 10]
 
 	public function new() {
 		idToInfo = [
@@ -45,35 +47,35 @@ class Constants {
 					tiles: [100, 101], columns: 1, frames: 2, type: 'talkable', name: 'ramenpuss', hitbox: [2, 13, 29, 13],
 				},
 				117 => {
-					tiles: [116, 117], columns: 1, frames: 2, type: 'talkable', name: 'deadmaus', hitbox: [4, 13, 15, 13],
+					tiles: [116, 117], columns: 1, frames: 2, type: 'talkable', name: 'deadmaus', hitbox: [4, 13, 15, 13], fps: 1,
 				},
 				118 => {
-					tiles: [118, 119], columns: 1, frames: 2, type: 'talkable', name: 'octopus', hitbox: [0, 8, 32, 13],
+					tiles: [118, 119], columns: 1, frames: 2, type: 'talkable', name: 'octopus', hitbox: [0, 8, 32, 13], fps: 3,
 				},
 				133 => {
-					tiles: [133, 134], columns: 1, frames: 2, type: 'talkable', name: 'bartender', hitbox: [5, 20, 20, 11],
+					tiles: [133, 134], columns: 1, frames: 2, type: 'talkable', name: 'bartender', hitbox: [5, 20, 20, 11], fps: 1,
 				},
 				144 => {
 					tiles: [144, 145], columns: 1, frames: 2, type: 'solid', name: 'martian_fwd', hitbox: MARTIAN_HITBOX,
 				},
 				146 => {
-					tiles: [146, 147], columns: 1, frames: 2, type: 'solid', name: 'martian_right', hitbox: MARTIAN_HITBOX,
+					tiles: [146, 147], columns: 1, frames: 2, type: 'solid', name: 'martian_right', hitbox: MARTIAN_HITBOX, fps: 1,
 				},
 				148 => {
-					tiles: [148, 149], columns: 1, frames: 2, type: 'solid', name: 'martian_right_reach', hitbox: MARTIAN_HITBOX,
+					tiles: [148, 149], columns: 1, frames: 2, type: 'solid', name: 'martian_right_reach', hitbox: MARTIAN_HITBOX, fps: 3,
 				},
 
 				160 => {
-					tiles: [160, 161], columns: 1, frames: 2, type: 'solid', name: 'martian_green_fwd', hitbox: MARTIAN_HITBOX,
+					tiles: [160, 161], columns: 1, frames: 2, type: 'solid', name: 'martian_green_fwd', hitbox: MARTIAN_HITBOX, fps: 1,
 				},
 				163 => {
 					tiles: [163, 164], columns: 1, frames: 2, type: 'solid', name: 'martian_green_right_reach', hitbox: MARTIAN_HITBOX,
 				},
 				165 => {
-					tiles: [165, 166], columns: 1, frames: 2, type: 'solid', name: 'tv_blue', hitbox: MARTIAN_HITBOX,
+					tiles: [165, 166], columns: 1, frames: 2, type: 'solid', name: 'tv_blue', hitbox: MARTIAN_HITBOX, 
 				},
 				167 => {
-					tiles: [167, 168], columns: 1, frames: 2, type: 'solid', name: 'tv_pink', hitbox: MARTIAN_HITBOX,
+					tiles: [167, 168], columns: 1, frames: 2, type: 'solid', name: 'tv_pink', hitbox: MARTIAN_HITBOX, fps: 3,
 				},
 				178 => {
 					tiles: [178, 179], columns: 1, frames: 2, type: 'solid', name: 'dog_red', hitbox: MARTIAN_HITBOX,

@@ -42,8 +42,36 @@ DIALOG fishing_cabinet
 ###############
 DIALOG deadmaus
 
-"Mouse" "Rhythm Tappo is my jam, yo!"
-"Mouse" "I actually wrote the music for one of the tracks!"
+if OVERALL_QUEST_PROGRESS == 0:
+  "This person is ignoring you..."
+  jump end
+
+"Rhythm Tappo is my jam, yo!"
+"I actually wrote the music for one of the tracks! 'Games N Stuff.'"
+
+################
+DIALOG martian_green_fwd
+
+if OVERALL_QUEST_PROGRESS == 0:
+  "This person is ignoring you..."
+  jump end
+"You are sufficient at games. For a human."
+
+################
+DIALOG lock
+
+"A very strange lock with three indentations. It seems important."
+if OVERALL_QUEST_PROGRESS == 1:
+  "One of them is glowing!"
+  jump end
+if OVERALL_QUEST_PROGRESS == 2:
+  "Two of them are glowing!"
+  jump end
+if OVERALL_QUEST_PROGRESS == 3:
+  "All three indentations are glowing!"
+  "The lock is opening!"
+  jump end
+
 
 ################
 DIALOG bartender
@@ -55,17 +83,26 @@ debug OVERALL_QUEST_PROGRESS
 if OVERALL_QUEST_PROGRESS == 0:
   b "I'll talk to you, kid. Bartender's neutrality."
   b "What brings a kid like you to a place like this?"
-  b "...You're looking for someone? Lucy?"
-  b "And you hear she was last seen at this arcade?"
-  b "Try talking to people. I'm sure someone's got something useful."
-  b "Good luck, kid."
-  emit "set OVERALL_QUEST_PROGRESS 1"
+  b "...You're searching for the [Game Genie]? Isn't that an urban legend?"
+  b "You heard you can summon him if you beat Arcade City's secret [Arcade Kings]? And you hear they're all at this arcade?"
+  b "Never heard that before. Maybe if you ask around you'll hear something useful."
   jump end
 
 choice_box:
   > "Ask bartender for gossip" gossip
 
 label gossip:
+if COUNT_KING_QUEST_PROGRESS == 0:
+  b "Have you tried asking Lil Skunk? Kid knows all the latest."
+  jump end
+if RHYTHM_KING_QUEST_PROGRESS == 0:
+  b "Did you know Slug Shack comes here sometimes? Pretty cool, right?"
+  jump end
+if SORT_KING_QUEST_PROGRESS == 0:
+  b "I heard a rumor that something lives in that Cup Noodle."
+  b "Something that likes... sorts?"
+  jump end
+
 
 ################
 DIALOG ramenpuss
@@ -74,39 +111,70 @@ define c = Character("Cup Noodle")
 
 if OVERALL_QUEST_PROGRESS == 0:
   c "..."
-  c "hisssssssssss....."
+  c "fsssssssssssh....."
   jump end
 
-c "..."
+c ".............."
 "(Something is definitely splashing inside...)"
-"(You feel that if you beat the Cup Noodle creature's high score, it may speak to you...)"
+"(You feel that if you beat the Cup Noodle creature's [high score], it may speak to you...)"
 jump end
 
 ################
 DIALOG lil_skunk
 
-define s = Character("Lil' Skunk")
+define s = Character("Lil Skunk")
 
-s "Lucy? Yeah, I know her."
-s "But I don't talk to people who are worse than me at Ducky Counter."
-s "Scrub."
-jump end
+if COUNT_KING_QUEST_PROGRESS == 0:
+  s "Do I know about the Arcade Kings? Um, who doesn't?!"
+  s "But I don't talk to people who are worse than me at Ducky Counter."
+  s "Scrub."
+  jump end
 
-s "W-wait, you actually did it? But I was joking!"
-s "Man, now I feel bad..."
-s "Hey. Why don't you ask Skunklass if she's got any leads?"
-s "She's my older sister. DON'T say she smells."
+if COUNT_KING_QUEST_PROGRESS == "beat_lil_skunk":
+  s "W-wait, you actually did it? But I was joking!"
+  s "Man, now I feel bad..."
+  s "Hey... why don't you ask Skunklass if she knows anything?"
+  s "She's my big sister. DON'T say she smells."
+  jump end
+
+s "You beat Skunklass?!?! You're the best Ducky Counter I've ever seen..."
+
 
 ################
 DIALOG skunklass
 
 define s = Character("Skunklass")
 
-s "Yo, human. I can't count with you watching me play."
-s "...What's that? You think it's weird for a skunk to play games 'cause we SMELL?"
-s "Hm? You didn't say that? But you THOUGHT it, didn't you?"
-s "DIDN'T YOU?!?!?!!"
-s "I'll show you!!!"
+if COUNT_KING_QUEST_PROGRESS == 0:
+  "This person seems busy... You don't feel like you can talk to her right now..."
+  jump end
+
+if COUNT_KING_QUEST_PROGRESS == "beat_lil_skunk":
+  s "Yo, human. I can't drink in peace with you staring."
+  s "My idiot brother told you to talk to me? Can't imagine why. Get lost."
+  s "...What's that? You think it's weird for a skunk to play games 'cause we smell??"
+  s "You think a skunk could never be an Arcade King? Cause we STINK??????"
+  s "Hm? You didn't say that? But you THOUGHT it, didn't you?"
+  s "DIDN'T YOU?!?!?!!"
+  s "I'll show you!!!!!!!"
+
+  "[Skunklass wants to fight!]"
+  "[Count all the Skunklasses!]"
+  jump end
+
+if COUNT_KING_QUEST_PROGRESS == "beat_skunklass":
+  s "Alright, kid. You got me."
+  s "I'm the [Count King...] or I was. You just bested me, fair and square."
+  s "I guess you get this? Take it. You've earned it."
+  "[You mastered a game! Some people will be more willing to talk to you!]"
+  s "Don't tell my brother you won. I'll never hear the end of it..."
+  emit "set COUNT_KING_QUEST_PROGRESS complete"
+  emit "set OVERALL_QUEST_PROGRESS 1"
+  jump end
+
+s "You're pretty good for a human! I'm rooting for you."
+
+
 
 ##############
 DIALOG octopus
