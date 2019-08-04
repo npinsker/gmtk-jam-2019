@@ -62,15 +62,15 @@ class PlayState extends FlxState {
 		
 		dialogMap = parseDialogFile('assets/data/dialog.txt');
 		
+		readdDialogBox('welcome');
+	}
+	
+	public function drawRoom() {
 		var map:TiledMap = new TiledMap('assets/data/gmtk_arcade.tmx');
 		var tr:TiledRenderer = new TiledRenderer(map);
 		var to:TiledObjectLoader = new TiledObjectLoader(Constants.instance.idToInfo, ['test' => 0], [32, 32]);
 		
-		var tiles = tr.renderStaticScreen([0, 0, map.width, map.height], to);
-		backgroundLayer.add(LocalSpriteWrapper.fromGraphic(tiles));
-		
 		tileAccessor = new TiledBitmapData('assets/images/test.png', 32, 32);
-
 		var playerBitmap:BitmapData = tileAccessor.stitchTiles([96, 97, 98, 99, 112, 113, 114, 115, 128, 129, 130, 131]);
 		var as:AnimationSet = new AnimationSet([32, 32], [
 			new AnimationFrames('stand', [0, 1], 3),
@@ -84,6 +84,9 @@ class PlayState extends FlxState {
 		entityLayer.add(p);
 		p.xy = [12 * 32, 10 * 32];
 		p.spriteRef.animation.play('u');
+		
+		var tiles = tr.renderStaticScreen([0, 0, map.width, map.height], to);
+		backgroundLayer.add(LocalSpriteWrapper.fromGraphic(tiles));
 		
 		entities = [];
 		
@@ -357,6 +360,10 @@ class PlayState extends FlxState {
 		
 		if (emitString == 'unlock') {
 			locked = false;
+		}
+		
+		if (emitString == 'start') {
+			drawRoom();
 		}
 	}
 	

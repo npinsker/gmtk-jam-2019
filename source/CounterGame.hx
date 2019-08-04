@@ -63,7 +63,7 @@ class CounterGame extends ArcadeCabinet {
 		guessedText.xy = [52, 3];
 		mainLayer.add(guessedText);
 		
-		duckyGfx = LocalWrapper.fromGraphic(tiles.getTile(17));
+		duckyGfx = LocalWrapper.fromGraphic(tiles.getTile(!special ? 17 : 19));
 		duckyGfx.xy = [-4, 0];
 		mainLayer.add(duckyGfx);
 		

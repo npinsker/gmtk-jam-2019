@@ -28,6 +28,8 @@ class SplashState extends FlxTransitionableState {
 			animation: [0, 1],
 			frameRate: 1
 		});
+		backgroundLayer.x = FlxG.width / 2 - backgroundLayer.width / 2;
+		backgroundLayer.y = FlxG.height / 2 - backgroundLayer.height / 2;
 		add(backgroundLayer);
 
 		var diamond:FlxGraphic = FlxGraphic.fromBitmapData(Assets.getBitmapData("assets/images/diamond.png"));
