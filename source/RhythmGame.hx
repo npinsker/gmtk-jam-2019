@@ -52,6 +52,7 @@ class RhythmGame extends ArcadeCabinet {
 	public var score:Int;
 	public var maxScore:Int;
 	public var scoreDisplay:LocalWrapper<FlxText>;
+	public var gradeDisplay:LocalSpriteWrapper;
 	public var shaders:Array<InvertShader>;
 	public var invertActive:Bool = false;
 	public var invertBeats:Array<Float>;
@@ -123,6 +124,16 @@ class RhythmGame extends ArcadeCabinet {
 		scoreDisplay._sprite.size = 64;
 		scoreDisplay._sprite.text = renderScore();
 		mainLayer.add(scoreDisplay);
+		
+		gradeDisplay = LocalWrapper.fromGraphic(tiles.stitchTiles([30, 31, 32, 33]), {
+			frameSize: [64, 64]
+		});
+		gradeDisplay._sprite.animation.add('c', [0], 1, false);
+		gradeDisplay._sprite.animation.add('b', [1], 1, false);
+		gradeDisplay._sprite.animation.add('a', [2], 1, false);
+		gradeDisplay._sprite.animation.add('s', [3], 1, false);
+		mainLayer.add(gradeDisplay);
+		gradeDisplay.xy = [width - 24 - gradeDisplay.width, -2];
 
 		reticle = LocalWrapper.fromGraphic(tiles.getTile(1));
 		reticle.xy = [25, 160 - reticle.height/2];
@@ -182,6 +193,16 @@ class RhythmGame extends ArcadeCabinet {
 				} else {
 					score += 1;
 					flash.loadGraphic(tiles.getTile(4));
+				}
+				var realScore = getRealScore();
+				if (realScore > 970000) {
+					gradeDisplay._sprite.animation.play('s');
+				} else if (realScore > 800000) {
+					gradeDisplay._sprite.animation.play('a');
+				} else if (realScore > 650000) {
+					gradeDisplay._sprite.animation.play('b');
+				} else {
+					gradeDisplay._sprite.animation.play('c');
 				}
 				add(flash);
 				
