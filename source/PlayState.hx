@@ -26,7 +26,7 @@ using StringTools;
 class PlayState extends FlxState {
 	var TILE_WIDTH:Int = 32;
 	var TILE_HEIGHT:Int = 32;
-	var PLAYER_SPEED:Float = 3.0;  // will be 1.8 in final version
+	var PLAYER_SPEED:Float = 3.0;  // will be 1.6 in final version
 	
 	var p:Entity;
 	
@@ -160,22 +160,38 @@ class PlayState extends FlxState {
 	}
 
 	public function handleAnimations() {
-		var checkTalk = new FlxPoint(p.hitbox.x + p.hitbox.width / 2 + p.getDirection().x * TILE_WIDTH,
-		                             p.hitbox.y + p.hitbox.height / 2 + p.getDirection().y * TILE_HEIGHT);
-		var checkTalkHalf = new FlxPoint(p.hitbox.x + p.hitbox.width / 2 + p.getDirection().x * TILE_WIDTH/2,
-		                             p.hitbox.y + p.hitbox.height / 2 + p.getDirection().y * TILE_HEIGHT/2);
-		var checkTalkDouble = new FlxPoint(p.hitbox.x + p.hitbox.width / 2 + p.getDirection().x * TILE_WIDTH*2,
-		                             p.hitbox.y + p.hitbox.height / 2 + p.getDirection().y * TILE_HEIGHT*2);
-
 		for (entity in entities) {
-			var hasConfirm:Bool = Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm;
-			
 			if (entity.type == 'solid') continue;
-			
-			var sweepTest:Bool = entity.hitbox.containsPoint(checkTalk) || entity.hitbox.containsPoint(checkTalkHalf);
-			if (entity.type == 'talkable' && entity.name == 'bartender') {
-				sweepTest = sweepTest || entity.hitbox.containsPoint(checkTalkDouble);
+
+			var hasConfirm:Bool = Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm;
+
+			var hitbox = entity.hitbox;
+			var hitEntity:Bool = false;
+			var distance:Float = 10000;
+			var str = p.getDirectionString();
+			if (str == 'r') {
+				if (p.hitbox.right < hitbox.right && p.hitbox.top < hitbox.bottom && hitbox.top < p.hitbox.bottom) {
+					hitEntity = true;
+					distance = Math.max(0, hitbox.left - p.hitbox.right);
+				}
+			} else if (str == 'l') {
+				if (p.hitbox.left > hitbox.left && p.hitbox.top < hitbox.bottom && hitbox.top < p.hitbox.bottom) {
+					hitEntity = true;
+					distance = Math.max(0, p.hitbox.left - hitbox.right);
+				}
+			} else if (str == 'd') {
+				if (p.hitbox.bottom < hitbox.bottom && p.hitbox.left < hitbox.right && hitbox.left < p.hitbox.right) {
+					hitEntity = true;
+					distance = Math.max(0, hitbox.top - p.hitbox.bottom);
+				}
+			} else if (str == 'u') {
+				if (p.hitbox.top > hitbox.top && p.hitbox.left < hitbox.right && hitbox.left < p.hitbox.right) {
+					hitEntity = true;
+					distance = Math.max(0, p.hitbox.top - hitbox.bottom);
+				}
 			}
+			
+			var sweepTest:Bool = (distance < 20 || (entity.type == 'talkable' && entity.name == 'bartender' && distance < 52));
 			if ((speakTarget == -1 || speakTarget == entity.id) && sweepTest) {
 				speakTarget = entity.id;
 				if (!hasConfirm) {
