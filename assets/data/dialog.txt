@@ -364,9 +364,9 @@ DIALOG dog_blue
 ##############
 DIALOG welcome
 
-"20XX A.D., New Game City:"
 "Our hero searches for the Game Genie..."
-"In the course of her travels, she stumbles upon a storied arcade..."
+"In the course of her travels, she hears of a storied arcade where legends play."
+"Maybe the bartender will be able to help her..."
 emit "start"
 
 
