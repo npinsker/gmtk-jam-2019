@@ -15,7 +15,7 @@ class RhythmGame extends ArcadeCabinet {
 	public var BPM:Float = 103.055;
 	public var OFFSET:Float = 0.303;
 	public var INPUT_LAG:Float = 0.01666;
-	public var SCROLL_SPEED:Float = 220.0;
+	public var SCROLL_SPEED:Float = 200.0;
 	
 	public var notes:Array<Float> = [
 		9, 11, 13, 14, 15,

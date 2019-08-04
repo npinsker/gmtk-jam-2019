@@ -286,6 +286,10 @@ class PlayState extends FlxState {
 				dialogBox.globalVariables.set(tokens[1], value);
 			}
 			
+			if (tokens[1] == Constants.OVERALL_QUEST_PROGRESS) {
+				SoundManager.addSound('victory', 1.0, 0.6);
+			}
+			
 			for (entity in entities) {
 				if (entity.type == 'talkable' && entity.name == 'lock') {
 					var lsw:Entity = cast entity;

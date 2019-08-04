@@ -50,8 +50,8 @@ class SortingGame extends ArcadeCabinet {
 		judgeSprite._sprite.animation.add('blue', [1], 1, false);
 		judgeSprite._sprite.animation.play('red');
 		mainLayer.add(judgeSprite);
-		judgeSprite.x = 70;
-		judgeSprite.y = height / 2 - judgeSprite.height / 2;
+		judgeSprite.x = 50;
+		judgeSprite.y = 164;
 
 		scoreDisplay = Utilities.createText();
 		scoreDisplay.xy = [25, -8];
@@ -91,6 +91,7 @@ class SortingGame extends ArcadeCabinet {
 			var shouldBeBlue = (colors[queuePosition] == 1);
 			if (shouldBeBlue == judgeIsBlue) {
 				score += 1;
+				SoundManager.addSound('advance', 0.4);
 				
 				var amtToSpawn:Int = Std.int(Math.max(4, 20 - score / 3));
 				var px:NovaEmitter = new NovaEmitter(judgeSprite.x, judgeSprite.y);
@@ -115,6 +116,7 @@ class SortingGame extends ArcadeCabinet {
 				FlxG.camera.shake(0.02, 0.2);
 				Director.wait(70).call(clearScreen);
 				Director.wait(90).call(endGame);
+				SoundManager.addSound('explosion', 0.6, 0.6);
 			}
 		} else {
 			Director.wait(waitSpeed).call(addBot);
