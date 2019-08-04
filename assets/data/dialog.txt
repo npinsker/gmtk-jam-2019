@@ -58,6 +58,60 @@ DIALOG deadmaus
 "Mouse" "Rhythm Tappo is my jam, yo!"
 "Mouse" "I actually wrote the music for one of the tracks!"
 
+################
+DIALOG bartender
+
+define b = Character("Bartender")
+
+if OVERALL_QUEST == 0:
+  b "I'll talk to you, kid. Bartender's neutrality."
+  b "What brings a kid like you to a place like this?"
+  b "...You're looking for someone? Lucy?"
+  b "And you hear she was last seen at this arcade?"
+  b "Try talking to people. I'm sure someone's got something useful."
+  b "Good luck, kid."
+  emit "set OverallQuestProgress 1"
+  jump end
+
+choice_box:
+  > "Ask bartender for gossip"
+
+################
+DIALOG ramenpuss
+
+define c = Character("Cup Noodle")
+
+c "..."
+"(Something is definitely splashing inside...)"
+"(You feel that if you beat the Cup Noodle creature's high score, it may speak to you...)"
+jump end
+
+################
+DIALOG lil_skunk
+
+define s = Character("Lil' Skunk")
+
+s "Lucy? Yeah, I know her."
+s "But I don't talk to people who are worse than me at Ducky Counter."
+s "Scrub."
+jump end
+
+s "W-wait, you actually did it? But I was joking!"
+s "Man, now I feel bad..."
+s "Hey. Why don't you ask Skunklass if she's got any leads?"
+s "She's my older sister. DON'T say she smells."
+
+################
+DIALOG skunklass
+
+define s = Character("Skunklass")
+
+s "Yo, human. I can't count with you watching me play."
+s "...What's that? You think it's weird for a skunk to play games 'cause we SMELL?"
+s "Hm? You didn't say that? But you THOUGHT it, didn't you?"
+s "DIDN'T YOU?!?!?!!"
+s "I'll show you!!!"
+
 ##############
 DIALOG octopus
 

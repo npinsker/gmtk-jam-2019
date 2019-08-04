@@ -9,9 +9,9 @@ import nova.utils.BitmapDataUtils;
 class Constants {
 	public static var instance:Constants = new Constants();
 	
-	public static var OVERALL_QUEST:String = 'OVERALL_QUEST';
-	public static var RHYTHM_KING_QUEST:String = 'RHYTHM_KING_QUEST';
-	public static var ALL_QUESTS:Array<String> = [OVERALL_QUEST, RHYTHM_KING_QUEST];
+	public static var OVERALL_QUEST_PROGRESS:String = 'OVERALL_QUEST_PROGRESS';
+	public static var RHYTHM_KING_QUEST_PROGRESS:String = 'RHYTHM_KING_QUEST_PROGRESS';
+	public static var ALL_QUESTS:Array<String> = [OVERALL_QUEST_PROGRESS, RHYTHM_KING_QUEST_PROGRESS];
 	
 	public static var PLAYER_NAME:String = 'Miku';
 
@@ -22,6 +22,9 @@ class Constants {
 	public function new() {
 		idToInfo = [
 			'test' => [
+				2 => {
+					tiles: [2, 18], columns: 1, type: 'solid', hitbox: [0, 32, 32, 16],
+				},
 				75 => {
 					tiles: [75, 76, 91, 92, 107, 108], columns: 2, type: 'rhythm_cabinet', hitbox: [0, 70, 56, 26]
 				},
@@ -47,17 +50,37 @@ class Constants {
 					tiles: [120, 121, 136, 137], columns: 2, type: 'potato_cabinet', hitbox: [0, 36, 45, 26]
 				},
 				122 => {
-					tiles: [122, 123, 138, 139], columns: 2, type: 'solid', hitbox: [13, 10, 38, 54]
+					tiles: [122, 138], columns: 1, type: 'solid', hitbox: [13, 10, 19, 54]
+				},
+				123 => {
+					tiles: [123, 139], columns: 1, type: 'solid', hitbox: [0, 10, 19, 54]
 				},
 				124 => {
-					tiles: [124, 125, 140, 141], columns: 2, type: 'solid', hitbox: [13, 10, 38, 54]
+					tiles: [124, 125, 140, 141], columns: 2, type: 'solid', hitbox: [13, 12, 38, 52]
 				},
 				126 => {
 					tiles: [126], columns: 1, type: 'solid', hitbox: [6, 13, 26, 19]
 				},
 				142 => {
 					tiles: [142, 143, 158, 159], columns: 2, type: 'solid', hitbox: [17, 32, 47, 32]
-				}
+				},
+				
+				// back of bar
+				154 => {
+					tiles: [154, 155, 41, 171], columns: 2, type: 'solid', hitbox: [2, 15, 62, 27]
+				},
+				170 => {
+					tiles: [170], columns: 1, type: 'solid', hitbox: [1, 0, 28, 32],
+				},
+				172 => {
+					tiles: [172, 173], columns: 2, type: 'solid', hitbox: [3, 32, 27, 11],
+				},
+				174 => {
+					tiles: [174, 190], columns: 1, type: 'solid', hitbox: [0, 30, 25, 34],
+				},
+				186 => {
+					tiles: [186, 187], columns: 2, type: 'solid', hitbox: [1, 0, 63, 31],
+				},
 			]
 		];
 		dbf = new DialogBoxFactory({

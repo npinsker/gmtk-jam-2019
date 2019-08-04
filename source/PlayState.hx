@@ -114,7 +114,7 @@ class PlayState extends FlxState {
 		if (p.hitbox.left < 32 * 2) p.x += (32*2 - p.hitbox.left);
 		if (p.hitbox.right > FlxG.width - 32 * 2) p.x -= (p.hitbox.right - (FlxG.width - 32 * 2));
 		if (p.hitbox.top < 32 * 4) p.y += (32*4 - p.hitbox.top);
-		if (p.hitbox.bottom > FlxG.height - 32 * 0.75) p.y -= (p.hitbox.bottom - (FlxG.height - 32 * 0.75));
+		if (p.hitbox.bottom > FlxG.height - 32 * 1) p.y -= (p.hitbox.bottom - (FlxG.height - 32 * 1));
 		
 		if (InputController.pressed(UP)) {
 			p.y -= PLAYER_SPEED;
@@ -165,6 +165,8 @@ class PlayState extends FlxState {
 
 		for (entity in entities) {
 			var hasConfirm:Bool = Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm;
+			
+			if (entity.type == 'solid') continue;
 			
 			if ((speakTarget == -1 || speakTarget == entity.id) && (entity.hitbox.containsPoint(checkTalk) || entity.hitbox.containsPoint(checkTalkHalf))) {
 				speakTarget = entity.id;
