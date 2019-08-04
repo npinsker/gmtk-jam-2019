@@ -192,6 +192,8 @@ class CounterGame extends ArcadeCabinet {
 		for (child in children) {
 			mainLayer.remove(child);
 		}
+		
+		SoundManager.addSound('advance', 0.4);
 		if (wonRound) {
 			if (special && round == 3) {
 				closeCallback(this, 1000);
@@ -225,12 +227,14 @@ class CounterGame extends ArcadeCabinet {
 	override public function handleInput():Void {
 		if (InputController.justPressed(CONFIRM)) {
 			if (phase == 0) {
+				SoundManager.addSound('advance', 0.4);
 				startGame();
 			} else if (phase == 1) {
 				handleTap();
 			} else if (phase == 2) {
 				handleAdvanceRound();
 			} else if (phase == 3) {
+				SoundManager.addSound('advance', 0.4);
 				closeCallback(this, score);
 			}
 		}

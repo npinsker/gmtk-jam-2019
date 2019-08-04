@@ -97,7 +97,7 @@ class Constants {
 					tiles: [167, 168], columns: 1, frames: 2, type: 'solid', name: 'tv_pink', hitbox: [0, 20, 8, 12], fps: 3,
 				},
 				178 => {
-					tiles: [178, 179], columns: 1, frames: 2, type: 'solid', name: 'dog_red', hitbox: [0, 24, 12, 8],
+					tiles: [178, 179], columns: 1, frames: 2, type: 'solid', name: 'dog_red', hitbox: [3, 24, 6, 8],
 				},
 				180 => {
 					tiles: [180, 181], columns: 1, frames: 2, type: 'talkable', name: 'dog_blue', hitbox: [0, 24, 12, 8],
