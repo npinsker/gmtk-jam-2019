@@ -133,7 +133,7 @@ class RhythmGame extends ArcadeCabinet {
 		gradeDisplay._sprite.animation.add('a', [2], 1, false);
 		gradeDisplay._sprite.animation.add('s', [3], 1, false);
 		mainLayer.add(gradeDisplay);
-		gradeDisplay.xy = [width - 24 - gradeDisplay.width, -2];
+		gradeDisplay.xy = [width - 24 - gradeDisplay.width, 0];
 
 		reticle = LocalWrapper.fromGraphic(tiles.getTile(1));
 		reticle.xy = [25, 160 - reticle.height/2];
@@ -231,12 +231,7 @@ class RhythmGame extends ArcadeCabinet {
 		
 		var idx = PlayerData.instance.highScores.get('rhythm').add(Constants.PLAYER_NAME, getRealScore());
 		
-		for (note in noteSprites) {
-			mainLayer.remove(note);
-		}
-
-		mainLayer.remove(scoreDisplay);
-		mainLayer.remove(reticle);
+		clearScreen();
 
 		var table = ArcadeCabinet.renderHighScores('rhythm');
 		mainLayer.add(table);
