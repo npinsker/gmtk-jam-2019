@@ -8,7 +8,7 @@ class Main extends Sprite {
 	public function new() {
 		super();
 
-		addChild(new FlxGame(0, 0, PlayState, 1, 60, 60, true));
+		addChild(new FlxGame(0, 0, SplashState, 1, 60, 60, true));
 		
 		InputController.addKeyMapping(A, LEFT);
 		InputController.addKeyMapping(LEFT, LEFT);
@@ -20,6 +20,7 @@ class Main extends Sprite {
 		InputController.addKeyMapping(DOWN, DOWN);
 		
 		InputController.addKeyMapping(SPACE, CONFIRM);
+		InputController.addKeyMapping(ENTER, CONFIRM);
 		InputController.addKeyMapping(BACKSPACE, CANCEL);
 		InputController.addKeyMapping(ESCAPE, CANCEL);
 		

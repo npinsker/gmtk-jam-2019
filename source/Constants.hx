@@ -17,6 +17,8 @@ class Constants {
 	public static var INTRO_BARTENDER:String = "INTRO_BARTENDER";
 	public static var GAME_COMPLETE:String = "GAME_COMPLETE";
 
+	public static var OVERWORLD_MUSIC:String = 'arcade';
+
 	public static var ALL_QUESTS:Array<String> = [
 		OVERALL_QUEST_PROGRESS,
 		RHYTHM_KING_QUEST_PROGRESS,
@@ -90,7 +92,7 @@ class Constants {
 					tiles: [160, 161], columns: 1, frames: 2, type: 'talkable', name: 'martian_green_fwd', hitbox: MARTIAN_HITBOX, fps: 2,
 				},
 				163 => {
-					tiles: [163, 164], columns: 1, frames: 2, type: 'solid', name: 'martian_green_right_reach', hitbox: [8, 24, 8, 7],
+					tiles: [163, 164], columns: 1, frames: 2, type: 'solid', name: 'martian_green_right_reach', hitbox: [11, 24, 8, 7],
 				},
 				165 => {
 					tiles: [165, 166], columns: 1, frames: 2, type: 'solid', name: 'tv_blue', hitbox: MARTIAN_HITBOX, 
@@ -102,7 +104,7 @@ class Constants {
 					tiles: [176, 177], columns: 1, frames: 2, type: 'talkable', name: 'bunny', hitbox: [0, 24, 10, 8], fps: 1,
 				},
 				178 => {
-					tiles: [178, 179], columns: 1, frames: 2, type: 'solid', name: 'dog_red', hitbox: [3, 24, 6, 8],
+					tiles: [178, 179], columns: 1, frames: 2, type: 'talkable', name: 'dog_red', hitbox: [3, 24, 6, 8],
 				},
 				180 => {
 					tiles: [180, 181], columns: 1, frames: 2, type: 'talkable', name: 'dog_blue', hitbox: [0, 24, 12, 8],
@@ -179,7 +181,7 @@ class Constants {
 			advanceCallback: function() {
 				SoundManager.addSound('advance', 0.4);
 			},
-			advanceLength: 11,
+			advanceLength: 18,
 			textFormat: {
 				size: 30,
 				font: 'assets/data/m3x6.ttf',

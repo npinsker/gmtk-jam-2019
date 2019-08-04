@@ -13,7 +13,7 @@ using nova.animation.Director;
 class RhythmGame extends ArcadeCabinet {
 	public var reticle:LocalSpriteWrapper;
 	public var BPM:Float = 103.055;
-	public var OFFSET:Float = 0.303;
+	public var OFFSET:Float = 0.273;
 	public var INPUT_LAG:Float = 0.01666;
 	public var SCROLL_SPEED:Float = 200.0;
 	
@@ -230,7 +230,7 @@ class RhythmGame extends ArcadeCabinet {
 		backgroundLayer.remove(background);
 		background = LocalWrapper.fromGraphic(new BitmapData(Std.int(width), Std.int(height), false, 0xFF000000));
 		backgroundLayer.add(background);
-		FlxG.sound.music.stop();
+		SoundManager.playMusic(Constants.OVERWORLD_MUSIC);
 		
 		clearScreen();
 		if (special) {
@@ -265,19 +265,18 @@ class RhythmGame extends ArcadeCabinet {
 				Director.wait(30).call(startGame);
 			} else if (phase == 1) {
 				handleTap();
-			} else {
-				if (FlxG.sound.music != null) FlxG.sound.music.stop();
+			} else if (phase == 2) {
 				closeCallback(this, getRealScore());
 			}
 		}
 		if (InputController.justPressed(CANCEL)) {
-			if (FlxG.sound.music != null) FlxG.sound.music.stop();
+			SoundManager.playMusic(Constants.OVERWORLD_MUSIC);
 			closeCallback(this, 0);
 		}
 
 		#if debug
 		if (InputController.justPressed(X)) {
-			if (FlxG.sound.music != null) FlxG.sound.music.stop();
+			SoundManager.playMusic(Constants.OVERWORLD_MUSIC);
 			closeCallback(this, 1000000);
 		}
 		#end

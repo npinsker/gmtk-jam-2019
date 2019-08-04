@@ -125,7 +125,7 @@ class SortingGame extends ArcadeCabinet {
 				}
 			} else {
 				phase = -1;
-				FlxG.camera.shake(0.02, 0.2);
+				FlxG.camera.shake(0.006, 0.15);
 				Director.wait(70).call(clearScreen);
 				Director.wait(90).call(endGame);
 				SoundManager.addSound('explosion', 0.6, 0.6);
@@ -155,9 +155,8 @@ class SortingGame extends ArcadeCabinet {
 	public function endGame():Void {
 		phase = 2;
 		
-		backgroundLayer.remove(background);
-		background = LocalWrapper.fromGraphic(new BitmapData(Std.int(width), Std.int(height), false, 0xFFEFCB92));
-		backgroundLayer.add(background);
+		var background2 = LocalWrapper.fromGraphic(new BitmapData(Std.int(width), Std.int(height), true, 0xBBEFCB92));
+		backgroundLayer.add(background2);
 		
 		var idx = PlayerData.instance.highScores.get('sorting').add(Constants.PLAYER_NAME, score);
 		clearScreen();
