@@ -19,6 +19,8 @@ class Constants {
 	
 	public var idToInfo:Map<String, Map<Int, Dynamic>>;
 
+	private var MARTIAN_HITBOX:Array<Int> = [6, 18, 9, 10];  // formerly [0, 20, 20, 10]
+
 	public function new() {
 		idToInfo = [
 			'test' => [
@@ -39,62 +41,108 @@ class Constants {
 				},
 				
 				// NPCs
-				116 => {
-					tiles: [116], columns: 1, type: 'talkable', name: 'ramenpuss', hitbox: [2, 13, 29, 13],
+				100 => {
+					tiles: [100, 101], columns: 1, frames: 2, type: 'talkable', name: 'ramenpuss', hitbox: [2, 13, 29, 13],
 				},
 				117 => {
-					tiles: [117], columns: 1, type: 'talkable', name: 'deadmaus', hitbox: [4, 13, 15, 13],
+					tiles: [116, 117], columns: 1, frames: 2, type: 'talkable', name: 'deadmaus', hitbox: [4, 13, 15, 13],
 				},
 				118 => {
-					tiles: [118], columns: 1, type: 'talkable', name: 'octopus', hitbox: [0, 8, 32, 13],
+					tiles: [118, 119], columns: 1, frames: 2, type: 'talkable', name: 'octopus', hitbox: [0, 8, 32, 13],
 				},
 				133 => {
-					tiles: [133], columns: 1, type: 'talkable', name: 'bartender', hitbox: [5, 20, 20, 11],
+					tiles: [133, 134], columns: 1, frames: 2, type: 'talkable', name: 'bartender', hitbox: [5, 20, 20, 11],
+				},
+				144 => {
+					tiles: [144, 145], columns: 1, frames: 2, type: 'solid', name: 'martian_fwd', hitbox: MARTIAN_HITBOX,
 				},
 				146 => {
-					tiles: [146], columns: 1, type: 'solid', hitbox: [0, 20, 20, 10],
+					tiles: [146, 147], columns: 1, frames: 2, type: 'solid', name: 'martian_right', hitbox: MARTIAN_HITBOX,
 				},
-				149 => {
-					tiles: [149], columns: 1, type: 'talkable', name: 'lil_skunk', hitbox: [5, 20, 20, 11],
+				148 => {
+					tiles: [148, 149], columns: 1, frames: 2, type: 'solid', name: 'martian_right_reach', hitbox: MARTIAN_HITBOX,
 				},
+
+				160 => {
+					tiles: [160, 161], columns: 1, frames: 2, type: 'solid', name: 'martian_green_fwd', hitbox: MARTIAN_HITBOX,
+				},
+				163 => {
+					tiles: [163, 164], columns: 1, frames: 2, type: 'solid', name: 'martian_green_right_reach', hitbox: MARTIAN_HITBOX,
+				},
+				165 => {
+					tiles: [165, 166], columns: 1, frames: 2, type: 'solid', name: 'tv_blue', hitbox: MARTIAN_HITBOX,
+				},
+				167 => {
+					tiles: [167, 168], columns: 1, frames: 2, type: 'solid', name: 'tv_pink', hitbox: MARTIAN_HITBOX,
+				},
+				178 => {
+					tiles: [178, 179], columns: 1, frames: 2, type: 'solid', name: 'dog_red', hitbox: MARTIAN_HITBOX,
+				},
+				180 => {
+					tiles: [180, 181], columns: 1, frames: 2, type: 'solid', name: 'dog_blue', hitbox: MARTIAN_HITBOX,
+				},
+				198 => {
+					tiles: [198, 199], columns: 1, frames: 2, type: 'solid', name: 'bear_left', hitbox: MARTIAN_HITBOX,
+				},
+				195 => {
+					tiles: [196, 197, 196, 197, 196, 197, 198, 199, 198, 199, 198, 199], columns: 1, frames: 12, fps: 3, type: 'solid', name: 'bear_turn', hitbox: MARTIAN_HITBOX,
+				},
+
+				// Hitbox might be wrong
+				182 => {
+					tiles: [182, 183], columns: 1, frames: 2, type: 'talkable', name: 'lil_skunk', hitbox: [5, 20, 6, 11],
+				},
+				// Renamed from lil_skunk
 				150 => {
-					tiles: [150], columns: 1, type: 'talkable', name: 'frog', hitbox: [5, 23, 20, 8],
+					tiles: [150, 151], columns: 1, frames: 2, type: 'talkable', name: 'skunklass', hitbox: [5, 20, 20, 11],
 				},
-				151 => {
-					tiles: [151], columns: 1, type: 'talkable', name: 'slug_shack', hitbox: [6, 20, 20, 11],
+				152 => {
+					tiles: [152, 152], columns: 1, frames: 3, type: 'talkable', name: 'frog', hitbox: [5, 23, 20, 8],
+				},
+				200 => {
+					tiles: [200, 201], columns: 1, frames: 2, type: 'talkable', name: 'slug_shack', hitbox: [6, 20, 20, 11],
 				},
 				
+				// Blue right-wall cabinets
 				122 => {
 					tiles: [122, 138], columns: 1, type: 'solid', hitbox: [13, 10, 19, 54]
 				},
+				// Blue left-wall cabinets
 				123 => {
 					tiles: [123, 139], columns: 1, type: 'solid', hitbox: [0, 10, 19, 54]
 				},
+				// Rainbow cabinets
 				124 => {
 					tiles: [124, 125, 140, 141], columns: 2, type: 'solid', hitbox: [13, 12, 38, 52]
 				},
-				126 => {
-					tiles: [126], columns: 1, type: 'solid', hitbox: [6, 13, 26, 19]
-				},
-				142 => {
-					tiles: [142, 143, 158, 159], columns: 2, type: 'solid', hitbox: [17, 32, 47, 32]
-				},
+
+				// Not used
+				// 126 => {
+				// 	tiles: [126], columns: 1, type: 'solid', hitbox: [6, 13, 26, 19]
+				// },
+				// 142 => {
+				// 	tiles: [142, 143, 158, 159], columns: 2, type: 'solid', hitbox: [17, 32, 47, 32]
+				// },
 				
-				// back of bar
+				// Bar
 				154 => {
 					tiles: [154, 155, 41, 171], columns: 2, type: 'solid', hitbox: [2, 22, 62, 20]
 				},
 				170 => {
 					tiles: [170], columns: 1, type: 'solid', hitbox: [1, 0, 28, 32],
 				},
-				172 => {
-					tiles: [172, 173], columns: 2, type: 'solid', hitbox: [3, 32, 27, 11],
-				},
-				174 => {
-					tiles: [174, 190], columns: 1, type: 'solid', hitbox: [0, 30, 25, 34],
-				},
 				186 => {
 					tiles: [186, 187], columns: 2, type: 'solid', hitbox: [1, 0, 63, 31],
+				},
+
+				// Chairs
+				// Hitbox might be wrong
+				172 => {
+					tiles: [172, 188], columns: 1, type: 'solid', hitbox: [3, 32, 27, 11],
+				},
+				// Big orange machine
+				174 => {
+					tiles: [174, 190], columns: 1, type: 'solid', hitbox: [0, 30, 25, 34],
 				},
 			]
 		];
