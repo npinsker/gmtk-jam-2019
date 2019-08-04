@@ -31,6 +31,7 @@ class SortingGame extends ArcadeCabinet {
 		name = 'sorting';
 		backgroundLayer.add(background);
 		this.special = special;
+		this.special = true;
 	}
 	
 	public function startGame() {
@@ -71,7 +72,7 @@ class SortingGame extends ArcadeCabinet {
 		mainLayer.add(b);
 		clipSprites.push(b);
 		
-		var moveSpeed:Int = Std.int(60 - Math.min(2 * score / 3, 35) - Math.max(0, Math.min((score - 60) / 7, 20)));
+		var moveSpeed:Int = Std.int(60 - Math.min(1.3 * score, 35) - Math.max(0, Math.min((score - 40) / 7, 20)));
 
 		b.x = judgeSprite.x + 5 * 75;
 		b.y = judgeSprite.y;

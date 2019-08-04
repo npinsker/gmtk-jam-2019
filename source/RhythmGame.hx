@@ -261,7 +261,7 @@ class RhythmGame extends ArcadeCabinet {
 			setNotePositions(beat);
 			
 			if (special && invertBeats.length > 0 && beat > invertBeats[0]) {
-				FlxG.camera.shake(0.01, 0.1);
+				FlxG.camera.shake(0.008, 0.09);
 				invert();
 				invertBeats.splice(0, 1);
 			}
