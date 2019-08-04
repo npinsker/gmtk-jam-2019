@@ -174,6 +174,7 @@ class Constants {
 			advanceCallback: function() {
 				SoundManager.addSound('advance', 0.4);
 			},
+			advanceLength: 11,
 			textFormat: {
 				size: 30,
 				font: 'assets/data/m3x6.ttf',
@@ -188,6 +189,7 @@ class Constants {
 			optionsOffset: [0, -9],
 			textPadding: [46, 0],
 			advanceStyle: TYPEWRITER,
+			skip: false,
 			selectOptionSprite: {
 				image: 'assets/images/ui.png',
 				transform: function(b) { return BitmapDataUtils.crop(b, [24, 0], [27, 25]); },

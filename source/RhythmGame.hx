@@ -241,10 +241,12 @@ class RhythmGame extends ArcadeCabinet {
 			} else if (phase == 1) {
 				handleTap();
 			} else {
+				FlxG.sound.music.stop();
 				closeCallback(this, getRealScore());
 			}
 		}
 		if (InputController.justPressed(CANCEL)) {
+			FlxG.sound.music.stop();
 			closeCallback(this, 0);
 		}
 

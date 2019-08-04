@@ -212,7 +212,7 @@ if RHYTHM_KING_QUEST_PROGRESS == 1:
   s "Nice, nice. Let's do this."
 
   "[Slug Shack wants to fight!]"
-  "[Hit all the notes perfectly!]"
+  "[Get an A rating or better!]"
   emit play_rhythm_special
   jump end
 
