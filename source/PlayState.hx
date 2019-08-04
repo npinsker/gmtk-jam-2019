@@ -204,6 +204,7 @@ class PlayState extends FlxState {
 	public function handleAnimations() {
 		var targetEntity = getTalkableTarget();
 		
+		if (targetEntity == null) speakTarget = -1;
 		for (entity in entities) {
 			var hasConfirm:Bool = Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm;
 			if (targetEntity != null && targetEntity.id == entity.id) {

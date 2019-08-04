@@ -254,13 +254,13 @@ if SORT_KING_QUEST_PROGRESS == 0:
 
 if SORT_KING_QUEST_PROGRESS == 1:
   r "..."
-  r "... ... ... !!"
+  r "... ... ...!!"
   r "The Cup Noodle creature is curious about you..."
   r "It seems to want you to fight it!"
 
   "[Cup Noodle Squid wants to fight!]"
   "[Sort all the squids!]"
-  emit play_sort_special
+  emit play_sorting_special
   jump end
 
 if SORT_KING_QUEST_PROGRESS == 2:
