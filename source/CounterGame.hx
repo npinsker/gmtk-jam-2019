@@ -31,7 +31,7 @@ class CounterGame extends ArcadeCabinet {
 	public var sprites:Array<LocalSpriteWrapper>;
 	
 	public var background:FlxLocalSprite;
-	public function new(callback:Void -> Void) {
+	public function new(callback:Void -> Void, ?special:Bool = false) {
 		super('assets/images/counter_cabinet_shell.png', [320, 256], [10, 10], callback);
 		
 		background = LocalWrapper.fromGraphic('assets/images/counter_splash.png', {
@@ -41,6 +41,7 @@ class CounterGame extends ArcadeCabinet {
 		
 		noteSprites = [];
 		sprites = [];
+		this.special = special;
 	}
 	
 	public function startGame() {
@@ -70,9 +71,9 @@ class CounterGame extends ArcadeCabinet {
 	
 	public function addPotato() {
 		remaining -= 1;
-		var bd:BitmapData = tiles.stitchTiles([5, 6]);
+		var bd:BitmapData = tiles.stitchTiles(!special ? [5, 6] : [20, 21]);
 		var destinationX:Float = Std.int(this.width) + 30;
-		var flipping:Bool = (round >= 4 && Math.random() < 0.4);
+		var flipping:Bool = ((round >= 4 || special) && Math.random() < 0.4);
 
 		if (flipping) {
 			bd = BitmapDataUtils.flip(bd, "|");
@@ -92,8 +93,13 @@ class CounterGame extends ArcadeCabinet {
 			destinationX = potato.x;
 			potato.x = tmp;
 		}
+		
+		var moveFrames:Int = Std.int(320 + Math.random() * 100 - (round < 15 ? 10 * round : 150));
+		if (special && Math.random() < 0.1) {
+			moveFrames = Std.int(55 + 20 * Math.random());
+		}
 
-		Director.moveTo(potato, [Std.int(destinationX), Std.int(Math.random() * 184 + 40 - potato.height / 2)], Std.int(320 + Math.random() * 100 - (round < 15 ? 10 * round : 150))).call(function() {
+		Director.moveTo(potato, [Std.int(destinationX), Std.int(Math.random() * 184 + 40 - potato.height / 2)], moveFrames).call(function() {
 			clipSprites.remove(potato);
 			mainLayer.remove(potato);
 		});
@@ -101,6 +107,7 @@ class CounterGame extends ArcadeCabinet {
 		if (remaining > 0) {
 			var spread = 30 - (round < 8 ? 2 * round : 16);
 			var waitTime:Int = Std.int(60 + spread * Math.random() - (round < 14 ? 2 * round : 28) - (round < 3 ? 10 * round : 30));
+			if (special) waitTime = Std.int(0.8 * waitTime);
 			Director.wait(waitTime < 2 ? 2 : waitTime).call(function() { addPotato(); });
 		} else {
 			Director.wait(420).call(function() {
@@ -144,7 +151,7 @@ class CounterGame extends ArcadeCabinet {
 			trueText.x = this.width - 85 - trueText._sprite.textField.textWidth;
 			trueText._sprite.alignment = RIGHT;
 			
-			var rightGfx = LocalWrapper.fromGraphic(tiles.getTile(5));
+			var rightGfx = LocalWrapper.fromGraphic(tiles.getTile(!special ? 5 : 20));
 			rightGfx.xy = [trueText.x + trueText.width + 38, trueText.y + 17];
 			mainLayer.add(rightGfx);
 		});

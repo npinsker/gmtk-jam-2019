@@ -208,8 +208,8 @@ class PlayState extends FlxState {
 	}
 	
 	public function emitCallback(emitString:String):Void {
-		if (emitString == 'play_rhythm') {
-			var rg:RhythmGame = new RhythmGame(closeCallback);
+		if (emitString.startsWith('play_rhythm')) {
+			var rg:RhythmGame = new RhythmGame(closeCallback, (emitString.indexOf('special') != -1));
 			foregroundLayer.add(rg);
 			rg.xy = [FlxG.width / 2 - rg.width / 2, FlxG.height / 2 - rg.height / 2 - 20];
 			focus.push(rg);
@@ -217,8 +217,8 @@ class PlayState extends FlxState {
 			Director.fadeIn(rg, 20);
 			return;
 		}
-		else if (emitString == 'play_counter') {
-			var cg:CounterGame = new CounterGame(closeCallback);
+		else if (emitString.startsWith('play_counter')) {
+			var cg:CounterGame = new CounterGame(closeCallback, (emitString.indexOf('special') != -1));
 			foregroundLayer.add(cg);
 			cg.xy = [FlxG.width / 2 - cg.width / 2, FlxG.height / 2 - cg.height / 2 - 20];
 			focus.push(cg);
@@ -226,8 +226,8 @@ class PlayState extends FlxState {
 			Director.fadeIn(cg, 20);
 			return;
 		}
-		else if (emitString == 'play_sorting') {
-			var sg:SortingGame = new SortingGame(closeCallback);
+		else if (emitString.startsWith('play_sorting')) {
+			var sg:SortingGame = new SortingGame(closeCallback, (emitString.indexOf('special') != -1));
 			foregroundLayer.add(sg);
 			sg.xy = [FlxG.width / 2 - sg.width / 2, FlxG.height / 2 - sg.height / 2 - 20];
 			focus.push(sg);

@@ -33,7 +33,7 @@ class RhythmGame extends ArcadeCabinet {
 	public var scoreDisplay:LocalWrapper<FlxText>;
 	
 	public var background:FlxLocalSprite;
-	public function new(callback:Void -> Void) {
+	public function new(callback:Void -> Void, ?special:Bool = false) {
 		super('assets/images/rhythm_cabinet_shell.png', [320, 320], [10, 20], callback);
 		background = LocalWrapper.fromGraphic('assets/images/rhythm_splash.png', {
 			'scale': [4, 4],
@@ -41,6 +41,7 @@ class RhythmGame extends ArcadeCabinet {
 		backgroundLayer.add(background);
 		
 		noteSprites = [];
+		this.special = special;
 	}
 	
 	public function startGame() {
