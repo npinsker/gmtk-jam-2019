@@ -1,7 +1,6 @@
 package;
 
 import flixel.FlxG;
-import flixel.math.FlxRect;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import nova.render.NovaEmitter;
@@ -27,6 +26,8 @@ class SortingGame extends ArcadeCabinet {
 		
 		background = LocalWrapper.fromGraphic('assets/images/sorting_splash.png', {
 			'scale': [4, 4],
+			'animation': [0, 1],
+			'frameRate': 2,
 		});
 		name = 'sorting';
 		backgroundLayer.add(background);

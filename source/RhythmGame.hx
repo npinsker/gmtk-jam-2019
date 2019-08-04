@@ -62,6 +62,8 @@ class RhythmGame extends ArcadeCabinet {
 		super('assets/images/rhythm_cabinet_shell.png', [320, 320], [10, 20], callback);
 		background = LocalWrapper.fromGraphic('assets/images/rhythm_splash.png', {
 			'scale': [4, 4],
+			'animation': [0, 1],
+			'frameRate': 2,
 		});
 		backgroundLayer.add(background);
 		name = 'rhythm';
@@ -115,9 +117,9 @@ class RhythmGame extends ArcadeCabinet {
 		score = 0;
 		maxScore = 4 * notes.length;
 		scoreDisplay = Utilities.createText();
-		scoreDisplay.xy = [25, -8];
-		scoreDisplay._sprite.color = FlxColor.BLACK;
-		scoreDisplay._sprite.size = 64;
+		scoreDisplay.xy = [30, -3];
+		scoreDisplay._sprite.color = FlxColor.WHITE;
+		scoreDisplay._sprite.size = 72;
 		scoreDisplay._sprite.text = renderScore();
 		mainLayer.add(scoreDisplay);
 
@@ -129,10 +131,10 @@ class RhythmGame extends ArcadeCabinet {
 		gradeDisplay._sprite.animation.add('a', [2], 1, false);
 		gradeDisplay._sprite.animation.add('s', [3], 1, false);
 		mainLayer.add(gradeDisplay);
-		gradeDisplay.xy = [width - 24 - gradeDisplay.width, 0];
+		gradeDisplay.xy = [width - 19 - gradeDisplay.width, 5];
 
 		reticle = LocalWrapper.fromGraphic(tiles.getTile(1));
-		reticle.xy = [25, 160 - reticle.height/2];
+		reticle.xy = [25, 170 - reticle.height/2];
 		mainLayer.add(reticle);
 	}
 	
@@ -261,18 +263,18 @@ class RhythmGame extends ArcadeCabinet {
 			} else if (phase == 1) {
 				handleTap();
 			} else {
-				FlxG.sound.music.stop();
+				if (FlxG.sound.music != null) FlxG.sound.music.stop();
 				closeCallback(this, getRealScore());
 			}
 		}
 		if (InputController.justPressed(CANCEL)) {
-			FlxG.sound.music.stop();
+			if (FlxG.sound.music != null) FlxG.sound.music.stop();
 			closeCallback(this, 0);
 		}
 
 		#if debug
 		if (InputController.justPressed(X)) {
-			FlxG.sound.music.stop();
+			if (FlxG.sound.music != null) FlxG.sound.music.stop();
 			closeCallback(this, 1000000);
 		}
 		#end

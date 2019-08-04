@@ -59,7 +59,6 @@ class PlayState extends FlxState {
 		for (quest in Constants.ALL_QUESTS) {
 			triggers.set(quest, 0);
 		}
-		triggers.set(Constants.OVERALL_QUEST_PROGRESS, 3);
 		
 		dialogMap = parseDialogFile('assets/data/dialog.txt');
 		
