@@ -47,26 +47,26 @@ class Constants {
 					tiles: [100, 101], columns: 1, frames: 2, type: 'talkable', name: 'ramenpuss', hitbox: [2, 13, 29, 13],
 				},
 				117 => {
-					tiles: [116, 117], columns: 1, frames: 2, type: 'talkable', name: 'deadmaus', hitbox: [4, 13, 15, 13], fps: 1,
+					tiles: [116, 117], columns: 1, frames: 2, type: 'talkable', name: 'deadmaus', hitbox: [4, 13, 15, 13], fps: 2,
 				},
 				118 => {
 					tiles: [118, 119], columns: 1, frames: 2, type: 'talkable', name: 'octopus', hitbox: [0, 8, 32, 13], fps: 3,
 				},
 				133 => {
-					tiles: [133, 134], columns: 1, frames: 2, type: 'talkable', name: 'bartender', hitbox: [5, 20, 20, 11], fps: 1,
+					tiles: [133, 134], columns: 1, frames: 2, type: 'talkable', name: 'bartender', hitbox: [5, 20, 20, 11], fps: 2,
 				},
 				144 => {
 					tiles: [144, 145], columns: 1, frames: 2, type: 'solid', name: 'martian_fwd', hitbox: MARTIAN_HITBOX,
 				},
 				146 => {
-					tiles: [146, 147], columns: 1, frames: 2, type: 'solid', name: 'martian_right', hitbox: MARTIAN_HITBOX, fps: 1,
+					tiles: [146, 147], columns: 1, frames: 2, type: 'solid', name: 'martian_right', hitbox: MARTIAN_HITBOX, fps: 2,
 				},
 				148 => {
 					tiles: [148, 149], columns: 1, frames: 2, type: 'solid', name: 'martian_right_reach', hitbox: MARTIAN_HITBOX, fps: 3,
 				},
 
 				160 => {
-					tiles: [160, 161], columns: 1, frames: 2, type: 'solid', name: 'martian_green_fwd', hitbox: MARTIAN_HITBOX, fps: 1,
+					tiles: [160, 161], columns: 1, frames: 2, type: 'solid', name: 'martian_green_fwd', hitbox: MARTIAN_HITBOX, fps: 2,
 				},
 				163 => {
 					tiles: [163, 164], columns: 1, frames: 2, type: 'solid', name: 'martian_green_right_reach', hitbox: MARTIAN_HITBOX,

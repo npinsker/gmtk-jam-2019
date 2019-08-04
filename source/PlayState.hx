@@ -260,7 +260,7 @@ class PlayState extends FlxState {
 			var an:AnimationSet = null;
 			if (Reflect.hasField(object, 'frames')) {
 				an = new AnimationSet([32, 32], [
-					new AnimationFrames('stand', [for (i in 0...object.frames) i], 2, true)
+					new AnimationFrames('stand', [for (i in 0...object.frames) i], (Reflect.hasField(object, 'fps') ? object.fps : 1), true)
 				]);
 			}
 			var e:Entity = new Entity(type, bitmap, an);
