@@ -101,14 +101,16 @@ if INTRO_BARTENDER == 0:
   b "Hey, kid. I'll talk to you."
   b "What brings a kid like you to a place like this?"
   b "...You're searching for the [Game Genie]? Isn't that an urban legend?"
-  b "You heard you can summon him if you beat New Game City's secret [Arcade Kings]? And they're all at this arcade?"
+  b "You heard you can summon him if you beat New Game City's secret [Arcade Kings]?"
+  b "And they're all at this arcade?"
   b "Never heard that before. Maybe if you ask around you'll hear something useful."
   emit "set INTRO_BARTENDER 1"
   jump end
 
 choice_box:
 "What can I get you?"
-  > "Ask bartender for gossip" gossip
+  > "A drink" drink
+  > "Any gossip?" gossip
   > "Leave" end
 
 label gossip:
@@ -122,6 +124,10 @@ if SORT_KING_QUEST_PROGRESS == 0:
   b "I heard a rumor that something lives in that Cup Noodle."
   b "Something that likes... sorts?"
   jump end
+
+label drink:
+"You forgot your ID at home..."
+jump end
 
 
 ################
