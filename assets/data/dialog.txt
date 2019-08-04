@@ -1,6 +1,10 @@
 #####################
 DIALOG rhythm_cabinet
 
+if INTRO_BARTENDER == 0:
+  "No time for games right now."
+  jump end
+
 choice_box:
   "Want to play Rhythm Tappo?"
   > "Yes" yes
@@ -13,6 +17,10 @@ jump end
 #####################
 DIALOG potato_cabinet
 
+if INTRO_BARTENDER == 0:
+  "No time for games right now."
+  jump end
+
 choice_box:
   "Want to play Ducky Counter?"
   > "Yes" yes
@@ -24,6 +32,10 @@ jump end
 
 ######################
 DIALOG sorting_cabinet
+
+if INTRO_BARTENDER == 0:
+  "No time for games right now."
+  jump end
 
 choice_box:
   "Want to play Fruit Sorter?"
@@ -108,21 +120,6 @@ if SORT_KING_QUEST_PROGRESS == 0:
 
 
 ################
-DIALOG ramenpuss
-
-define c = Character("Cup Noodle")
-
-if OVERALL_QUEST_PROGRESS == 0:
-  c "..."
-  c "fsssssssssssh....."
-  jump end
-
-c ".............."
-"(Something is definitely splashing inside...)"
-"(You feel that if you beat the Cup Noodle creature's [high score], it may speak to you...)"
-jump end
-
-################
 DIALOG lil_skunk
 
 define s = Character("Lil Skunk")
@@ -184,6 +181,102 @@ if COUNT_KING_QUEST_PROGRESS == 2:
 
 s "You're pretty good for a human! I'm rooting for you."
 
+#####################
+DIALOG skunklass_fail
+
+define s = Character("Skunklass")
+
+s "Bwahahaha!! I'M THE BEST!"
+s "Maybe you'll take a game off me...in a couple YEARS!"
+
+
+#################
+DIALOG slug_shack
+
+define s = Character("Slug Shack")
+
+if INTRO_BARTENDER == 0:
+  s "... ..."
+  jump end
+
+if RHYTHM_KING_QUEST_PROGRESS == 0:
+  s "'Sup."
+  s "Gotta say, I'm not really feelin' you..."
+  s "You need a better sense of rhythm."
+  jump end
+
+if RHYTHM_KING_QUEST_PROGRESS == 1:
+  s "Yo. You beat my high score."
+  s "...You don't want the autograph?"
+  s "Does that mean...you're challenging me? You wanna be the [Rhythm King]?"
+  s "Nice, nice. Let's do this."
+
+  "[Slug Shack wants to fight!]"
+  "[Hit all the notes perfectly!]"
+  emit play_rhythm_special
+  jump end
+
+if RHYTHM_KING_QUEST_PROGRESS == 2:
+  s "Well played, short stuff."
+  s "Here's your prize."
+  "[You mastered a game! Some people will be more willing to talk to you!]"
+  emit "set RHYTHM_KING_QUEST_PROGRESS 3"
+  emit "add OVERALL_QUEST_PROGRESS 1"
+  jump end
+
+s "You've got moves. I dig it."
+
+######################
+DIALOG slug_shack_fail
+
+define s = Character("Slug Shack")
+
+s "Hey, that...wasn't good. You weren't gettin' into it at all."
+s "Go practice your flow, yo. Then try again."
+
+
+
+################
+DIALOG ramenpus
+
+define r = Character("Cup Noodle")
+
+if INTRO_BARTENDER == 0:
+  r "... ..."
+  r "Something is definitely splashing inside..."
+  jump end
+
+if SORT_KING_QUEST_PROGRESS == 0:
+  r "... ..."
+  r "Something is definitely splashing inside..."
+  r "You feel that if you [beat the Cup Noodle creature's high score], it may speak to you."
+  jump end
+
+if SORT_KING_QUEST_PROGRESS == 1:
+  r "..."
+  r "... ... ... !!"
+  r "The Cup Noodle creature is curious about you..."
+  r "It seems to want you to fight it!"
+
+  "[Cup Noodle Squid wants to fight!]"
+  "[Sort all the squids!]"
+  emit play_sort_special
+  jump end
+
+if SORT_KING_QUEST_PROGRESS == 2:
+  s "!! !! (gurgle)"
+  "(The Cup Noodle creature gave you a prize for winning!)"
+  "[You mastered a game! Some people will be more willing to talk to you!]"
+  emit "set RHYTHM_KING_QUEST_PROGRESS 3"
+  emit "add OVERALL_QUEST_PROGRESS 1"
+  jump end
+
+s "...! ...!"
+
+######################
+DIALOG ramenpus_fail
+
+"Cup Noodle" "... ..."
 
 
 ##############

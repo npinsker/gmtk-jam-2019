@@ -313,10 +313,47 @@ class PlayState extends FlxState {
 		}
 		if (game.name == 'counter' &&
 		    game.special &&
-			score >= 990 &&
 			triggers.get(Constants.COUNT_KING_QUEST_PROGRESS) < 2) {
-			triggers.set(Constants.COUNT_KING_QUEST_PROGRESS, 2);
-			this.readdDialogBox('skunklass');
+			if (score >= 990) {
+				triggers.set(Constants.COUNT_KING_QUEST_PROGRESS, 2);
+				this.readdDialogBox('skunklass');
+			} else {
+				this.readdDialogBox('skunklass_fail');
+			}
+		}
+
+		if (game.name == 'rhythm' &&
+		    !game.special &&
+		    score > 772000 &&
+			triggers.get(Constants.RHYTHM_KING_QUEST_PROGRESS) < 1) {
+			triggers.set(Constants.RHYTHM_KING_QUEST_PROGRESS, 1);
+		}
+		if (game.name == 'rhythm' &&
+		    game.special &&
+			triggers.get(Constants.RHYTHM_KING_QUEST_PROGRESS) < 2) {
+			if (score >= 800000) {
+				triggers.set(Constants.COUNT_KING_QUEST_PROGRESS, 2);
+				this.readdDialogBox('slug_shack');
+			} else {
+				this.readdDialogBox('slug_shack_fail');
+			}
+		}
+
+		if (game.name == 'sorting' &&
+		    !game.special &&
+		    score > 59 &&
+			triggers.get(Constants.SORT_KING_QUEST_PROGRESS) < 1) {
+			triggers.set(Constants.SORT_KING_QUEST_PROGRESS, 1);
+		}
+		if (game.name == 'sorting' &&
+		    game.special &&
+			triggers.get(Constants.SORT_KING_QUEST_PROGRESS) < 2) {
+			if (score >= 60) {
+				triggers.set(Constants.SORT_KING_QUEST_PROGRESS, 2);
+				this.readdDialogBox('ramenpus');
+			} else {
+				this.readdDialogBox('ramenpus_fail');
+			}
 		}
 
 		foregroundLayer.remove(game);

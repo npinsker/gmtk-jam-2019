@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="48">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="50">
  <tileset firstgid="1" source="test.tsx"/>
  <layer id="1" name="bg" width="16" height="12">
   <data encoding="csv">
@@ -89,5 +89,6 @@
   <object id="43" gid="153" x="389" y="289" width="32" height="32"/>
   <object id="44" gid="183" x="184" y="232" width="32" height="32"/>
   <object id="47" gid="151" x="410.125" y="219.875" width="32" height="32"/>
+  <object id="49" gid="201" x="64" y="201.667" width="32" height="32"/>
  </objectgroup>
 </map>

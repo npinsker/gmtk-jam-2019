@@ -63,7 +63,7 @@ class Constants {
 				
 				// NPCs
 				100 => {
-					tiles: [100, 101], columns: 1, frames: 2, type: 'talkable', name: 'ramenpuss', hitbox: [2, 13, 29, 13],
+					tiles: [100, 101], columns: 1, frames: 2, type: 'talkable', name: 'ramenpus', hitbox: [2, 13, 29, 13],
 				},
 				117 => {
 					tiles: [116, 117], columns: 1, frames: 2, type: 'talkable', name: 'deadmaus', hitbox: [4, 13, 15, 13], fps: 2,
@@ -72,7 +72,7 @@ class Constants {
 					tiles: [118, 119], columns: 1, frames: 2, type: 'talkable', name: 'octopus', hitbox: [0, 8, 32, 13], fps: 3,
 				},
 				133 => {
-					tiles: [133, 134], columns: 1, frames: 2, type: 'talkable', name: 'bartender', hitbox: [5, 20, 20, 11], fps: 2,
+					tiles: [133, 134], columns: 1, frames: 2, type: 'talkable', name: 'bartender', hitbox: [5, 20, 20, 11], fps: 2, zOffset: 120,
 				},
 				144 => {
 					tiles: [144, 145], columns: 1, frames: 2, type: 'solid', name: 'martian_fwd', hitbox: MARTIAN_HITBOX,
@@ -121,7 +121,7 @@ class Constants {
 					tiles: [152, 152], columns: 1, frames: 3, type: 'talkable', name: 'frog', hitbox: [5, 23, 20, 8],
 				},
 				200 => {
-					tiles: [200, 201], columns: 1, frames: 2, type: 'talkable', name: 'slug_shack', hitbox: [6, 20, 20, 11],
+					tiles: [200, 201], columns: 1, frames: 2, type: 'talkable', name: 'slug_shack', hitbox: [5, 20, 7, 11],
 				},
 				
 				// Blue right-wall cabinets
