@@ -46,7 +46,7 @@ class Constants {
 					tiles: [3], columns: 1, type: 'solid', hitbox: [16, 16, 0, 0], zOffset: 100,
 				},
 				32 => {
-					tiles: [32], columns: 1, type: 'talkable', hitbox: [0, 0, 15, 24],
+					tiles: [32, 33, 34, 35], columns: 1, frames: 4, type: 'talkable', name: 'lock', hitbox: [0, 0, 15, 24],
 				},
 				75 => {
 					tiles: [75, 76, 91, 92, 107, 108], columns: 2, type: 'rhythm_cabinet', hitbox: [0, 70, 56, 26]
