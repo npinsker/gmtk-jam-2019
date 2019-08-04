@@ -373,7 +373,7 @@ class PlayState extends FlxState {
 	public function closeCallback(game:ArcadeCabinet, score:Int) {
 		if (game.name == 'counter' &&
 		    !game.special &&
-		    score > 10 &&
+		    score > 64 &&
 			triggers.get(Constants.COUNT_KING_QUEST_PROGRESS) < 1) {
 			triggers.set(Constants.COUNT_KING_QUEST_PROGRESS, 1);
 		}
@@ -397,7 +397,7 @@ class PlayState extends FlxState {
 		if (game.name == 'rhythm' &&
 		    game.special &&
 			triggers.get(Constants.RHYTHM_KING_QUEST_PROGRESS) < 2) {
-			if (score >= 700000) {
+			if (score >= 800000) {
 				triggers.set(Constants.RHYTHM_KING_QUEST_PROGRESS, 2);
 				this.readdDialogBox('slug_shack');
 			} else {

@@ -7,7 +7,7 @@ class PlayerData {
 	public static var RHYTHM_KING_QUEST:String = 'RHYTHM_KING_QUEST';
 	public static var ALL_QUESTS:Array<String> = [OVERALL_QUEST, RHYTHM_KING_QUEST];
 	
-	public static var PLAYER_NAME:String = 'You';
+	public static var PLAYER_NAME:String = 'Miku';
 	
 	public var highScores:Map<String, ArcadeCabinet.HighScoreTable>;
 	
@@ -16,11 +16,11 @@ class PlayerData {
 		highScores = [
 			'rhythm' => new ArcadeCabinet.HighScoreTable(
 				["Slug*", "jun", "TAG", "Octo", "sota"],
-				[682000, 560410, 425500, 353800, 255000]
+				[772000, 660410, 425500, 353800, 255000]
 			),
 			'ducky' => new ArcadeCabinet.HighScoreTable(
-				["QUEEN", "fish", "fish", "lilskunk", "Borby"],
-				[135, 64, 56, 20, 17]
+				["QUEEN", "lil_s", "lil_s", "Borby", "fish"],
+				[135, 64, 56, 35, 27]
 			),
 			'sorting' => new ArcadeCabinet.HighScoreTable(
 				["squid", "frog", "Octo", "chaos", "AAA"],
