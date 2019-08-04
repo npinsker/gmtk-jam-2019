@@ -196,7 +196,7 @@ DIALOG slug_shack
 define s = Character("Slug Shack")
 
 if INTRO_BARTENDER == 0:
-  s "... ..."
+  s "This snail has headphones in his ears. He can't hear you..."
   jump end
 
 if RHYTHM_KING_QUEST_PROGRESS == 0:
@@ -278,6 +278,28 @@ DIALOG ramenpus_fail
 
 "Cup Noodle" "... ..."
 
+################
+DIALOG bear_turn
+
+define r = Character("Bear")
+
+if INTRO_BARTENDER == 0:
+  r "You look new here."
+  r "Oh, looking for info? Go talk to the bartender."
+  jump end
+
+if OVERALL_QUEST_PROGRESS == 0:
+  r "The three Arcade Kings? Never heard of 'em."
+  r "You could go try talking to Slug Shack. He loves rhythm games."
+  r "He's listening to music over by the orange cabinets."
+  jump end
+
+r "Wonder what that lock over there does."
+
+###############
+DIALOG dog_blue
+
+"Hey! Buzz off! I just lost 'cause of you!"
 
 ##############
 DIALOG octopus
