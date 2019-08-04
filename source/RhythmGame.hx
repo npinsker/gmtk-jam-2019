@@ -6,24 +6,45 @@ import flixel.util.FlxColor;
 import nova.input.InputController;
 import nova.render.FlxLocalSprite;
 import openfl.display.BitmapData;
+import shaders.InvertShader;
 
 using nova.animation.Director;
 
 class RhythmGame extends ArcadeCabinet {
-	public var reticle:FlxLocalSprite;
-	public var BPM:Float = 85.000;
-	public var OFFSET:Float = 0.122;
+	public var reticle:LocalSpriteWrapper;
+	public var BPM:Float = 103.055;
+	public var OFFSET:Float = 0.303;
 	public var INPUT_LAG:Float = 0.01666;
-	public var SCROLL_SPEED:Float = 240.0;
+	public var SCROLL_SPEED:Float = 220.0;
 	
 	public var notes:Array<Float> = [
-		5, 7, 9, 11, 12, 12.83333, 13, 14, 14.83333, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37,
-		39, 41, 43, 44, 45, 46, 47, 48, 49, 50, 51, 51.83333, 52,
-		53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64,
-		64.5, 64.83333, 65.16666, 65.5, 65.83333, 66.16666, 66.5,
-		68.5, 69.5, 70.5, 71.5, 72.5, 72.83333, 73.16666, 73.5, 73.83333, 74.16666, 74.5, 75.5,
-		76.5, 77.5, 78.5, 79.5, 80.5, 81, 81.5, 82, 82.5, 83, 83.5, 84,
-		84.5, 85.5, 86.5,
+		9, 11, 13, 14, 15,
+		
+		17, 19, 21, 22, 23,
+		
+		25, 27, 29, 30, 31,
+		
+		33, 35, 37, 38, 39,
+		
+		41, 43, 45, 46, 47,
+		
+		49, 50, 51, 53, 54, 55,
+		
+		57, 58, 59, 61, 62, 63,
+		
+		65, 66, 67, 69, 70, 71, 72,
+
+		73, 74, 75, 77, 78, 79, 80,
+		
+		81, 83, 85, 86, 87,
+		
+		89, 91, 93, 94, 95,
+		
+		97, 99, 101, 102, 103,
+		
+		105, 107, 109, 110, 111,
+		
+		113
 	];
 	
 	public var noteSprites:Array<LocalSpriteWrapper>;
@@ -31,17 +52,58 @@ class RhythmGame extends ArcadeCabinet {
 	public var score:Int;
 	public var maxScore:Int;
 	public var scoreDisplay:LocalWrapper<FlxText>;
+	public var shaders:Array<InvertShader>;
+	public var invertActive:Bool = false;
+	public var invertBeats:Array<Float>;
 	
-	public var background:FlxLocalSprite;
-	public function new(callback:Void -> Void, ?special:Bool = false) {
+	public var background:LocalSpriteWrapper;
+	public function new(callback:ArcadeCabinet -> Int -> Void, ?special:Bool = false) {
 		super('assets/images/rhythm_cabinet_shell.png', [320, 320], [10, 20], callback);
 		background = LocalWrapper.fromGraphic('assets/images/rhythm_splash.png', {
 			'scale': [4, 4],
 		});
 		backgroundLayer.add(background);
+		name = 'rhythm';
 		
 		noteSprites = [];
 		this.special = special;
+		this.special = true;
+		
+		if (this.special) {
+			shaders = [];
+			
+			notes = [
+				9, 11, 13, 13.5, 14, 14.5, 15,
+				
+				17, 17.5, 18, 19, 21, 21.5, 22, 23,
+				
+				25, 25.5, 26, 27, 29, 29.5, 30, 31,
+				
+				33, 33.5, 34, 35, 37, 37.5, 38, 39, 40,
+				
+				41, 41.5, 42, 43, 44, 45, 45.5, 46, 47,
+				
+				49, 49.5, 50, 50.5, 51, 53, 53.5, 54, 54.5, 55,
+				
+				57, 57.5, 58, 59, 60, 61, 61.5, 62, 63,
+				
+				65, 65.5, 66, 67, 68, 68.5, 69, 69.5, 70, 71, 72,
+
+				73, 73.5, 74, 75, 77, 77.5, 78, 79,
+				
+				81, 83, 85, 85.5, 86, 86.5, 87, 87.5, 88, 88.5,
+				
+				89, 91, 93, 93.5, 94, 94.5, 95,
+				
+				97, 99, 101, 101.5, 102, 102.5, 103, 103.5, 104, 104.5,
+				
+				105, 107, 109, 109.5, 110, 110.5, 111,
+				
+				113
+			];
+			
+			invertBeats = [17, 33, 49, 65, 73, 81, 83, 89, 91, 97, 99, 105, 107];
+		}
 	}
 	
 	public function startGame() {
@@ -51,7 +113,7 @@ class RhythmGame extends ArcadeCabinet {
 		});
 		backgroundLayer.add(background);
 		
-		SoundManager.playMusic('island');
+		SoundManager.playMusic('jackpot');
 		FlxG.sound.music.onComplete = finishGame;
 		
 		score = 0;
@@ -63,8 +125,7 @@ class RhythmGame extends ArcadeCabinet {
 		scoreDisplay._sprite.text = renderScore();
 		mainLayer.add(scoreDisplay);
 
-		reticle = new FlxLocalSprite();
-		reticle.loadGraphic(tiles.getTile(1));
+		reticle = LocalWrapper.fromGraphic(tiles.getTile(1));
 		reticle.xy = [25, 160 - reticle.height/2];
 		mainLayer.add(reticle);
 
@@ -79,6 +140,23 @@ class RhythmGame extends ArcadeCabinet {
 		var beat = (FlxG.sound.music.time / 1000 + OFFSET) / 60 * BPM;
 		setNotePositions(beat);
 		phase = 1;
+		
+		background._sprite.shader = new InvertShader();
+		shaders.push(cast background._sprite.shader);
+		shaders[shaders.length - 1].active.value = [false];
+		for (child in mainLayer.children) {
+			var ls:LocalSpriteWrapper = cast child;
+			ls._sprite.shader = new InvertShader();
+			shaders.push(cast ls._sprite.shader);
+			shaders[shaders.length - 1].active.value = [false];
+		}
+	}
+	
+	public function invert() {
+		invertActive = !invertActive;
+		for (shader in shaders) {
+			shader.active.value = [invertActive];
+		}
 	}
 	
 	public function handleTap():Void {
@@ -127,6 +205,7 @@ class RhythmGame extends ArcadeCabinet {
 		backgroundLayer.remove(background);
 		background = LocalWrapper.fromGraphic(new BitmapData(Std.int(width), Std.int(height), false, 0xFF000000));
 		backgroundLayer.add(background);
+		FlxG.sound.music.stop();
 		
 		var idx = PlayerData.instance.highScores.get('rhythm').add(Constants.PLAYER_NAME, getRealScore());
 		
@@ -161,11 +240,11 @@ class RhythmGame extends ArcadeCabinet {
 			} else if (phase == 1) {
 				handleTap();
 			} else {
-				closeCallback();
+				closeCallback(this, getRealScore());
 			}
 		}
 		if (InputController.justPressed(CANCEL)) {
-			closeCallback();
+			closeCallback(this, 0);
 		}
 
 		#if debug
@@ -180,6 +259,12 @@ class RhythmGame extends ArcadeCabinet {
 		if (phase == 1) {
 			var beat = (FlxG.sound.music.time / 1000 + OFFSET) / 60 * BPM;
 			setNotePositions(beat);
+			
+			if (special && invertBeats.length > 0 && beat > invertBeats[0]) {
+				FlxG.camera.shake(0.01, 0.1);
+				invert();
+				invertBeats.splice(0, 1);
+			}
 		}
 		
 		super.update(elapsed);

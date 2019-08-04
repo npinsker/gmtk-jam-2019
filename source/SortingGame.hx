@@ -22,12 +22,13 @@ class SortingGame extends ArcadeCabinet {
 	public var scoreDisplay:LocalWrapper<FlxText>;
 	
 	public var background:FlxLocalSprite;
-	public function new(callback:Void -> Void, ?special:Bool = false) {
+	public function new(callback:ArcadeCabinet -> Int -> Void, ?special:Bool = false) {
 		super('assets/images/sorting_cabinet_shell.png', [320, 256], [10, 10], callback);
 		
 		background = LocalWrapper.fromGraphic('assets/images/sorting_splash.png', {
 			'scale': [4, 4],
 		});
+		name = 'sorting';
 		backgroundLayer.add(background);
 		this.special = special;
 	}
@@ -109,7 +110,10 @@ class SortingGame extends ArcadeCabinet {
 					Director.fadeOut(clipSprites[8], moveSpeed);
 				}
 			} else {
-				endGame();
+				phase = -1;
+				FlxG.camera.shake(0.02, 0.2);
+				Director.wait(70).call(clearScreen);
+				Director.wait(90).call(endGame);
 			}
 		} else {
 			Director.wait(waitSpeed).call(addBot);
@@ -141,10 +145,7 @@ class SortingGame extends ArcadeCabinet {
 		backgroundLayer.add(background);
 		
 		var idx = PlayerData.instance.highScores.get('sorting').add(Constants.PLAYER_NAME, score);
-		var children = mainLayer.children.slice(0);
-		for (child in children) {
-			mainLayer.remove(child);
-		}
+		clearScreen();
 
 		var table = ArcadeCabinet.renderHighScores('sorting', FlxColor.BLACK);
 		mainLayer.add(table);
@@ -164,11 +165,11 @@ class SortingGame extends ArcadeCabinet {
 			} else if (phase == 1) {
 				handleTap();
 			} else if (phase == 2) {
-				closeCallback();
+				closeCallback(this, score);
 			}
 		}
 		if (InputController.justPressed(CANCEL)) {
-			closeCallback();
+			closeCallback(this, 0);
 		}
 	}
 

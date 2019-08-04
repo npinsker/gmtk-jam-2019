@@ -245,7 +245,9 @@ class PlayState extends FlxState {
 		}
 	}
 	
-	public function closeCallback() {
+	public function closeCallback(game:ArcadeCabinet, score:Int) {
+		trace(game.name + " / " + game.special + " / " + score);
+		
 		var sp:FlxSprite = cast focus.last();
 		foregroundLayer.remove(sp);
 		focus.pop();

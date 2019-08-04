@@ -31,13 +31,14 @@ class CounterGame extends ArcadeCabinet {
 	public var sprites:Array<LocalSpriteWrapper>;
 	
 	public var background:FlxLocalSprite;
-	public function new(callback:Void -> Void, ?special:Bool = false) {
+	public function new(callback:ArcadeCabinet -> Int -> Void, ?special:Bool = false) {
 		super('assets/images/counter_cabinet_shell.png', [320, 256], [10, 10], callback);
 		
 		background = LocalWrapper.fromGraphic('assets/images/counter_splash.png', {
 			'scale': [4, 4],
 		});
 		backgroundLayer.add(background);
+		name = 'counter';
 		
 		noteSprites = [];
 		sprites = [];
@@ -119,11 +120,7 @@ class CounterGame extends ArcadeCabinet {
 	public function endCounterPhase() {
 		wonRound = (guessed == correctNumber);
 		phase = -1;
-		
-		var children = mainLayer.children.slice(0);
-		for (child in children) {
-			mainLayer.remove(child);
-		}
+		clearScreen();
 		
 		if (wonRound) {
 			score += correctNumber;
@@ -196,10 +193,7 @@ class CounterGame extends ArcadeCabinet {
 
 	public function finishGame() {
 		phase = 3;
-		var children = mainLayer.children.slice(0);
-		for (child in children) {
-			mainLayer.remove(child);
-		}
+		clearScreen();
 		
 		var idx = PlayerData.instance.highScores.get('ducky').add(Constants.PLAYER_NAME, score);
 
@@ -223,11 +217,11 @@ class CounterGame extends ArcadeCabinet {
 			} else if (phase == 2) {
 				handleAdvanceRound();
 			} else if (phase == 3) {
-				closeCallback();
+				closeCallback(this, score);
 			}
 		}
 		if (InputController.justPressed(CANCEL)) {
-			closeCallback();
+			closeCallback(this, 0);
 		}
 	}
 

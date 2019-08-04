@@ -8,6 +8,7 @@ import nova.render.FlxLocalSprite;
 import nova.render.TiledBitmapData;
 import nova.utils.BitmapDataUtils;
 import nova.utils.Pair;
+import shaders.InvertShader;
 
 class HighScore {
 	public var name:String;
@@ -49,15 +50,16 @@ class ArcadeCabinet extends FlxLocalSprite implements Focusable {
 	public var backgroundLayer:FlxLocalSprite;
 	public var mainLayer:FlxLocalSprite;
 	public var foregroundLayer:FlxLocalSprite;
-	public var closeCallback:Void -> Void;
+	public var closeCallback:ArcadeCabinet -> Int -> Void;
 	public var special:Bool = false;
+	public var name:String;
 	
 	public var tiles:TiledBitmapData;
 	public var clipSprites:Array<LocalSpriteWrapper>;
 	public var highScoreTable:HighScoreTable;
 	public var phase:Int = 0;
 
-	public function new(cabinetImage:String = null, dims:Pair<Int>, cabinetOffset:Pair<Int> = null, callback: Void -> Void) {
+	public function new(cabinetImage:String = null, dims:Pair<Int>, cabinetOffset:Pair<Int> = null, callback: ArcadeCabinet -> Int -> Void) {
 		super();
 		
 		backgroundLayer = new FlxLocalSprite();
@@ -114,6 +116,13 @@ class ArcadeCabinet extends FlxLocalSprite implements Focusable {
 		}
 		
 		return table;
+	}
+	
+	public function clearScreen() {
+		var children = mainLayer.children.slice(0);
+		for (child in children) {
+			mainLayer.remove(child);
+		}
 	}
 
 	override public function update(elapsed:Float):Void {
