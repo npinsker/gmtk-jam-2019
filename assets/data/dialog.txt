@@ -308,12 +308,12 @@ if INTRO_BARTENDER == 0:
 
 if SORT_KING_QUEST_PROGRESS == 0:
   r "... ..."
-  r "Something is definitely splashing inside..."
-  r "You feel that if you beat the Cup Noodle creature's high score, it may speak to you."
+  r "Something is splashing inside..."
   jump end
 
 if SORT_KING_QUEST_PROGRESS == 1:
   r "..."
+  "Something is definitely splashing inside..."
   r "... ... ...!!"
   r "The Cup Noodle creature is curious about you..."
   r "It seems to want you to fight it!"
@@ -328,7 +328,7 @@ if SORT_KING_QUEST_PROGRESS == 2:
   "(The Cup Noodle creature gave you a prize for winning!)"
   emit "add OVERALL_QUEST_PROGRESS 1"
   "[You mastered a game! Some people will be more willing to talk to you!]"
-  emit "set RHYTHM_KING_QUEST_PROGRESS 3"
+  emit "set SORT_KING_QUEST_PROGRESS 3"
   jump end
 
 s "...! ...!"
@@ -336,7 +336,7 @@ s "...! ...!"
 ######################
 DIALOG ramenpus_fail
 
-"Cup Noodle" "... ..."
+"Cup Noodle" "... ... ..."
 
 ################
 DIALOG bear_turn
@@ -366,7 +366,7 @@ DIALOG game_genie
 
 define o = Character("Game Genie")
 
-o "Congratulations, Miku!"
+o "Congratulations, child!"
 o "It is I, the Game Genie."
 
 o "As a reward for defeating the Three Arcade Kings..."
@@ -380,14 +380,14 @@ o "Hm?"
 o "You want a video game about yourself?"
 o "Very good, very good."
 o "I shall make you a video game...but it's a rush job, so don't expect too much."
-o "It shall be called...FILL IN TITLE."
+o "It shall be called... 'Arcadia.'"
 o "And it shall be based on this very quest."
 emit hide
 wait 2.0
 emit show
 
 o "It is done."
-o "Farewell, Miku. May your pocket always be full of change."
+o "Farewell, child. May your pocket always be full of change."
 emit "set GAME_COMPLETE 1"
 emit unlock
 
@@ -397,7 +397,7 @@ DIALOG octopus
 define o = Character("Octopus")
 
 if GAME_COMPLETE == 1:
-  "Game Genie" "I wish you luck on your adventures, Miku."
+  "Game Genie" "I wish you luck on your adventures, child."
   "Game Genie" "You are welcome back here anytime."
   jump end
 
