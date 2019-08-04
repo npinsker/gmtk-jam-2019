@@ -127,13 +127,17 @@ DIALOG lil_skunk
 
 define s = Character("Lil Skunk")
 
+if INTRO_BARTENDER == 0:
+  s "Uh, who are you?"
+  jump end
+
 if COUNT_KING_QUEST_PROGRESS == 0:
-  s "Do I know about the Arcade Kings? Um, who doesn't?!"
+  s "Do I know about the Arcade Kings? Who doesn't?!"
   s "But I don't talk to people who are worse than me at Ducky Counter."
   s "Scrub."
   jump end
 
-if COUNT_KING_QUEST_PROGRESS == "beat_lil_skunk":
+if COUNT_KING_QUEST_PROGRESS == 1:
   s "W-wait, you actually did it? But I was joking!"
   s "Man, now I feel bad..."
   s "Hey... why don't you ask Skunklass if she knows anything?"
@@ -172,10 +176,10 @@ if COUNT_KING_QUEST_PROGRESS == 2:
   s "Alright, kid. You got me."
   s "I'm the [Count King...] or I was. You just bested me, fair and square."
   s "I guess you get this? Take it. You've earned it."
-  "[You mastered a game! Some people will be more willing to talk to you!]"
   s "Don't tell my brother you won. I'll never hear the end of it..."
+  "[You mastered a game! Some people will be more willing to talk to you!]"
   emit "set COUNT_KING_QUEST_PROGRESS 3"
-  emit "set OVERALL_QUEST_PROGRESS 1"
+  emit "add OVERALL_QUEST_PROGRESS 1"
   jump end
 
 s "You're pretty good for a human! I'm rooting for you."
