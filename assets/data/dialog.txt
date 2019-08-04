@@ -100,8 +100,8 @@ debug OVERALL_QUEST_PROGRESS
 if INTRO_BARTENDER == 0:
   b "Hey, kid. I'll talk to you."
   b "What brings a kid like you to a place like this?"
-  b "...You're searching for the [Game Genie]? Isn't that an urban legend?"
-  b "You heard you can summon him if you beat New Game City's secret [Arcade Kings]?"
+  b "...You're searching for the Game Genie? Isn't that an urban legend?"
+  b "You heard you can summon him if you beat New Game City's secret Arcade Kings?"
   b "And they're all at this arcade?"
   b "Never heard that before. Maybe if you ask around you'll hear something useful."
   emit "set INTRO_BARTENDER 1"
@@ -195,7 +195,7 @@ if COUNT_KING_QUEST_PROGRESS == 1:
 
 if COUNT_KING_QUEST_PROGRESS == 2:
   s "Alright, kid. You got me."
-  s "I'm the [Count King...] or I was. You just bested me, fair and square."
+  s "I'm the Count King... or I was. You just bested me, fair and square."
   s "I guess you get this? Take it. You've earned it."
   s "Don't tell my brother you won. I'll never hear the end of it..."
   "[You mastered a game! Some people will be more willing to talk to you!]"
@@ -283,7 +283,7 @@ if INTRO_BARTENDER == 0:
 if SORT_KING_QUEST_PROGRESS == 0:
   r "... ..."
   r "Something is definitely splashing inside..."
-  r "You feel that if you [beat the Cup Noodle creature's high score], it may speak to you."
+  r "You feel that if you beat the Cup Noodle creature's high score, it may speak to you."
   jump end
 
 if SORT_KING_QUEST_PROGRESS == 1:
