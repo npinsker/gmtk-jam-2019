@@ -362,6 +362,15 @@ DIALOG dog_blue
 "Hey! Buzz off! I just lost 'cause of you!"
 
 ##############
+DIALOG welcome
+
+"20XX A.D., New Game City:"
+"Our hero searches for the Game Genie..."
+"In the course of her travels, she stumbles upon a storied arcade..."
+emit "start"
+
+
+##############
 DIALOG dog_red
 
 if OVERALL_QUEST_PROGRESS == 0:
