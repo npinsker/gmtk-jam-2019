@@ -120,8 +120,6 @@ DIALOG bartender
 
 define b = Character("Bartender")
 
-debug OVERALL_QUEST_PROGRESS
-
 if INTRO_BARTENDER == 0:
   b "Hey, kid. I'll talk to you."
   b "What brings a kid like you to a place like this?"

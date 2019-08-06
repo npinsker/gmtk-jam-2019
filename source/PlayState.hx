@@ -18,6 +18,7 @@ import nova.tile.TileUtils;
 import nova.tiled.TiledObjectLoader;
 import nova.tiled.TiledRenderer;
 import nova.ui.dialog.DialogBox;
+import nova.utils.Pair;
 import openfl.Assets;
 import openfl.display.BitmapData;
 
@@ -216,26 +217,23 @@ class PlayState extends FlxState {
 		
 		if (targetEntity == null) speakTarget = -1;
 		for (entity in entities) {
-			var hasConfirm:Bool = Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm;
+			var hasConfirm:Bool = entity.hasConfirm;
 			if (targetEntity != null && targetEntity.id == entity.id) {
 				speakTarget = entity.id;
-				if (!hasConfirm) {
-					if (Reflect.hasField(entity.scratch, 'hasConfirm') && entity.scratch.hasConfirm) {
-						foregroundLayer.remove(entity.scratch.confirm);
-					}
+				if (!entity.hasConfirm) {
 					var lo:LocalSpriteWrapper = LocalWrapper.fromGraphic('assets/images/ui.png', {
 						crop: [[0, 0], [24, 21]],
 					});
-					entity.scratch.confirm = lo;
-					entity.scratch.hasConfirm = true;
+					entity.confirm = lo;
+					entity.hasConfirm = true;
 					foregroundLayer.add(lo);
 					lo.x = entity.hitbox.x + entity.hitbox.width / 2 - lo.width / 2;
 					lo.y = entity.y - lo.height + 4 + (entity.height > 64 ? 16 : 0);
 					Director.fadeIn(lo, 3);
 				}
 			} else if (hasConfirm) {
-				entity.scratch.hasConfirm = false;
-				var lo:LocalSpriteWrapper = entity.scratch.confirm;
+				entity.hasConfirm = false;
+				var lo:LocalSpriteWrapper = entity.confirm;
 				foregroundLayer.remove(lo);
 			}
 		}

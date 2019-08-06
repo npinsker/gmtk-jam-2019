@@ -25,9 +25,10 @@ class Entity extends FlxLocalSprite {
 	public var name:String = "";
 	public var zOffset:Int = 0;
 	
-	public var scratch:Dynamic = {};
 	public var facingDir:Direction;
 	public var spriteRef:FlxSprite = null;
+	public var hasConfirm:Bool = false;
+	public var confirm:LocalSpriteWrapper;
 
 	public function new(type:String, ?bitmapData:BitmapData, ?animationSet:AnimationSet) {
 		super();
