@@ -234,7 +234,7 @@ class RhythmGame extends ArcadeCabinet {
 		
 		clearScreen();
 		if (special) {
-			closeCallback(this, score);
+			closeCallback(this, getRealScore());
 			return;
 		}
 		

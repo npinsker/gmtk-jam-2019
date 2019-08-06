@@ -410,7 +410,7 @@ class PlayState extends FlxState {
 		if (game.name == 'rhythm' &&
 		    game.special &&
 			triggers.get(Constants.RHYTHM_KING_QUEST_PROGRESS) < 2) {
-			if (score >= 800000) {
+			if (score >= 650000) {
 				triggers.set(Constants.RHYTHM_KING_QUEST_PROGRESS, 2);
 				this.readdDialogBox('slug_shack');
 			} else {
