@@ -433,7 +433,11 @@ choice_box:
   > "Rhythm Tappo" tappo
   > "Ducky Counter" ducky
   > "Fruit Sorter" sorter
-  > "Never mind" end
+  > "Never mind" nend
+
+label nend:
+emit "hacky_set_select_size_back"
+jump end
 
 label tappo:
 o "Tap button when moving star on top of indicator."

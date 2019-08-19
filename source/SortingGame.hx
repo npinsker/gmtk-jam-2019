@@ -81,7 +81,7 @@ class SortingGame extends ArcadeCabinet {
 		
 		var moveSpeed:Int = Std.int(60 - Math.min(1.3 * score, 35) - Math.max(0, Math.min((score - 40) / 7, 20)));
 		for (b in clipSprites) {
-			Director.moveBy(b, [ -75, 0], moveSpeed);
+			Director.moveBy(b, [ -75, 0], moveSpeed, {tag: '__sortingGame'});
 		}
 		Director.wait(null, moveSpeed, '__sortingGame').call(checkDone);
 	}
@@ -121,7 +121,7 @@ class SortingGame extends ArcadeCabinet {
 				Director.wait(null, waitSpeed, '__sortingGame').call(addBot);
 				
 				if (special && Math.random() < (0.2 + score/300) && clipSprites.length > 8 && clipSprites[8].alpha >= 0.99 && score > 10) {
-					Director.fadeOut(clipSprites[8], moveSpeed);
+					Director.fadeOut(clipSprites[8], moveSpeed, {tag: '__sortingGame'});
 				}
 			} else {
 				phase = -1;
@@ -131,7 +131,7 @@ class SortingGame extends ArcadeCabinet {
 				SoundManager.addSound('explosion', 0.6, 0.6);
 			}
 		} else {
-			Director.wait(waitSpeed).call(addBot);
+			Director.wait(waitSpeed, '__sortingGame').call(addBot);
 		}
 		
 		if (colors.length > 10) {
@@ -154,6 +154,11 @@ class SortingGame extends ArcadeCabinet {
 	
 	public function endGame():Void {
 		phase = 2;
+    
+    if (special) {
+			Director.clearTag('__sortingGame');
+			closeCallback(this, 0);
+    }
 		
 		var background2 = LocalWrapper.fromGraphic(new BitmapData(Std.int(width), Std.int(height), true, 0xBBEFCB92));
 		backgroundLayer.add(background2);

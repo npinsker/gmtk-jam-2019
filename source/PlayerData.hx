@@ -20,7 +20,7 @@ class PlayerData {
 			),
 			'ducky' => new ArcadeCabinet.HighScoreTable(
 				["skunk", "Swang", "Wolf", "Borby", "fish"],
-				[65, 61, 56, 35, 27]
+				[57, 49, 44, 35, 27]
 			),
 			'sorting' => new ArcadeCabinet.HighScoreTable(
 				["squid", "frog", "Octo", "chaos", "AAA"],

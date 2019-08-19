@@ -210,7 +210,12 @@ class CounterGame extends ArcadeCabinet {
 			}
 		} else {
 			phase = 3;
-			finishGame();
+      if (!special) {
+        finishGame();
+      } else {
+        Director.clearTag('__counterGame');
+        closeCallback(this, 0);
+      }
 		}
 	}
 

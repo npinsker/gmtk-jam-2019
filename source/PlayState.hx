@@ -339,7 +339,13 @@ class PlayState extends FlxState {
 		
 		if (emitString == 'hacky_set_select_size') {
 			if (dialogBox != null) {
-				dialogBox.options.choiceTextFormat.size = 24;
+				dialogBox.options.choiceTextFormat.size = 22;
+			}
+		}
+		
+		if (emitString == 'hacky_set_select_size_back') {
+			if (dialogBox != null) {
+				dialogBox.options.choiceTextFormat.size = 30;
 			}
 		}
 		
@@ -384,7 +390,7 @@ class PlayState extends FlxState {
 	public function closeCallback(game:ArcadeCabinet, score:Int) {
 		if (game.name == 'counter' &&
 		    !game.special &&
-		    score > 64 &&
+		    score > 57 &&
 			triggers.get(Constants.COUNT_KING_QUEST_PROGRESS) < 1) {
 			triggers.set(Constants.COUNT_KING_QUEST_PROGRESS, 1);
 		}
